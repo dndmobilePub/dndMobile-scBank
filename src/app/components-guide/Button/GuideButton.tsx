@@ -1,3 +1,4 @@
+import { ArrowUpIcon } from "lucide-react"
 import { Button } from "@/components/index";
 function ComponentGuideButtonPage() {
   return (
@@ -9,6 +10,9 @@ function ComponentGuideButtonPage() {
           <Button variant="secondary">Secondary</Button>
           <Button variant="outline">Outline</Button>
           <Button variant="destructive">Destructive</Button>
+          <Button variant="outline" size="icon" aria-label="Submit">
+            <ArrowUpIcon />
+          </Button>
         </div>
         <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm overflow-auto">
           {`import { Button } from '@/components/ui/button'

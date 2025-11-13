@@ -16,11 +16,17 @@ export { Alert, AlertTitle, AlertDescription } from "./ui/alert";
 export { AspectRatio } from "./ui/aspect-ratio";
 export { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 export { Badge } from "./ui/badge";
-export { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "./ui/breadcrumb";
+export { Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis, } from "./ui/breadcrumb";
 export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText, buttonGroupVariants } from "./ui/button-group";
 export { Button } from "./ui/button";
 export { Calendar, CalendarDayButton } from "./ui/calendar";
-export { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
+export { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious , type CarouselApi } from "./ui/carousel";
 export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./ui/card";
 export {
   ChartContainer,
@@ -29,6 +35,8 @@ export {
   ChartLegend,
   ChartLegendContent,
   ChartStyle,
+  type ChartConfig,
+  type ChartContextProps
 } from "./ui/chart";
 
 export { Checkbox } from "./ui/checkbox";

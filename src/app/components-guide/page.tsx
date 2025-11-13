@@ -1,24 +1,11 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
 
-import {
-  ComponentGuideButtonPage,
-  ComponentGuideCardPage,
-  ComponentGuideDialogPage,
-  ComponentGuideInputPage,
-  ComponentGuideAvatarPage,
-} from "./guidePage/index";
+import guidePageList from './pageList';
 
 // 신규 가이드 페이지 등록시 여기에 추가
 export default function ComponentGuidePage() {
-  const guidePageList = [
-    { name: "Button", component: <ComponentGuideButtonPage /> },
-    { name: "Card", component: <ComponentGuideCardPage /> },
-    { name: "Dialog", component: <ComponentGuideDialogPage /> },
-    { name: "Input", component: <ComponentGuideInputPage /> },
-    { name: "Avatar", component: <ComponentGuideAvatarPage /> },
-  ];
-
+ 
   return (
     <div className="min-h-screen py-12 px-6 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-5xl mx-auto">
@@ -34,7 +21,16 @@ export default function ComponentGuidePage() {
 
         {/* 상단 tab */}
         <div className="flex w-full flex-col gap-6">
-          <Tabs defaultValue="Button">
+          <ul className="flex flex-wrap gap-6 ">
+            {guidePageList.map((page) => (
+                <li className="w-1/4" key={page.name} value={page.name}>
+                  <a className="" href={`/components-guide/${page.name}`}>
+                    {page.name}
+                  </a>
+                </li>
+              ))}
+          </ul>
+          {/* <Tabs defaultValue="Button">
             <TabsList>
               {guidePageList.map((page) => (
                 <TabsTrigger key={page.name} value={page.name}>
@@ -47,7 +43,7 @@ export default function ComponentGuidePage() {
                 {page.component}
               </TabsContent>
             ))}
-          </Tabs>
+          </Tabs> */}
         </div>
       </div>
     </div>
