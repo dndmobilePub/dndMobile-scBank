@@ -1,9 +1,15 @@
+"use client"
+import * as React from "react"
 import { Button, Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/index";
-function ComponentGuideCardPage() {
+
+import { GuidePageProps } from './../componetLayout.types'
+  
+const ComponentGuideCardPage = React.forwardRef<HTMLDivElement, GuidePageProps>( (props, ref) => {
+  const {preStyle} = props;
   return (
-    <div className="mt-3">
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Card</h2>
+    <>
+      <>
+        <h2 className="text-2xl font-semibold">Card</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <Card className="shadow">
             <CardHeader>
@@ -37,21 +43,26 @@ function ComponentGuideCardPage() {
           </Card>
         </div>
 
-        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm overflow-auto mt-4">
-          {`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
+      </>
+      <pre className={preStyle}>
+        {`import { Card, 
+        CardHeader, 
+        CardTitle, 
+        CardDescription, 
+        CardContent, 
+        CardFooter } from '@/components/ui/card'
 
 <Card>
-  <CardHeader>
-    <CardTitle>Title</CardTitle>
-    <CardDescription>Desc</CardDescription>
-  </CardHeader>
-  <CardContent>...</CardContent>
-  <CardFooter>...</CardFooter>
+<CardHeader>
+  <CardTitle>Title</CardTitle>
+  <CardDescription>Desc</CardDescription>
+</CardHeader>
+<CardContent>...</CardContent>
+<CardFooter>...</CardFooter>
 </Card>`}
-        </pre>
-      </section>
-    </div>
+      </pre>
+    </>
   );
-}
+})
 
 export { ComponentGuideCardPage };

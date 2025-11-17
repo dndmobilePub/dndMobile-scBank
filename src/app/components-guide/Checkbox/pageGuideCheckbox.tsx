@@ -1,19 +1,15 @@
 "use client"
 import * as React from "react"
 import { Checkbox , Label  } from "@/components/index";
+import { GuidePageProps } from './../componetLayout.types'
 
-  function ComponentGuideCheckboxlPage() {
-   const [date, setDate] = React.useState<Date | undefined>(new Date())
-
-
-
-  const preStyle =`bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm overflow-auto w-full mb-4`;
-
+const ComponentGuideCheckboxPage = React.forwardRef<HTMLDivElement, GuidePageProps>( (props, ref) => {
+    const {preStyle} = props;
 
   return (
-    <div className="mt-3">
-      <section className="mb-8 " >
-        <h2 className="text-2xl font-semibold mb-4">Checkbox</h2>
+    <>
+      <>
+        <h2 className="text-2xl font-semibold">Checkbox</h2>
         <div className="flex flex-wrap gap-4">
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3">
@@ -58,9 +54,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 `}
           </pre>
         </div>
-      </section>
-    </div>
+      </>
+    </>
   );
-}
+})
 
-export { ComponentGuideCheckboxlPage };
+export { ComponentGuideCheckboxPage };

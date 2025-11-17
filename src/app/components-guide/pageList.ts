@@ -14,6 +14,16 @@ const guidePageList = [
     { name: "Carousel" },
     { name: "Chart" },
     { name: "Checkbox" },
+    { name: "Combobox" },
+    { name: "Command" },
+    { name: "DataPicker" },
+    { name: "DataTable" },
+    { name: "Drawer" },
+    { name: "DropdownMenu" },
+    { name: "Empty" },
+    { name: "Field" },
+    { name: "Form" },
+    { name: "HoverCard" },
   ];
 
 

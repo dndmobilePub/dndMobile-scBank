@@ -24,14 +24,18 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger, 
   ButtonGroup, 
-  Button  } from "@/components/index";
-function ComponentGuideButtonGroupPage() {
+  Button
+} from "@/components/index";
+import { GuidePageProps } from './../componetLayout.types'
+  
+const ComponentGuideButtonGroupPage = React.forwardRef<HTMLDivElement, GuidePageProps>( (props, ref) => {
+  const {preStyle} = props;
   const [label, setLabel] = React.useState("personal")
   return (
-    <div className="mt-3">
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">ButtonGroup</h2>
-        <div className="flex items-center gap-3 mb-4">
+    <>
+      <>
+        <h2 className="text-2xl font-semibold">ButtonGroup</h2>
+        <div className="flex items-center gap-3">
           <ButtonGroup>
             <ButtonGroup className="hidden sm:flex">
               <Button variant="outline" size="icon" aria-label="Go Back">
@@ -110,7 +114,8 @@ function ComponentGuideButtonGroupPage() {
             </ButtonGroup>
           </ButtonGroup>
         </div>
-        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm overflow-auto">
+      </>
+      <pre className={preStyle}>
 {`import {  ButtonGroup,
   ButtonGroupSeparator,
   ButtonGroupText,  } from "@/components/index";
@@ -119,10 +124,9 @@ function ComponentGuideButtonGroupPage() {
   <Button>Button 1</Button>
   <Button>Button 2</Button>
 </ButtonGroup>`}
-        </pre>
-      </section>
-    </div>
+      </pre>
+    </>
   );
-}
+})
 
 export { ComponentGuideButtonGroupPage };

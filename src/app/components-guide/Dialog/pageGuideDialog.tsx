@@ -1,3 +1,6 @@
+"use client"
+import * as React from "react"
+
 import {
   Button,
   Dialog,
@@ -8,12 +11,15 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/index";
-function ComponentGuideDialogPage() {
+import { GuidePageProps } from './../componetLayout.types'
+
+const ComponentGuideDialogPage = React.forwardRef<HTMLDivElement, GuidePageProps>( (props) => {
+  const {preStyle} = props;
   return (
-    <div className="mt-3">
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Dialog (Modal)</h2>
-        <div className="mb-4">
+    <>
+      <>
+        <h2 className="text-2xl font-semibold">Dialog (Modal)</h2>
+        <div className="flex">
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline">Open Dialog</Button>
@@ -33,8 +39,9 @@ function ComponentGuideDialogPage() {
             </DialogContent>
           </Dialog>
         </div>
+      </>
 
-        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm overflow-auto">
+      <pre className={preStyle}>
           {`import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
 
 <Dialog>
@@ -44,9 +51,8 @@ function ComponentGuideDialogPage() {
   <DialogContent>...</DialogContent>
 </Dialog>`}
         </pre>
-      </section>
-    </div>
+    </>
   );
-}
+}) 
 
 export { ComponentGuideDialogPage };

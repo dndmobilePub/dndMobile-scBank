@@ -1,9 +1,15 @@
+"use client"
+import * as React from "react"
+
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/index";
-function ComponentGuideAvatarPage() {
+import { GuidePageProps } from './../componetLayout.types'
+
+const ComponentGuideAvatarPage = React.forwardRef<HTMLDivElement, GuidePageProps>( (props, ref) => {
+  const {preStyle} = props;
   return (
-    <div className="mt-3">
-      <section className="mb-16">
-        <h2 className="text-2xl font-semibold mb-4">Avatar</h2>
+    <>
+      <>
+        <h2 className="text-2xl font-semibold">Avatar</h2>
         <div className="flex items-center gap-4">
           <Avatar>
             <AvatarImage src="/assets/avif-test-image.avif" alt="avatar" />
@@ -15,16 +21,16 @@ function ComponentGuideAvatarPage() {
           </div>
         </div>
 
-        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm overflow-auto mt-4">
-          {`import { Avatar } from '@/components/ui/avatar'
+        <pre className={preStyle}>
+{`import { Avatar } from '@/components/ui/avatar'
 
 <Avatar>
   <Avatar.Image src="/path/to/img.jpg" alt="avatar" />
 </Avatar>`}
         </pre>
-      </section>
-    </div>
+      </>
+    </>
   );
-}
+})
 
 export { ComponentGuideAvatarPage };

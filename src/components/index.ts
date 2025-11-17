@@ -49,6 +49,7 @@ export {
   CommandItem,
   CommandList,
   CommandSeparator,
+  CommandShortcut
 } from "./ui/command";
 
 export {

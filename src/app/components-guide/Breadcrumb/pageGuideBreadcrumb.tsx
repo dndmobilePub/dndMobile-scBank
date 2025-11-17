@@ -1,3 +1,6 @@
+"use client"
+import * as React from "react"
+
 import Link from "next/link"
 import {  
   Breadcrumb,
@@ -10,13 +13,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,  } from "@/components/index";
-function ComponentGuideBreadcrumbPage() {
+  DropdownMenuTrigger,
+} from "@/components/index";
+import { GuidePageProps } from './../componetLayout.types'
+
+const ComponentGuideBreadcrumbPage = React.forwardRef<HTMLDivElement, GuidePageProps>( (props, ref) => {
+    const {preStyle} = props;
   return (
-    <div className="mt-3">
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Breadcrumb</h2>
-        <div className="flex items-center gap-3 mb-4">
+    <>
+      <>
+        <h2 className="text-2xl font-semibold">Breadcrumb</h2>
+        <div className="flex items-center gap-3">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -51,7 +58,8 @@ function ComponentGuideBreadcrumbPage() {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm overflow-auto">
+      </>
+      <pre className={preStyle}>
 {`import { Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
@@ -98,9 +106,8 @@ function ComponentGuideBreadcrumbPage() {
   </BreadcrumbList>
 </Breadcrumb>`}
         </pre>
-      </section>
-    </div>
+    </>
   );
-}
+})
 
 export { ComponentGuideBreadcrumbPage };

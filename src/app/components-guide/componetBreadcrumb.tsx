@@ -3,16 +3,14 @@ import React from "react";
 import Link from "next/link"
 
 import guidePageList from './pageList';
-import { ComponentBreadcrumbProps } from "./componetBreadcrumb.types";
+import { ComponentBreadcrumbProps } from "./componetLayout.types";
 
 import {
   Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbPage,
   BreadcrumbSeparator,
-  BreadcrumbEllipsis,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -24,7 +22,6 @@ import {
 const ComponentBreadcrumb = React.forwardRef<HTMLDivElement, ComponentBreadcrumbProps > (
   ({
     name, 
-    ...props
   }) => {
 
   const  listName = name;
@@ -34,30 +31,28 @@ const ComponentBreadcrumb = React.forwardRef<HTMLDivElement, ComponentBreadcrumb
     
 
     return (
-      <div className="">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/components-guide">components-guide</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1">
-                  <span className="">{name}</span>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
-                  {filtered.map((page => (
-                    <DropdownMenuItem key={page.name}><a href={`/components-guide/${page.name}`}>{page.name}</a></DropdownMenuItem>  
-                  )))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/components-guide">components-guide</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1">
+                <span className="">{name}</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                {filtered.map((page => (
+                  <DropdownMenuItem key={page.name}><a href={`/components-guide/${page.name}`}>{page.name}</a></DropdownMenuItem>  
+                )))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
     );
   }
 
