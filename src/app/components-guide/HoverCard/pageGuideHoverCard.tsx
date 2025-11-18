@@ -19,7 +19,7 @@ const ComponentGuideHoverCardPage = React.forwardRef<HTMLDivElement, GuidePagePr
   return (
     <>
       <>
-        <h2 className="text-2xl font-semibold">Field</h2>
+        <h2 className="text-2xl font-semibold">HoverCard</h2>
         <div className="flex justify-center">
           <HoverCard>
             <HoverCardTrigger asChild>

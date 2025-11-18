@@ -29,31 +29,31 @@ const ComponentGuideDrawerPage = React.forwardRef<HTMLDivElement, GuidePageProps
   const [open, setOpen] = React.useState(false)
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
-  if (isDesktop) {
-    return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button variant="outline">Edit Profile</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
-            </DialogDescription>
-          </DialogHeader>
-          <ProfileForm />
-        </DialogContent>
-      </Dialog>
-    )
-  }
+
 
   return (
     <>
       <>
         <h2 className="text-2xl font-semibold">Drawer</h2>
-        <div className="flex">
+
+        {isDesktop ? 
+          <>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button variant="outline">Edit Profile</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Edit profile</DialogTitle>
+              <DialogDescription>
+                Make changes to your profile here. Click save when you&apos;re
+                done.
+              </DialogDescription>
+            </DialogHeader>
+            <ProfileForm />
+          </DialogContent>
+        </Dialog>
+          </> :  
           <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
               <Button variant="outline">Edit Profile</Button>
@@ -73,7 +73,10 @@ const ComponentGuideDrawerPage = React.forwardRef<HTMLDivElement, GuidePageProps
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
-        </div>
+          
+      
+        }
+       
       </>
 
       <pre className={preStyle}>

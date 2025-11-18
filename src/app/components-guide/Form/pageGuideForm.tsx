@@ -38,7 +38,7 @@ const ComponentGuideFormPage = React.forwardRef<HTMLDivElement, GuidePageProps>(
   return (
     <>
       <>
-        <h2 className="text-2xl font-semibold">Field</h2>
+        <h2 className="text-2xl font-semibold">Form</h2>
         <div className="flex justify-center">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

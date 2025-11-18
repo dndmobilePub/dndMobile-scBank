@@ -18,7 +18,7 @@ import {
 import { GuidePageProps } from './../componetLayout.types'
 
 const ComponentGuideBreadcrumbPage = React.forwardRef<HTMLDivElement, GuidePageProps>( (props, ref) => {
-    const {preStyle} = props;
+  const {preStyle} = props;
   return (
     <>
       <>

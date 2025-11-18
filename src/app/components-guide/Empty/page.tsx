@@ -5,7 +5,7 @@ import GuidePageLayout from '../guideLayout';
 
 const preStyle =`bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm overflow-auto w-full`;
 
-export default function ComponentDrawerPage() {
+export default function ComponentEmptyPage() {
   const folderName = path.basename(__dirname);
 
   return (

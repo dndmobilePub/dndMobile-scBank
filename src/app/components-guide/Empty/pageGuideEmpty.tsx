@@ -32,25 +32,25 @@ const ComponentGuideEmpytPage = React.forwardRef<HTMLDivElement, GuidePageProps>
     <>
       <h2 className="text-2xl font-semibold">Empty</h2>
       <Tabs defaultValue={emptyList[0].name}>
-          <TabsList>
-            {emptyList.map((item) => (
-              <TabsTrigger key={item.name} value={item.name}>{item.name}</TabsTrigger>  
-            ))}
-          </TabsList>
+        <TabsList>
           {emptyList.map((item) => (
-            <TabsContent key={item.name} value={item.name}>
-              <Card className="w-full mt-2" key={item.name}>
-                <CardHeader>
-                  <CardTitle>{item.name}</CardTitle>
-                  {/* {item.subText ?? <p>{item.subText}</p> } */}
-                </CardHeader>
-                <CardContent>
-                  {item.com}
-                </CardContent>
-              </Card>
-            </TabsContent>
+            <TabsTrigger key={item.name} value={item.name}>{item.name}</TabsTrigger>  
           ))}
-        </Tabs>
+        </TabsList>
+        {emptyList.map((item) => (
+          <TabsContent key={item.name} value={item.name}>
+            <Card className="w-full mt-2" key={item.name}>
+              <CardHeader>
+                <CardTitle>{item.name}</CardTitle>
+                {/* {item.subText ?? <p>{item.subText}</p> } */}
+              </CardHeader>
+              <CardContent>
+                {item.com}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        ))}
+      </Tabs>
     </>
   );
 }) 
