@@ -32,17 +32,13 @@ const ColorSample = React.forwardRef<HTMLDivElement>(
                       </li>
                     ))
                   }
-                  
                 </ul>
               </div>
               ))
             }
           </div>
-
-          
         ))}
       </>
-      
     )
   }
 )

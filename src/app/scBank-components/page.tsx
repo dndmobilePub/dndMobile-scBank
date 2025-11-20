@@ -1,8 +1,8 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
 
-import guidePageList from './pageList';
 import ColorSample from './component/color';
+import TypographySample from './component/Typography';
 
 
 // SC은행 컴포넌트 가이드
@@ -26,36 +26,13 @@ export default function ComponentGuidePage() {
           <Tabs defaultValue="Color" className="w-full">
             <TabsList>
               <TabsTrigger value="Color">Color</TabsTrigger>
-              <TabsTrigger value="password">Password</TabsTrigger>
+              <TabsTrigger value="Typography">Typography</TabsTrigger>
             </TabsList>
             <TabsContent value="Color" className="flex flex-col gap-[24] pt-[12]">
               <ColorSample />
             </TabsContent>
-            <TabsContent value="password">Change your password here.</TabsContent>
+            <TabsContent value="Typography"><TypographySample/></TabsContent>
           </Tabs>
-          <ul className="flex flex-wrap gap-6 ">
-            {guidePageList.map((page: any) => (
-                <li className="w-1/4" key={page.name} value={page.name}>
-                  <a className="text-primary-01" href={`/components-guide/${page.name}`}>
-                    {page.name}
-                  </a>
-                </li>
-              ))}
-          </ul>
-          {/* <Tabs defaultValue="Button">
-            <TabsList>
-              {guidePageList.map((page) => (
-                <TabsTrigger key={page.name} value={page.name}>
-                  {page.name}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            {guidePageList.map((page) => (
-              <TabsContent key={page.name} value={page.name}>
-                {page.component}
-              </TabsContent>
-            ))}
-          </Tabs> */}
         </div>
       </div>
     </div>
