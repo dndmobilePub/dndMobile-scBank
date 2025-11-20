@@ -7,14 +7,26 @@ const ColorSample = React.forwardRef<HTMLDivElement>(
   () => {
     const Color = colorList;
 
-    const handleCopy = (type: any, value: any) => {
-      let prefix = type;
-      if (type === 'background') prefix = 'bg';
-      if (type === 'border') prefix = 'bd';
-      if (type === 'effect') prefix = 'shadow';
+    const getPrefix = (type: string) => {
+      switch (type) {
+        case "background":
+          return "bg";
+        case "border":
+          return "bd";
+        case "effect":
+          return "shadow";
+        default:
+          return type;  // 그 외는 원래 이름 유지
+      }
+    };
 
-      navigator.clipboard.writeText('sc-' + prefix + '-' + value);
-      alert('sc-' + prefix + '-' + value + ' copy!');
+    const handleCopy = (type: any, value: any) => {
+      let prefix = getPrefix(type);
+      const token = `sc-${prefix}-${value}`;
+
+
+      navigator.clipboard.writeText(token);
+      alert(`${token} copy!`);
     }
     return (
       <>
@@ -30,7 +42,7 @@ const ColorSample = React.forwardRef<HTMLDivElement>(
                         <div className='w-[75] h-[75] min-w-[75]' style={{ backgroundColor : `var(--color-${color.var})`}} />
                         <div className="flex flex-col self-center">
                           <p className="font-bold text-xs text-neutral-700">
-                            {color.colorName}
+                            sc-{getPrefix(item.type)}-{color.colorName}
                           </p>
                           <span className="text-neutral-600 text-xs">{color.txt}</span>
                         </div>
