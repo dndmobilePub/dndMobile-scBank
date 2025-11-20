@@ -1,6 +1,6 @@
 import React from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
-
+import { Tabs, TabsList, TabsTrigger, TabsContent, } from "@/components/index";
+import { ScButton } from "@/app/scBank-components/component/ui/index";
 import ColorSample from './component/color';
 import TypographySample from './component/Typography';
 
@@ -27,11 +27,20 @@ export default function ComponentGuidePage() {
             <TabsList>
               <TabsTrigger value="Color">Color</TabsTrigger>
               <TabsTrigger value="Typography">Typography</TabsTrigger>
+              <TabsTrigger value="scComponent">scComponent</TabsTrigger>
             </TabsList>
             <TabsContent value="Color" className="flex flex-col gap-[24] pt-[12]">
               <ColorSample />
             </TabsContent>
             <TabsContent value="Typography"><TypographySample/></TabsContent>
+            <TabsContent value="scComponent">
+              <div>
+                <ScButton type="button" >버튼</ScButton>
+                <ScButton type="button" disabled={true}>버튼</ScButton>
+              </div>
+
+
+            </TabsContent>
           </Tabs>
         </div>
       </div>

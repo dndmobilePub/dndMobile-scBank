@@ -272,7 +272,7 @@ SCBank - Semantic Color
 @utility sc-bg-primary { background-color: var(--color-sc-blue-500);}
 @utility sc-bg-primary-hover {background-color: var(--color-sc-extra-50); }
 @utility sc-bg-primary-active {background-color: var(--color-sc-blue-700);}
-@utility sc-bg-primary-disabled {background-color: var(--color-sc-blue-200); }
+@utility sc-bg-primary-disabled {background-color: var(--color-sc-blue-300); }
 
 @utility sc-bg-secondary { background-color: var(--color-sc-green-300);}
 @utility sc-bg-secondary-hover { background-color: var(--color-sc-green-400); }
