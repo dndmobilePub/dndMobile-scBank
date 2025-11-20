@@ -19,30 +19,33 @@ import {
 
 
 
-const scBoxVariants = cva("relative block", {
+const scBtnGroupVariants = cva("relative flex gap-[8px]", {
   variants: {
-    variant: {
-      default: '', 
-      VFlex: 'flex flex-col', 
-      HFlex: 'flex flex-row', 
+    type: {
+      default: "",
+      ratio: `[&>*:first-child]:flex-[1] 
+              [&>*:first-child]:min-w-[82px]
+              [&>*:first-child]:max-w-[82px]
+              [&>*:last-child]:flex-[2]`,
+      stack: "flex-col [&>*]:flex-auto",
     },
     ...spacingVariants,
   },
   defaultVariants: {
-    variant: "default",
+    type: "default",
     ...spacingDefaultVariants
     
   },
 });
 
-export interface ScBoxProps
+export interface scBtnGroupProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof scBoxVariants>,
+    VariantProps<typeof scBtnGroupVariants>,
     DynamicSpacingProps, DynamicBorderProps, DynamicRadiusProps  {
   asChild?: boolean;
 }
 
-export const ScBox = React.forwardRef<HTMLDivElement, ScBoxProps>(
+export const ScBtnGroup = React.forwardRef<HTMLDivElement, scBtnGroupProps>(
   (props, ref) => {
      const Comp = props.asChild ? Slot : "div";
 
@@ -61,12 +64,9 @@ export const ScBox = React.forwardRef<HTMLDivElement, ScBoxProps>(
         ref={ref}
         {...cvaProps}
         style={{ ...spacingStyle, ...borderStyle, ...radiusStyle, ...style }}
-        className={cn(scBoxVariants(cvaProps as any), className)}
+        className={cn(scBtnGroupVariants(cvaProps as any), className)}
       />
     );
   }
 );
-
-ScBox.displayName = 'ScBox';
-
 

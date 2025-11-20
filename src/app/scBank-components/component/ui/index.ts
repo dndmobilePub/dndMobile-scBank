@@ -1,4 +1,5 @@
 // SC-bank UI 컴포넌트
 
-export { ScButton } from "./scButton";
-export { ScBox } from "./scBox";
+export * from "./scButton";
+export * from "./scBtnGroup";
+export * from "./scBox";

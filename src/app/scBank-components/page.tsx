@@ -1,9 +1,10 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
-import { ScButton } from "@/app/scBank-components/component/ui/index";
-import ColorSample from "./component/color";
-import TypographySample from "./component/Typography";
+import { ScButton, ScBox, ScBtnGroup } from "@/app/scBank-components/component/ui/index";
+import ColorSample from './component/color';
 import AppearanceSample from "./component/Appearance";
+import TypographySample from './component/Typography';
+
 
 // SC은행 컴포넌트 가이드
 export default function ComponentGuidePage() {
@@ -40,16 +41,26 @@ export default function ComponentGuidePage() {
             <TabsContent value="Typography">
               <TypographySample />
             </TabsContent>
-            <TabsContent value="scComponent">
-              <div>
-                <ScButton type="button">버튼</ScButton>
-                <ScButton type="button" disabled={true}>
-                  버튼
-                </ScButton>
-              </div>
-            </TabsContent>
             <TabsContent value="Appearance">
               <AppearanceSample />
+              <ScBox variant='VFlex' g={20}>
+                <ScBtnGroup >
+                  <ScButton type="button" >버튼</ScButton>
+                  <ScButton type="button" variant='secondary'>버튼</ScButton>
+                </ScBtnGroup>
+                <ScBtnGroup type='ratio'>
+                  <ScButton type="button" variant='secondary'>버튼</ScButton>
+                  <ScButton type="button" >버튼</ScButton>
+                </ScBtnGroup>
+                <ScBtnGroup type='stack'>
+                  <ScButton type="button" >버튼</ScButton>
+                  <ScButton type="button" variant='secondary'>버튼</ScButton>
+                </ScBtnGroup>
+                <ScBtnGroup>
+                  <ScButton type="button" size='sm'>전체보기</ScButton>
+                  <ScButton type="button" variant='secondary' size='sm'>전체보기</ScButton>
+                </ScBtnGroup>
+              </ScBox>
             </TabsContent>
           </Tabs>
         </div>

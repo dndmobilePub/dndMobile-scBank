@@ -1,24 +1,41 @@
 import * as React from "react";
 import { cva, VariantProps } from "class-variance-authority";
 import { Slot } from "@radix-ui/react-slot";
-import { buttonVariants as baseVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const overrideVariants = cva(baseVariants(), {
+const overrideVariants = cva(
+  `inline-flex items-center justify-center gap-2 whitespace-nowrap
+  rounded-[50] h-[40] px-[12] flex-1 sc-text-basic-06 text-medium font-medium
+  transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4
+  shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]
+  aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive`, {
   variants: {
     variant: {
-      // Large_H40
-      solid: 'sc-bg-primary hover:sc-bg-primary-hover active:sc-bg-primary-active disabled:sc-bg-primary-disabled sc-text-white hover:sc-text-primary disabled:sc-text-primary-disabled',
-      ghost: '',
-      scroll: "border border-neutral-300 bg-transparent text-neutral-900 hover:neutral-200",
-      small: "text-blue-500 underline-offset-4 hover:underline",
+      solid:
+        `sc-bg-primary sc-text-white
+        hover:sc-bg-primary-hover hover:sc-text-primary
+        active:sc-bg-primary-active
+        disabled:sc-bg-primary-disabled disabled:sc-text-primary-disabled`,
+      secondary: `border-[1px] bg-transparent sc-bd-primary-02 sc-text-primary 
+        hover:sc-bd-primary-hover active:sc-bd-primary-hover 
+        active:sc-text-primary-active 
+        disabled:sc-bd-primary-disabled disabled:sc-text-primary-disabled`,
+      scroll: "",
       smallExt: '',
       text: '',      
     },
     size: {
-      default : 'rounded-[50] h-[40] w-full'
+      default: "",
+      sm: `flex-0 w-auto h-[32] px-[12] w-fit
+        hover:!sc-bd-primary-02 hover:!sc-text-primary 
+        active:!sc-bd-primary-02 active:!sc-text-primary  
+        disabled:!sc-bd-primary-02 disabled:!sc-text-primary 
+      `,
+      smE: "",
+      
     }
   },
+
   defaultVariants: {
     variant: "solid",
     size : 'default'
@@ -35,14 +52,14 @@ export interface ScButtonProps
 }
 
 export const ScButton = React.forwardRef<HTMLButtonElement, ScButtonProps>(
-  ({ className, variant, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
 
     return (
       <Comp
         ref={ref}
         {...props}
-        className={cn(overrideVariants({ variant }), className)}
+        className={cn(overrideVariants({ variant, size }), className)}
       />
     );
   }

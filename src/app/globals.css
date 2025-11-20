@@ -333,8 +333,8 @@ SCBank - Semantic Color
 
 /* === Border === */
 /* primary */
-@utility sc-bd-primary-01  { color: var(--color-sc-blue-800); }
-@utility sc-bd-primary-02  { color: var(--color-sc-blue-500); }
+@utility sc-bd-primary-01  { border-color: var(--color-sc-blue-800); }
+@utility sc-bd-primary-02  { border-color: var(--color-sc-blue-500); }
 
 /* basic */
 @utility sc-bd-basic-01  { color: var(--color-sc-neutral-600); }
@@ -355,20 +355,20 @@ SCBank - Semantic Color
 @utility sc-bd-state-readonly  { color: var(--color-sc-neutral-200); }
 
 /* interactive */
-@utility sc-bd-primary { color: var(--color-sc-blue-400);}
-@utility sc-bd-primary-hover {color: var(--color-sc-blue-700); }
-@utility sc-bd-primary-active {color: var(--color-sc-blue-800);}
-@utility sc-bd-primary-disabled {color: var(--color-sc-blue-200); }
+@utility sc-bd-primary { border-color: var(--color-sc-blue-400);}
+@utility sc-bd-primary-hover {border-color: var(--color-sc-extra-50); }
+@utility sc-bd-primary-active {border-color: var(--color-sc-blue-800);}
+@utility sc-bd-primary-disabled {border-color: var(--color-sc-blue-200); }
 
-@utility sc-bd-secondary { color: var(--color-sc-green-300);}
-@utility sc-bd-secondary-hover { color: var(--color-sc-green-400); }
-@utility sc-bd-secondary-active { color: var(--color-sc-green-500); }
-@utility sc-bd-secondary-disabled { color: var(--color-sc-green-100); }
+@utility sc-bd-secondary { border-color: var(--color-sc-green-300);}
+@utility sc-bd-secondary-hover { border-color: var(--color-sc-green-400); }
+@utility sc-bd-secondary-active { border-color: var(--color-sc-green-500); }
+@utility sc-bd-secondary-disabled { border-color: var(--color-sc-green-100); }
 
-@utility sc-bd-selected { color: var(--color-sc-blue-600);}
-@utility sc-bd-danger { color: var(--color-sc-red-400);}
-@utility sc-bd-danger-hover {color: var(--color-sc-red-500); }
-@utility sc-bd-danger-active {color: var(--color-sc-red-600); }
+@utility sc-bd-selected { border-color: var(--color-sc-blue-600);}
+@utility sc-bd-danger { border-color: var(--color-sc-red-400);}
+@utility sc-bd-danger-hover {border-color: var(--color-sc-red-500); }
+@utility sc-bd-danger-active {border-color: var(--color-sc-red-600); }
 
 /* === Badge === */
 /* primary */
