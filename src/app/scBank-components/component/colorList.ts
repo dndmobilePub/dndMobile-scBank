@@ -61,9 +61,9 @@ const colorList = [
       {
         category: 'primary',
         color: [
-          { colorName: "background-01", txt: 'blue/500', var : 'sc-blue-500'},
-          { colorName: "background-02", txt: 'blue/300', var : 'sc-blue-300'},
-          { colorName: "background-03", txt: 'blue/100', var : 'sc-blue-100'},
+          { colorName: "primary-01", txt: 'blue/500', var : 'sc-blue-500'},
+          { colorName: "primary-02", txt: 'blue/300', var : 'sc-blue-300'},
+          { colorName: "primary-03", txt: 'blue/100', var : 'sc-blue-100'},
         ]
       },
       {

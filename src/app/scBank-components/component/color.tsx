@@ -7,9 +7,14 @@ const ColorSample = React.forwardRef<HTMLDivElement>(
   () => {
     const Color = colorList;
 
-    const handleCopy = (value: any) => {
-      navigator.clipboard.writeText('sc-' + value);
-      alert('sc-' + value + ' copy!');
+    const handleCopy = (type: any, value: any) => {
+      let prefix = type;
+      if (type === 'background') prefix = 'bg';
+      if (type === 'border') prefix = 'bd';
+      if (type === 'effect') prefix = 'shadow';
+
+      navigator.clipboard.writeText('sc-' + prefix + '-' + value);
+      alert('sc-' + prefix + '-' + value + ' copy!');
     }
     return (
       <>
@@ -21,7 +26,7 @@ const ColorSample = React.forwardRef<HTMLDivElement>(
                 <ul className="grid grid-cols-4 gap-4">
                   {
                     colorItem.color.map((color, index) => (
-                      <li key={color.colorName + '_' +index} onClick={()=> handleCopy(color.colorName)} className="flex gap-[16] overflow-hidden rounded-lg border bg-white border-neutral-300">
+                      <li key={color.colorName + '_' +index} onClick={()=> handleCopy(item.type , color.colorName)} className="flex gap-[16] overflow-hidden rounded-lg border bg-white border-neutral-300">
                         <div className='w-[75] h-[75] min-w-[75]' style={{ backgroundColor : `var(--color-${color.var})`}} />
                         <div className="flex flex-col self-center">
                           <p className="font-bold text-xs text-neutral-700">
