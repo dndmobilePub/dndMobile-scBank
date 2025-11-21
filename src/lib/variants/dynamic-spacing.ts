@@ -48,11 +48,30 @@ export type DynamicBorderProps = {
   borderColor?: string;      // "#fff", "red", "var(--...)" 등
 };
 
-// 숫자는 px, 문자열은 그대로("2rem" 등)
+
+// 숫자는 px, 숫자 문자열도 px, 그 외 문자열은 그대로 사용
 export const spacingToStyle = (v: SpacingProp) => {
   if (v === undefined) return undefined;
-  if (typeof v === "number") return `${v}px`;
-  return v;
+
+  if (typeof v === "number") {
+    return `${v}px`;
+  }
+
+  if (typeof v === "string") {
+    const trimmed = v.trim();
+    if (!trimmed) return undefined;
+
+    // "40", "12.5" 이런 순수 숫자 문자열은 px 처리
+    const num = Number(trimmed);
+    if (!Number.isNaN(num)) {
+      return `${num}px`;
+    }
+
+    // "1rem", "50%", "var(--...)" 이런 건 그대로
+    return trimmed;
+  }
+
+  return undefined;
 };
 
 export const buildDynamicRadiusStyle = (props: DynamicRadiusProps) => ({

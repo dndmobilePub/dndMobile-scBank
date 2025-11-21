@@ -31,15 +31,15 @@ const ColorSample = React.forwardRef<HTMLDivElement>(
     return (
       <>
         {Color.map((item, index) => (
-          <div key={item.type + '_' + index} className="w-full flex flex-col gap-[24]">
+          <div key={item.type + '_' + index} className="w-full flex flex-col gap-6">
             {item.value.map((colorItem) => (
-              <div className="flex flex-col gap-[20]" key={colorItem.category}>
+              <div className="flex flex-col gap-5" key={colorItem.category}>
                 <p className='text-xl font-bold text-neutral-700'>color/{item.type}/{colorItem.category}</p> 
                 <ul className="grid grid-cols-4 gap-4">
                   {
                     colorItem.color.map((color, index) => (
-                      <li key={color.colorName + '_' +index} onClick={()=> handleCopy(item.type , color.colorName)} className="flex gap-[16] overflow-hidden rounded-lg border bg-white border-neutral-300">
-                        <div className='w-[75] h-[75] min-w-[75]' style={{ backgroundColor : `var(--color-${color.var})`}} />
+                      <li key={color.colorName + '_' +index} onClick={()=> handleCopy(item.type , color.colorName)} className="flex gap-4 overflow-hidden rounded-lg border bg-white border-neutral-300">
+                        <div className='w-[75px] h-[75px] min-w-[75px]' style={{ backgroundColor : `var(--color-${color.var})`}} />
                         <div className="flex flex-col self-center">
                           <p className="font-bold text-xs text-neutral-700">
                             sc-{getPrefix(item.type)}-{color.colorName}

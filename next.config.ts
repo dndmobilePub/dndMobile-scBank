@@ -1,13 +1,23 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-   images: {
+  webpack(config) {
+    // SVG → React 컴포넌트(SVGR)
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
+  },
+
+  images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "images.unsplash.com" 
-       },
+        hostname: "images.unsplash.com",
+      },
       {
         protocol: "https",
         hostname: "avatar.vercel.sh",

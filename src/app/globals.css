@@ -337,22 +337,22 @@ SCBank - Semantic Color
 @utility sc-bd-primary-02  { border-color: var(--color-sc-blue-500); }
 
 /* basic */
-@utility sc-bd-basic-01  { color: var(--color-sc-neutral-600); }
-@utility sc-bd-basic-02  { color: var(--color-sc-neutral-500); }
-@utility sc-bd-basic-03  { color: var(--color-sc-neutral-400); }
-@utility sc-bd-basic-04  { color: var(--color-sc-neutral-300); }
-@utility sc-bd-basic-05  { color: var(--color-sc-neutral-200); }
+@utility sc-bd-basic-01  { border-color: var(--color-sc-neutral-600); }
+@utility sc-bd-basic-02  { border-color: var(--color-sc-neutral-500); }
+@utility sc-bd-basic-03  { border-color: var(--color-sc-neutral-400); }
+@utility sc-bd-basic-04  { border-color: var(--color-sc-neutral-300); }
+@utility sc-bd-basic-05  { border-color: var(--color-sc-neutral-200); }
 
 /* state */
-@utility sc-bd-state-positive  { color: var(--color-sc-green-900); }
-@utility sc-bd-state-informative  { color: var(--color-sc-blue-500); }
-@utility sc-bd-state-warning  { color: var(--color-sc-yellow-500); }
-@utility sc-bd-state-danger  { color: var(--color-sc-red-400); }
-@utility sc-bd-state-disabled-01  { color: var(--color-sc-neutral-100); }
-@utility sc-bd-state-disabled-02  { color: var(--color-sc-neutral-200); }
-@utility sc-bd-state-disabled-03  { color: var(--color-sc-neutral-300); }
-@utility sc-bd-state-disabled-04  { color: var(--color-sc-blue-300); }
-@utility sc-bd-state-readonly  { color: var(--color-sc-neutral-200); }
+@utility sc-bd-state-positive  { border-color: var(--color-sc-green-900); }
+@utility sc-bd-state-informative  { border-color: var(--color-sc-blue-500); }
+@utility sc-bd-state-warning  { border-color: var(--color-sc-yellow-500); }
+@utility sc-bd-state-danger  { border-color: var(--color-sc-red-400); }
+@utility sc-bd-state-disabled-01  { border-color: var(--color-sc-neutral-100); }
+@utility sc-bd-state-disabled-02  { border-color: var(--color-sc-neutral-200); }
+@utility sc-bd-state-disabled-03  { border-color: var(--color-sc-neutral-300); }
+@utility sc-bd-state-disabled-04  { border-color: var(--color-sc-blue-300); }
+@utility sc-bd-state-readonly  { border-color: var(--color-sc-neutral-200); }
 
 /* interactive */
 @utility sc-bd-primary { border-color: var(--color-sc-blue-400);}
