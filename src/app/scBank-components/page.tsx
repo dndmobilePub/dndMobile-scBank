@@ -41,26 +41,31 @@ export default function ComponentGuidePage() {
             <TabsContent value="Typography">
               <TypographySample />
             </TabsContent>
+            <TabsContent value="scComponent">
+              <ScBox variant={'VFlex'} g={10}>
+                <p>Button 컴포넌트</p>
+                <ScBox variant='VFlex' g={20}>
+                  <ScBtnGroup >
+                    <ScButton type="button" >버튼</ScButton>
+                    <ScButton type="button" variant='secondary'>버튼</ScButton>
+                  </ScBtnGroup>
+                  <ScBtnGroup type='ratio'>
+                    <ScButton type="button" variant='secondary'>버튼</ScButton>
+                    <ScButton type="button" >버튼</ScButton>
+                  </ScBtnGroup>
+                  <ScBtnGroup type='stack'>
+                    <ScButton type="button" >버튼</ScButton>
+                    <ScButton type="button" variant='secondary'>버튼</ScButton>
+                  </ScBtnGroup>
+                  <ScBtnGroup>
+                    <ScButton type="button" size='sm'>전체보기</ScButton>
+                    <ScButton type="button" variant='secondary' size='sm'>전체보기</ScButton>
+                  </ScBtnGroup>
+                </ScBox>
+              </ScBox>
+            </TabsContent>
             <TabsContent value="Appearance">
               <AppearanceSample />
-              <ScBox variant='VFlex' g={20}>
-                <ScBtnGroup >
-                  <ScButton type="button" >버튼</ScButton>
-                  <ScButton type="button" variant='secondary'>버튼</ScButton>
-                </ScBtnGroup>
-                <ScBtnGroup type='ratio'>
-                  <ScButton type="button" variant='secondary'>버튼</ScButton>
-                  <ScButton type="button" >버튼</ScButton>
-                </ScBtnGroup>
-                <ScBtnGroup type='stack'>
-                  <ScButton type="button" >버튼</ScButton>
-                  <ScButton type="button" variant='secondary'>버튼</ScButton>
-                </ScBtnGroup>
-                <ScBtnGroup>
-                  <ScButton type="button" size='sm'>전체보기</ScButton>
-                  <ScButton type="button" variant='secondary' size='sm'>전체보기</ScButton>
-                </ScBtnGroup>
-              </ScBox>
             </TabsContent>
           </Tabs>
         </div>

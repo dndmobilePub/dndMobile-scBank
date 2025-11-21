@@ -52,7 +52,7 @@ export interface ScButtonProps
 }
 
 export const ScButton = React.forwardRef<HTMLButtonElement, ScButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size,  asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
 
     return (
