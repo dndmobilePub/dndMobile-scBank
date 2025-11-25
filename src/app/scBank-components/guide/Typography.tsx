@@ -9,7 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/index";
-import * as React from "react"
+import * as React from "react";
+import ScText from "../component/ui/scText";
 
 const TypographyList = [
   {
@@ -62,14 +63,14 @@ const TypographyComponent = [
   {
     name: 'Korea Typeface',
     value: [
-      {type : 'heading', name: 'h1', size: 32, height: 44, spacing: -0.3, weightB: 700},
-      {type : 'heading', name: 'h2', size: 30, height: 40, spacing: -0.3, weightB: 700},
-      {type : 'heading', name: 'h3', size: 24, height: 32, spacing: -0.3, weightB: 700, weightM: 500},
-      {type : 'heading', name: 'h4', size: 20, height: 28, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400},
-      {type : 'heading', name: 'h5', size: 18, height: 26, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400},
-      {type : 'body', name: 'lg', size: 16, height: 24, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400},
-      {type : 'body', name: 'md', size: 14, height: 20, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400},
-      {type : 'body', name: 'sm', size: 13, height: 18, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400},
+      {type : 'heading', tag: 'h1', name: 'h1', size: 32, height: 44, spacing: -0.3, weightB: 700, valueName:'ABC'},
+      {type : 'heading', tag: 'h2', name: 'h2', size: 30, height: 40, spacing: -0.3, weightB: 700, valueName:'ABC'},
+      {type : 'heading', tag: 'h3', name: 'h3', size: 24, height: 32, spacing: -0.3, weightB: 700, weightM: 500, valueName:'ABC'},
+      {type : 'heading', tag: 'h4', name: 'h4', size: 20, height: 28, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
+      {type : 'heading', tag: 'h5', name: 'h5', size: 18, height: 26, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
+      {type : 'body', tag: 'p', name: 'lg', size: 16, height: 24, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
+      {type : 'body', tag: 'span', name: 'md', size: 14, height: 20, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
+      {type : 'body', tag: 'div', name: 'sm', size: 13, height: 18, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
     ]
   },
   
@@ -142,7 +143,11 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
                       {style.weightM && <><br />{style.weightM} </>}
                       {style.weightR && <><br />{style.weightR} </>}
                     </TableCell>
-                    <TableCell className="py-4 text-center"></TableCell>
+                    <TableCell className="py-4 text-center">
+                      {style.weightB && <ScText type={style.tag} size={style.name} weight="bold" className="" value={style.valueName} />}
+                      {style.weightM && <ScText type={style.tag} size={style.name} weight="md" className="" style={{display:'block'}} value={style.valueName} />}
+                      {style.weightR && <ScText type={style.tag} size={style.name} weight="sm" className="" value={style.valueName} />}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
