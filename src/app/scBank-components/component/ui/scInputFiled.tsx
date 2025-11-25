@@ -7,53 +7,87 @@ import { Icon } from "@/app/scBank-components/component/ui/icon";
 import { ScBox, ScVFlex } from "./scBox";
 
 /* ─────────────────────────────
- * inputFiled
+ * 공통 타입 정의
  * ───────────────────────────── */
 
+// HTML 기본 type + 커스텀 phone
+type ScInputType = React.HTMLInputTypeAttribute | "phone";
 
-/* ─────────────────────────────
- * ScTextField
- * ───────────────────────────── */
-
-export interface ScInputFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+/**
+ * 인풋 공통 기본 props
+ * - HTML 기본 props에서 type, id만 오버라이드 하기 위해 Omit
+ */
+interface ScBaseInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "id"> {
+   id?: string;
+  /** id 대신 사용할 선택적 식별자 */
   inputId?: string;
+  /** input type (HTML 기본 타입 + "phone") */
+  type?: ScInputType;
+}
+
+/**
+ * 순수 Input 컴포넌트용 props
+ */
+export interface ScInputFieldProps extends ScBaseInputProps {}
+
+/**
+ * 라벨/안내문구/에러까지 포함된 TextField용 props
+ */
+export interface ScTextFieldProps extends ScBaseInputProps {
   labelName?: string;
-  placeholder?: string;
-  fieldType?: string;
+  fieldType?: string; // 추후 variant 용도로 확장 가능
   focusCheck?: boolean;
+
   infoMsg?: string;
   errMsg?: string | React.ReactNode;
   errMsgCheck?: boolean;
-  type?: 'text' | 'search' | 'phone' 
 }
 
-export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
-  (
-    {
-      className,
-      placeholder,
-      id,
-      inputId,
-      disabled,
-      readOnly,
-      type = "text",
-      ...props
-    },
-    ref
-  ) => {
-  
-    // id 우선, 없으면 inputId, 둘 다 없으면 자동 생성
-    const generatedId = React.useId();
-    const finalId = id ?? inputId ?? generatedId;
+/* ─────────────────────────────
+ * 공통 유틸
+ * ───────────────────────────── */
 
-    
+/** id 우선순위: props.id > inputId > generatedId */
+const useFinalId = (idProp?: string, inputId?: string) => {
+  const generatedId = React.useId();
+  return idProp ?? inputId ?? generatedId;
+};
+
+/** "phone" -> "tel" 매핑 등 type 해석 */
+const resolveInputType = (type?: ScInputType): React.HTMLInputTypeAttribute => {
+  if (type === "phone") return "tel";
+  return type ?? "text";
+};
+
+/* ─────────────────────────────
+ * InputFiled (순수 인풋)
+ * ───────────────────────────── */
+
+export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
+  ({ className, placeholder, inputId, disabled, readOnly, type, ...props }, ref) => {
+    const finalId = useFinalId(props.id, inputId);
+    const resolvedType = resolveInputType(type);
+
     return (
-      <ScBox className="grid relative" g={10} mt={16}>
+      <ScBox
+        g={10}
+        mt={16}
+        className={`grid items-center not-[]:relative 
+          ${type === 'tel' && 'grid-cols-[54px_1fr] gap-3'}
+          ${type === 'search' && 'grid-cols-[1fr_24px] gap-2.5'}`
+        }
+        >
+        {type === 'tel' && 
+          <a onClick={() => alert('1234')}>
+            <span>010</span> 
+          </a>
+        }
+        
         <input
           id={finalId}
           ref={ref}
-          type={type}
+          type={resolvedType}
           data-slot="input"
           disabled={disabled}
           readOnly={readOnly}
@@ -78,7 +112,8 @@ export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
           placeholder={placeholder}
           {...props}
         />
-
+        {/* 검색 버튼 */}
+        {type === 'search' && <Icon name="Search" size="lg" />}
         {/* input 밑 이펙트 */}
         <ScBox
           className={cn(
@@ -99,8 +134,11 @@ export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
 
 InputFiled.displayName = "InputFiled";
 
+/* ─────────────────────────────
+ * ScTextField (라벨 + 인풋 + 안내/에러)
+ * ───────────────────────────── */
 
-export const ScTextField = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
+export const ScTextField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
   (
     {
       className,
@@ -113,49 +151,63 @@ export const ScTextField = React.forwardRef<HTMLInputElement, ScInputFieldProps>
       errMsg,
       disabled,
       readOnly,
-      type = "text",
+      type,
       inputId,
-      id,
       ...props
     },
     ref
   ) => {
+    const finalId = useFinalId(props.id, inputId);
+    const resolvedType = resolveInputType(type);
 
-    // label과 input이 공유할 최종 id
-    const generatedId = React.useId();
-    const finalId = id ?? inputId ?? generatedId;
-    
+    // a11y: 에러/안내 문구 id
+    const infoId = infoMsg && !errMsgCheck ? `${finalId}-description` : undefined;
+    const errorId = errMsgCheck ? `${finalId}-error` : undefined;
+
     return (
       <ScBox>
         {labelName && (
-          <Label htmlFor={finalId} className={cn("text-sm font-medium sc-text-basic-04",)}>{labelName}</Label>
+          <Label
+            htmlFor={finalId}
+            className={cn("text-sm font-medium sc-text-basic-04")}
+          >
+            {labelName}
+          </Label>
         )}
 
         <InputFiled
           ref={ref}
           id={finalId}
           inputId={inputId}
-          type={type}
+          type={resolvedType}
           placeholder={placeholder}
           disabled={disabled}
           readOnly={readOnly}
+          aria-invalid={errMsgCheck ? true : undefined}
+          aria-describedby={errorId ?? infoId}
           className={className}
           {...props}
         />
 
         {/* 안내 문구 */}
-        {infoMsg && !errMsgCheck ? (
+        {infoMsg && !errMsgCheck && (
           <ScVFlex mt={8}>
-            <p className="text-sm font-normal sc-text-basic-04">
+            <p
+              id={infoId}
+              className="text-sm font-normal sc-text-basic-04"
+            >
               {infoMsg || "안내문구를 입력해 주세요"}
             </p>
           </ScVFlex>
-        ) : null}
+        )}
 
         {/* 에러 문구 */}
         {errMsgCheck && (
           <ScVFlex mt={8}>
-            <p className="flex items-center leading-[18px] gap-1 text-sm font-normal sc-text-state-danger">
+            <p
+              id={errorId}
+              className="flex items-center leading-[18px] gap-1 text-sm font-normal sc-text-state-danger"
+            >
               <Icon name="Warning" size="sm" className="mt-px" />
               <span>{errMsg}</span>
             </p>
@@ -167,3 +219,138 @@ export const ScTextField = React.forwardRef<HTMLInputElement, ScInputFieldProps>
 );
 
 ScTextField.displayName = "ScTextField";
+
+/* ─────────────────────────────
+ * ScSearchField
+ * ───────────────────────────── */
+
+export const ScSearchField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
+  (
+    {
+      className,
+      labelName,
+      placeholder,
+      fieldType,
+      focusCheck,
+      type = 'search',
+      inputId,
+      ...props
+    },
+    ref
+  ) => {
+    const finalId = useFinalId(props.id, inputId);
+    const resolvedType = resolveInputType(type);
+
+    return (
+      <ScBox>
+        {labelName && (
+          <Label
+            htmlFor={finalId}
+            className={cn("text-sm font-medium sc-text-basic-04 hidden")}
+          >
+            {labelName}
+          </Label>
+        )}
+
+        <InputFiled
+          ref={ref}
+          id={finalId}
+          inputId={inputId}
+          type={resolvedType}
+          placeholder={placeholder}
+          className={className}
+          {...props}
+        />
+      </ScBox>
+    );
+  }
+);
+
+ScTextField.displayName = "ScSearchField";
+
+
+/* ─────────────────────────────
+ * ScTextField (라벨 + 인풋 + 안내/에러)
+ * ───────────────────────────── */
+
+export const ScPhoneField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
+  (
+    {
+      className,
+      labelName = '휴대폰 번호',
+      placeholder = '0000 0000',
+      fieldType,
+      focusCheck,
+      infoMsg,
+      errMsgCheck,
+      errMsg ='올바른 휴대폰 번호를 입력해 주십시오.',
+      disabled,
+      readOnly,
+      type ='phone',
+      inputId,
+      ...props
+    },
+    ref
+  ) => {
+    const finalId = useFinalId(props.id, inputId);
+    const resolvedType = resolveInputType(type);
+
+    // a11y: 에러/안내 문구 id
+    const infoId = infoMsg && !errMsgCheck ? `${finalId}-description` : undefined;
+    const errorId = errMsgCheck ? `${finalId}-error` : undefined;
+
+    return (
+      <ScBox>
+        {labelName && (
+          <Label
+            htmlFor={finalId}
+            className={cn("text-sm font-medium sc-text-basic-04")}
+          >
+            {labelName}
+          </Label>
+        )}
+
+        <InputFiled
+          ref={ref}
+          id={finalId}
+          inputId={inputId}
+          type={resolvedType}
+          placeholder={placeholder}
+          disabled={disabled}
+          readOnly={readOnly}
+          aria-invalid={errMsgCheck ? true : undefined}
+          aria-describedby={errorId ?? infoId}
+          className={className}
+          {...props}
+        />
+
+        {/* 안내 문구 */}
+        {infoMsg && !errMsgCheck && (
+          <ScVFlex mt={8}>
+            <p
+              id={infoId}
+              className="text-sm font-normal sc-text-basic-04"
+            >
+              {infoMsg || "안내문구를 입력해 주세요"}
+            </p>
+          </ScVFlex>
+        )}
+
+        {/* 에러 문구 */}
+        {errMsgCheck && (
+          <ScVFlex mt={8}>
+            <p
+              id={errorId}
+              className="flex items-center leading-[18px] gap-1 text-sm font-normal sc-text-state-danger"
+            >
+              <Icon name="Warning" size="sm" className="mt-px" />
+              <span>{errMsg}</span>
+            </p>
+          </ScVFlex>
+        )}
+      </ScBox>
+    );
+  }
+);
+
+ScTextField.displayName = "ScPhoneField";
