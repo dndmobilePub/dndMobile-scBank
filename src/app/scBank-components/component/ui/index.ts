@@ -3,3 +3,4 @@
 export * from "./scButton";
 export * from "./scBtnGroup";
 export * from "./scBox";
+export * from "./scInputFiled";

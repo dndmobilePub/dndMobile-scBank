@@ -31,7 +31,7 @@ const ColorSample = React.forwardRef<HTMLDivElement>(
     return (
       <>
         {Color.map((item, index) => (
-          <div key={item.type + '_' + index} className="w-full flex flex-col gap-6">
+          <div key={item.type + '_' + index} className="w-full flex flex-col gap-6 mt-6">
             {item.value.map((colorItem) => (
               <div className="flex flex-col gap-5" key={colorItem.category}>
                 <p className='text-xl font-bold text-neutral-700'>color/{item.type}/{colorItem.category}</p> 

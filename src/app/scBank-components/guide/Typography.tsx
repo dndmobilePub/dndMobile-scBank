@@ -155,4 +155,4 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
   }
 )
 
-export default TypographySample;
+export { TypographySample };

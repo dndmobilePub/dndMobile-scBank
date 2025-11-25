@@ -1,9 +1,17 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
+import ColorSample from './guide/color';
+import {
+  AppearanceSample,
+  TypographySample,
+  ScBtnGuide
+} from "./guide/index";
+
+
+import { SamplePage } from "./guide/page/SamplePage";
+
 import { ScButton, ScBox, ScBtnGroup, ScrollButton, ScTxtBtn, ScExtBtn } from "@/app/scBank-components/component/ui/index";
-import ColorSample from './component/color';
-import AppearanceSample from "./component/Appearance";
-import TypographySample from './component/Typography';
+
 
 
 // SC은행 컴포넌트 가이드
@@ -42,81 +50,7 @@ export default function ComponentGuidePage() {
               <TypographySample />
             </TabsContent>
             <TabsContent value="scComponent">
-              <ScBox variant={'VFlex'} g={10}>
-                <p>Button 컴포넌트</p>
-                  <div
-                      id="article-container"
-                      className="h-[400px] overflow-y-auto border"
-                    >
-                    {/* 긴 컨텐츠 */}
-                    <ScBox variant='VFlex' g={20}>
-                      <ScBtnGroup >
-                        <ScButton type="button" >버튼</ScButton>
-                        <ScButton type="button" variant='secondary'>버튼</ScButton>
-                      </ScBtnGroup>
-                      <ScBtnGroup type='ratio'>
-                        <ScButton type="button" variant='secondary'>버튼</ScButton>
-                        <ScButton type="button" >버튼</ScButton>
-                      </ScBtnGroup>
-                      <ScBtnGroup type='stack'>
-                        <ScButton type="button" >버튼</ScButton>
-                        <ScButton type="button" variant='secondary'>버튼</ScButton>
-                      </ScBtnGroup>
-                      <ScBtnGroup>
-                        <ScButton type="button" size='sm'>전체보기</ScButton>
-                        <ScButton type="button" variant='secondary' size='sm'>전체보기</ScButton>
-                      </ScBtnGroup>
-                    
-                    </ScBox>
-                    <ScBox variant='VFlex' g={20}>
-                      <ScBtnGroup >
-                        <ScButton type="button" >버튼</ScButton>
-                        <ScButton type="button" variant='secondary'>버튼</ScButton>
-                      </ScBtnGroup>
-                      <ScBtnGroup type='ratio'>
-                        <ScButton type="button" variant='secondary'>버튼</ScButton>
-                        <ScButton type="button" >버튼</ScButton>
-                      </ScBtnGroup>
-                      <ScBtnGroup type='stack'>
-                        <ScButton type="button" >버튼</ScButton>
-                        <ScButton type="button" variant='secondary'>버튼</ScButton>
-                      </ScBtnGroup>
-                      <ScBtnGroup>
-                        <ScButton type="button" size='sm'>전체보기</ScButton>
-                        <ScButton type="button" variant='secondary' size='sm'>전체보기</ScButton>
-                      </ScBtnGroup>
-                    </ScBox>
-                    </div>
-                  <ScBtnGroup>
-                    <ScrollButton containerId="article-container">스크롤해서 끝까지 읽어주세요</ScrollButton>
-                  </ScBtnGroup>
-                <ScBox variant='VFlex' g={20}>
-                  <ScBtnGroup >
-                    <ScButton type="button" >버튼</ScButton>
-                    <ScButton type="button" variant='secondary'>버튼</ScButton>
-                  </ScBtnGroup>
-                  <ScBtnGroup type='ratio'>
-                    <ScButton type="button" variant='secondary'>버튼</ScButton>
-                    <ScButton type="button" >버튼</ScButton>
-                  </ScBtnGroup>
-                  <ScBtnGroup type='stack'>
-                    <ScButton type="button" >버튼</ScButton>
-                    <ScButton type="button" variant='secondary'>버튼</ScButton>
-                  </ScBtnGroup>
-                  <ScBtnGroup>
-                    <ScButton type="button" size='sm'>전체보기</ScButton>
-                    <ScButton type="button" variant='secondary' size='sm'>전체보기</ScButton>
-                  </ScBtnGroup>
-                  <ScBtnGroup>
-                    <ScTxtBtn typeBtn='pdf'/>
-                    <ScTxtBtn typeBtn='edit'/>
-                    <ScTxtBtn typeBtn='all' />
-                    <ScExtBtn btnName="버튼명"/>
-                    <ScExtBtn variant='smallExtSub' types='secondary' disabled/>
-                  </ScBtnGroup>
-                  
-                </ScBox>
-              </ScBox>
+              <SamplePage />
             </TabsContent>
             <TabsContent value="Appearance">
               <AppearanceSample />

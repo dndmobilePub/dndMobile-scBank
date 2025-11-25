@@ -48,6 +48,14 @@ export type DynamicBorderProps = {
   borderColor?: string;      // "#fff", "red", "var(--...)" 등
 };
 
+export type DynamicSizeProps = {
+  w?: SpacingProp;       // width
+  h?: SpacingProp;       // height
+  minW?: SpacingProp;
+  maxW?: SpacingProp;
+  minH?: SpacingProp;
+  maxH?: SpacingProp;
+};
 
 // 숫자는 px, 숫자 문자열도 px, 그 외 문자열은 그대로 사용
 export const spacingToStyle = (v: SpacingProp) => {
@@ -107,6 +115,15 @@ export const buildDynamicSpacingStyle = (props: DynamicSpacingProps) => ({
   gap: spacingToStyle(props.g),
   columnGap: spacingToStyle(props.gX),
   rowGap: spacingToStyle(props.gY),
+});
+
+export const buildDynamicSizeStyle = (props: DynamicSizeProps) => ({
+  width: spacingToStyle(props.w),
+  height: spacingToStyle(props.h),
+  minWidth: spacingToStyle(props.minW),
+  maxWidth: spacingToStyle(props.maxW),
+  minHeight: spacingToStyle(props.minH),
+  maxHeight: spacingToStyle(props.maxH),
 });
 
 /* ✅ border → style */
@@ -209,6 +226,21 @@ export const splitBorderProps = <T extends DynamicBorderProps>(props: T) => {
   };
 
   return { border: borderProps, rest: rest as Omit<T, keyof DynamicBorderProps> };
+};
+
+export const splitSizeProps = <T extends DynamicSizeProps>(props: T) => {
+  const { w, h, minW, maxW, minH, maxH, ...rest } = props;
+
+  const sizeProps: DynamicSizeProps = {
+    w,
+    h,
+    minW,
+    maxW,
+    minH,
+    maxH,
+  };
+
+  return { size: sizeProps, rest: rest as Omit<T, keyof DynamicSizeProps> };
 };
 
 

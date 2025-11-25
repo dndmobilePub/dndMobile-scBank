@@ -15,6 +15,9 @@ import {
   buildDynamicSpacingStyle,
   buildDynamicBorderStyle,
   buildDynamicRadiusStyle,
+  splitSizeProps,
+  buildDynamicSizeStyle,
+  DynamicSizeProps
 } from "@/lib/variants";
 
 
@@ -38,7 +41,7 @@ const scBoxVariants = cva("relative block", {
 export interface ScBoxProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof scBoxVariants>,
-    DynamicSpacingProps, DynamicBorderProps, DynamicRadiusProps  {
+    DynamicSpacingProps, DynamicBorderProps, DynamicRadiusProps, DynamicSizeProps  {
   asChild?: boolean;
 }
 
@@ -48,25 +51,53 @@ export const ScBox = React.forwardRef<HTMLDivElement, ScBoxProps>(
 
     const { spacing, rest: afterSpacing } = splitSpacingProps(props);
     const { border, rest: afterBorder } = splitBorderProps(afterSpacing);
-    const { radius, rest } = splitRadiusProps(afterBorder);
-
+    const { radius, rest: afterRadius } = splitRadiusProps(afterBorder);
+    const { size, rest } = splitSizeProps(afterRadius);
+    
     const { className, asChild, style, ...cvaProps } = rest;
+
 
     const spacingStyle = buildDynamicSpacingStyle(spacing);
     const borderStyle = buildDynamicBorderStyle(border);
     const radiusStyle = buildDynamicRadiusStyle(radius);
-
+    const sizeStyle = buildDynamicSizeStyle(size);
+    
     return (
       <Comp
         ref={ref}
         {...cvaProps}
-        style={{ ...spacingStyle, ...borderStyle, ...radiusStyle, ...style }}
+        style={{ ...spacingStyle, ...borderStyle, ...radiusStyle, ...sizeStyle, ...style }}
         className={cn(scBoxVariants(cvaProps as any), className)}
       />
     );
   }
 );
 
-ScBox.displayName = 'ScBox';
+export interface ScFlexProps extends Omit<ScBoxProps, "variant"> {}
 
+export const ScVFlex = React.forwardRef<HTMLDivElement, ScFlexProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <ScBox
+        ref={ref}
+        variant="VFlex"
+        className={className}
+        {...props}
+      />
+    );
+  }
+);
+
+export const ScHFlex = React.forwardRef<HTMLDivElement, ScFlexProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <ScBox
+        ref={ref}
+        variant="HFlex"
+        className={className}
+        {...props}
+      />
+    );
+  }
+);
 

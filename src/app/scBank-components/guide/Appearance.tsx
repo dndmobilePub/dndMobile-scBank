@@ -124,4 +124,4 @@ const AppearanceSample = React.forwardRef<HTMLDivElement>(() => {
   );
 });
 
-export default AppearanceSample;
+export { AppearanceSample };
