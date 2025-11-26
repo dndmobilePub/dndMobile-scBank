@@ -59,7 +59,7 @@ const TypographyList = [
   
 ]
 
-const TypographyComponent = [
+const TypographyComponentTableList = [
   {
     name: 'Korea Typeface',
     value: [
@@ -72,6 +72,34 @@ const TypographyComponent = [
       {type : 'body', tag: 'span', name: 'md', size: 14, height: 20, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'md-b', ftype2:'md-m', ftype3:'md'},
       {type : 'body', tag: 'div', name: 'sm', size: 13, height: 18, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'sm-b', ftype2:'sm-m', ftype3:'sm'},
     ]
+  },
+  
+]
+
+const TypographyComponent = [
+  {
+    name: 'Typography Component',
+    // value: [
+    //   {fontType:'h1', fontStyle:'h1', value:'h1입니다'},
+    //   {fontType:'h2', fontStyle:'h2', value:'h2입니다'},
+    //   {fontType:'h3', fontStyle:'h3-b', value:'h3 700 입니다'},
+    //   {fontType:'h3', fontStyle:'h3-m', value:'h3 500 입니다'},
+    //   {fontType:'h4', fontStyle:'h4-b', value:'h4 700 입니다'},
+    //   {fontType:'h4', fontStyle:'h4-m', value:'h4 500 입니다'},
+    //   {fontType:'h4', fontStyle:'h4', value:'h4 400 입니다'},
+    //   {fontType:'h5', fontStyle:'h5-b', value:'h5 700 입니다'},
+    //   {fontType:'h5', fontStyle:'h5-m', value:'h5 500 입니다'},
+    //   {fontType:'h5', fontStyle:'h5', value:'h5 400 입니다'},
+    //   {fontType:'p', fontStyle:'lg-b', value:'lg 700 입니다'},
+    //   {fontType:'p', fontStyle:'lg-m', value:'lg 500 입니다'},
+    //   {fontType:'p', fontStyle:'lg', value:'lg 400 입니다'},
+    //   {fontType:'div', fontStyle:'md-b', value:'md 700 입니다'},
+    //   {fontType:'div', fontStyle:'md-m', value:'md 500 입니다'},
+    //   {fontType:'div', fontStyle:'md', value:'md 400 입니다'},
+    //   {fontType:'span', fontStyle:'sm-b', value:'sm 700 입니다'},
+    //   {fontType:'span', fontStyle:'sm-m', value:'sm 500 입니다'},
+    //   {fontType:'span', fontStyle:'sm', value:'sm 400 입니다'},
+    // ]
   },
   
 ]
@@ -116,7 +144,7 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
             </Table>
           </div>
         ))}
-        {TypographyComponent.map((item) => (
+        {TypographyComponentTableList.map((item) => (
           <div key={item.name} className="flex flex-col gap-2 mt-6">
             <p className={titleStyle}>{item.name}</p>
             <Table className="bg-white">
@@ -158,6 +186,33 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
                     </TableCell>
                   </TableRow>
                 ))}
+              </TableBody>
+            </Table>
+          </div>
+        ))}
+        {TypographyComponent.map((item) => (
+          <div key={item.name} className="flex flex-col gap-2 mt-6">
+            <p className={titleStyle}>{item.name}</p>
+            <Table className="bg-white">
+              {/* <TableCaption>Font Size</TableCaption> */}
+              <TableHeader className="bg-neutral-800 ">
+                <TableRow>
+                  <TableHead className="text-neutral-50 text-center">Example</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {/* {item.value.map((style, index) => ( */}
+                  <TableRow key={item.name}>
+                    <TableCell className="py-4 text-center">
+                      <ScText fontType="h2" className="" value={'h2 입니다'} />
+                      <ScText fontType="h4-b" className="" value={'h4태그에 h4-b스타일입니다'} />
+                      <ScText fontType="h5" fontStyle="h1" className="" value={'h5태그 h1스타일입니다'} />
+                      <ScText fontStyle="h4-m" className="" value={'h4-m스타일입니다'} />
+                      <ScText fontType="li" className="" value={'li태그입니다'} />
+                      <ScText fontType="li" fontStyle="lg" className="" value={'li태그에 lg스타일입니다'} />
+                    </TableCell>
+                  </TableRow>
+                {/* ))} */}
               </TableBody>
             </Table>
           </div>

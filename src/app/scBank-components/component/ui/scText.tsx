@@ -34,17 +34,11 @@ const SizeStyle = [
   {name: 'sm-b', className: 'text-[0.8125rem] leading-[1.4] tracking-[-0.3] font-bold'},
   {name: 'sm-m', className: 'text-[0.8125rem] leading-[1.4] tracking-[-0.3] font-medium'},
   {name: 'sm', className: 'text-[0.8125rem] leading-[1.4] tracking-[-0.3] font-normal'},
-  {name: 'span', className: 'text-sm leading-[1.4] tracking-[-0.3] font-normal'}, 
-  {name: 'p', className: 'text-sm leading-[1.4] tracking-[-0.3] font-normal'},
 ]
 
 const ScText = ({ fontType="span", fontStyle, className, asChild, value, children, style, ...rest }: ScTextProps) => {
-  const Comp = asChild ? Slot : fontType;
-
-  // const styleName = fontStyle || (typeof fontType === 'string' ? fontType : 'md');
-  // const styleObject = SizeStyle.find(style => style.name === styleName);
-  // const sizeClassName = styleObject ? styleObject.className : '';
-
+  const baseTag = typeof fontType === "string" ? fontType.split("-")[0] : fontType; //문자열을 separator(구분자)를 기준으로 나눠 “배열(Array)” 형태로 반환
+  const Comp = asChild ? Slot : (baseTag as React.ElementType);
   const candidate = fontStyle ?? fontType; // ?? > 왼쪽값이  null or undifined일 때 오른쪽 사용
   const styleObject = SizeStyle.find(style => style.name === candidate);
   const sizeClassName = styleObject ? styleObject.className : SizeStyle.find(s => s.name === 'md')!.className; // ! 절대 undefined가 아니다” 라고 TypeScript에게 알려주는 표시.
