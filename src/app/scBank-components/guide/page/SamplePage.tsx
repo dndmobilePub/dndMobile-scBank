@@ -5,14 +5,18 @@ import {
   ScBtnGuide,
   ScBoxGuide,
   ScInputGuide,
+  ScSelectGuide,
+  ScCommonGuide,
 } from "./index";
 
 export function SamplePage() { 
 
   const pageList = [
+    { name : 'ScCommonGuide' , com : <ScCommonGuide />},
     { name : 'Button' , com : <ScBtnGuide />},
     { name : 'ScBox,ScVFlex,ScHFlex' , com : <ScBoxGuide />},
     { name : 'ScInputFiled' , com : <ScInputGuide />},
+    { name : 'ScSelectGuide' , com : <ScSelectGuide />},
   ]
 
 

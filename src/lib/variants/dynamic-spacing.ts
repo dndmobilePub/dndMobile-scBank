@@ -92,30 +92,47 @@ export const buildDynamicRadiusStyle = (props: DynamicRadiusProps) => ({
 
 
 // spacing props → style 객체로 변환
-export const buildDynamicSpacingStyle = (props: DynamicSpacingProps) => ({
-  // padding
-  padding: spacingToStyle(props.p),
-  paddingInline: spacingToStyle(props.px),
-  paddingBlock: spacingToStyle(props.py),
-  paddingTop: spacingToStyle(props.pt),
-  paddingBottom: spacingToStyle(props.pb),
-  paddingLeft: spacingToStyle(props.pl),
-  paddingRight: spacingToStyle(props.pr),
+export const buildDynamicSpacingStyle = (props: DynamicSpacingProps) => {
+const p  = spacingToStyle(props.p);
+  const px = spacingToStyle(props.px);
+  const py = spacingToStyle(props.py);
 
-  // margin
-  margin: spacingToStyle(props.m),
-  marginInline: spacingToStyle(props.mx),
-  marginBlock: spacingToStyle(props.my),
-  marginTop: spacingToStyle(props.mt),
-  marginBottom: spacingToStyle(props.mb),
-  marginLeft: spacingToStyle(props.ml),
-  marginRight: spacingToStyle(props.mr),
+  const pt = spacingToStyle(props.pt);
+  const pb = spacingToStyle(props.pb);
+  const pl = spacingToStyle(props.pl);
+  const pr = spacingToStyle(props.pr);
 
-  // gap
-  gap: spacingToStyle(props.g),
-  columnGap: spacingToStyle(props.gX),
-  rowGap: spacingToStyle(props.gY),
-});
+  const m  = spacingToStyle(props.m);
+  const mx = spacingToStyle(props.mx);
+  const my = spacingToStyle(props.my);
+
+  const mt = spacingToStyle(props.mt);
+  const mb = spacingToStyle(props.mb);
+  const ml = spacingToStyle(props.ml);
+  const mr = spacingToStyle(props.mr);
+
+  const g  = spacingToStyle(props.g);
+  const gX = spacingToStyle(props.gX);
+  const gY = spacingToStyle(props.gY);
+
+  return {
+    /** padding (shorthand 제거: 개별 속성만 사용) */
+    paddingTop:    pt ?? py ?? p,
+    paddingBottom: pb ?? py ?? p,
+    paddingLeft:   pl ?? px ?? p,
+    paddingRight:  pr ?? px ?? p,
+
+    /** margin (shorthand 제거: 개별 속성만 사용) */
+    marginTop:     mt ?? my ?? m,
+    marginBottom:  mb ?? my ?? m,
+    marginLeft:    ml ?? mx ?? m,
+    marginRight:   mr ?? mx ?? m,
+
+    /** gap (shorthand 제거) */
+    columnGap: gX ?? g,
+    rowGap:    gY ?? g,
+  };
+};
 
 export const buildDynamicSizeStyle = (props: DynamicSizeProps) => ({
   width: spacingToStyle(props.w),

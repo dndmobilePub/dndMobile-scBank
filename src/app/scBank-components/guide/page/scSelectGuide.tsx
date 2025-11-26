@@ -7,31 +7,39 @@ import { ScSelectField, ScBox, ScVFlex, ScHFlex, ScBtnGroup, ScPhoneField, ScSea
 const preStyle = `bg-gray-100 p-4 rounded text-sm overflow-auto w-full`;
 
 
-export function ScInputGuide(){
+export function ScSelectGuide(){
   
   const [bank, setBank] = React.useState<string | number>("");
   
   return (
     <ScVFlex g={10} mt={10}>
-      <p>InputFiled 컴포넌트</p>
+      <p>Select 컴포넌트</p>
       <ScVFlex g={10}>
         <ScVFlex g={14} className="bg-white rounded-[10px]" p={20} >
-          <p>ScBox</p>
+          <p>Select - Base</p>
           <ScBox className="grid grid-cols-2 gap-4">
             <ScVFlex g={20}>
               <ScVFlex g={10}>
-                <p>TextField</p>
-                <ScTextField labelName="test" placeholder='placeholder' infoMsg="안내메시지" />
-                <ScTextField labelName="test" placeholder='placeholder' infoMsg="안내메시지" errMsgCheck errMsg='에러메시지'/>
-                <ScPhoneField errMsgCheck/>
-                <ScPhoneField disabled value={'1111-1111'}/>
+                <p>SelectField</p>
+                <ScSelectField labelName="은행 선택" placeholder="은행을 선택해주세요"
+                  data={[
+                    { label: "국민은행", value: "kb" },
+                    { label: "카카오뱅크", value: "kakao" },
+                    { label: "카카오뱅크", value: "kakao1" },
+                    { label: "카카오뱅크", value: "kakao2" },
+                    { label: "카카오뱅크", value: "kakao3" },
+                    { label: "카카오뱅크", value: "kakao4" },
+                    ]}
+                  value={bank}
+                  onValueChange={setBank}
+                />
               </ScVFlex>
-              <pre className={preStyle}>
+              {/* <pre className={preStyle}>
 {`<ScTextField labelName="test" placeholder='placeholder' infoMsg="안내메시지" />
 <ScTextField labelName="test" placeholder='placeholder' infoMsg="안내메시지" errMsgCheck errMsg='에러메시지'/>`}
-              </pre>
+              </pre> */}
             </ScVFlex>
-            <ScVFlex g={20}>
+            {/* <ScVFlex g={20}>
               <ScVFlex g={10}>
                 <p>SearchField</p>
                 <ScSearchField labelName="search" placeholder='검색어 입력하세요'/>
@@ -39,7 +47,7 @@ export function ScInputGuide(){
               <pre className={preStyle}>
                 {`<ScSearchField labelName="search" placeholder='검색어 입력하세요'/>`}
               </pre>
-            </ScVFlex>
+            </ScVFlex> */}
           </ScBox>
         </ScVFlex>
       </ScVFlex>

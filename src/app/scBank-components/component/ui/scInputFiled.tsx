@@ -11,7 +11,7 @@ import { ScBox, ScVFlex } from "./scBox";
  * ───────────────────────────── */
 
 // HTML 기본 type + 커스텀 phone
-type ScInputType = React.HTMLInputTypeAttribute | "phone";
+type ScInputType = React.HTMLInputTypeAttribute | "tel";
 
 /**
  * 인풋 공통 기본 props
@@ -24,6 +24,7 @@ interface ScBaseInputProps
   inputId?: string;
   /** input type (HTML 기본 타입 + "phone") */
   type?: ScInputType;
+  errMsgCheck?: boolean;
 }
 
 /**
@@ -39,7 +40,7 @@ export interface ScTextFieldProps extends ScBaseInputProps {
   fieldType?: string; // 추후 variant 용도로 확장 가능
   focusCheck?: boolean;
 
-  infoMsg?: string;
+  infoMsg?: string | React.ReactNode;
   errMsg?: string | React.ReactNode;
   errMsgCheck?: boolean;
 }
@@ -54,9 +55,8 @@ const useFinalId = (idProp?: string, inputId?: string) => {
   return idProp ?? inputId ?? generatedId;
 };
 
-/** "phone" -> "tel" 매핑 등 type 해석 */
+
 const resolveInputType = (type?: ScInputType): React.HTMLInputTypeAttribute => {
-  if (type === "phone") return "tel";
   return type ?? "text";
 };
 
@@ -65,7 +65,7 @@ const resolveInputType = (type?: ScInputType): React.HTMLInputTypeAttribute => {
  * ───────────────────────────── */
 
 export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
-  ({ className, placeholder, inputId, disabled, readOnly, type, ...props }, ref) => {
+  ({ className, placeholder, inputId, disabled, readOnly, type, errMsgCheck, ...props }, ref) => {
     const finalId = useFinalId(props.id, inputId);
     const resolvedType = resolveInputType(type);
 
@@ -79,8 +79,9 @@ export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
         }
         >
         {type === 'tel' && 
-          <a onClick={() => alert('1234')}>
-            <span>010</span> 
+          <a className={cn('flex items-center gap-1')} onClick={() => alert('1234')}>
+            <span className="">010</span> 
+            <Icon name="ArronDown" size="sm"/>
           </a>
         }
         
@@ -91,8 +92,9 @@ export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
           data-slot="input"
           disabled={disabled}
           readOnly={readOnly}
+          value={props.value ?? undefined}
           className={cn(
-            "peer border-input h-[50px] w-full min-w-0 bg-transparent pt-[11px] pb-2.5 text-base",
+            "peer border-input h-[50px]  w-full min-w-0 bg-transparent pt-[11px] pb-2.5 text-base",
             "transition-[color,box-shadow,border-color] outline-none",
             "caret-(--color-sc-green-300)",
             "file:text-foreground file:border-0 file:bg-transparent file:text-sm file:font-medium",
@@ -124,7 +126,9 @@ export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
             "peer-not-placeholder-shown:h-[3px]",
             "peer-not-placeholder-shown:sc-bg-secondary",
             // disabled는 항상 disabled 색
-            "peer-disabled:sc-bg-state-disabled-03"
+            "peer-disabled:h-px peer-disabled:sc-bg-state-disabled-03",
+            // error 상태면
+            errMsgCheck && 'sc-bg-danger!'
           )}
         />
       </ScBox>
@@ -186,6 +190,7 @@ export const ScTextField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
           aria-invalid={errMsgCheck ? true : undefined}
           aria-describedby={errorId ?? infoId}
           className={className}
+          errMsgCheck={errMsgCheck}
           {...props}
         />
 
@@ -206,9 +211,9 @@ export const ScTextField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
           <ScVFlex mt={8}>
             <p
               id={errorId}
-              className="flex items-center leading-[18px] gap-1 text-sm font-normal sc-text-state-danger"
+              className="flex leading-[18px] gap-1 text-sm font-normal sc-text-state-danger"
             >
-              <Icon name="Warning" size="sm" className="mt-px" />
+              <Icon name="Warning" size="sm" className="mt-[1.5px]" />
               <span>{errMsg}</span>
             </p>
           </ScVFlex>
@@ -286,7 +291,7 @@ export const ScPhoneField = React.forwardRef<HTMLInputElement, ScTextFieldProps>
       errMsg ='올바른 휴대폰 번호를 입력해 주십시오.',
       disabled,
       readOnly,
-      type ='phone',
+      type ='tel',
       inputId,
       ...props
     },
@@ -321,6 +326,7 @@ export const ScPhoneField = React.forwardRef<HTMLInputElement, ScTextFieldProps>
           aria-invalid={errMsgCheck ? true : undefined}
           aria-describedby={errorId ?? infoId}
           className={className}
+          errMsgCheck={errMsgCheck}
           {...props}
         />
 
@@ -341,9 +347,9 @@ export const ScPhoneField = React.forwardRef<HTMLInputElement, ScTextFieldProps>
           <ScVFlex mt={8}>
             <p
               id={errorId}
-              className="flex items-center leading-[18px] gap-1 text-sm font-normal sc-text-state-danger"
+              className="flex leading-[18px] gap-1 text-sm font-normal sc-text-state-danger"
             >
-              <Icon name="Warning" size="sm" className="mt-px" />
+              <Icon name="Warning" size="sm" className="mt-[1.5px]" />
               <span>{errMsg}</span>
             </p>
           </ScVFlex>
