@@ -63,14 +63,14 @@ const TypographyComponent = [
   {
     name: 'Korea Typeface',
     value: [
-      {type : 'heading', tag: 'h1', name: 'h1', size: 32, height: 44, spacing: -0.3, weightB: 700, valueName:'ABC'},
-      {type : 'heading', tag: 'h2', name: 'h2', size: 30, height: 40, spacing: -0.3, weightB: 700, valueName:'ABC'},
-      {type : 'heading', tag: 'h3', name: 'h3', size: 24, height: 32, spacing: -0.3, weightB: 700, weightM: 500, valueName:'ABC'},
-      {type : 'heading', tag: 'h4', name: 'h4', size: 20, height: 28, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
-      {type : 'heading', tag: 'h5', name: 'h5', size: 18, height: 26, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
-      {type : 'body', tag: 'p', name: 'lg', size: 16, height: 24, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
-      {type : 'body', tag: 'span', name: 'md', size: 14, height: 20, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
-      {type : 'body', tag: 'div', name: 'sm', size: 13, height: 18, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
+      {type : 'heading', tag: 'h1', name: 'h1', size: 32, height: 44, spacing: -0.3, weightB: 700, valueName:'ABC', ftype1:'h1'},
+      {type : 'heading', tag: 'h2', name: 'h2', size: 30, height: 40, spacing: -0.3, weightB: 700, valueName:'ABC', ftype1:'h2'},
+      {type : 'heading', tag: 'h3', name: 'h3', size: 24, height: 32, spacing: -0.3, weightB: 700, weightM: 500, valueName:'ABC', ftype1:'h3-b', ftype2:'h3-m'},
+      {type : 'heading', tag: 'h4', name: 'h4', size: 20, height: 28, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'h4-b', ftype2:'h4-m', ftype3:'h4'},
+      {type : 'heading', tag: 'h5', name: 'h5', size: 18, height: 26, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'h5-b', ftype2:'h5-m', ftype3:'h5'},
+      {type : 'body', tag: 'p', name: 'lg', size: 16, height: 24, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'lg-b', ftype2:'lg-m', ftype3:'lg'},
+      {type : 'body', tag: 'span', name: 'md', size: 14, height: 20, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'md-b', ftype2:'md-m', ftype3:'md'},
+      {type : 'body', tag: 'div', name: 'sm', size: 13, height: 18, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'sm-b', ftype2:'sm-m', ftype3:'sm'},
     ]
   },
   
@@ -144,9 +144,17 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
                       {style.weightR && <><br />{style.weightR} </>}
                     </TableCell>
                     <TableCell className="py-4 text-center">
-                      {style.weightB && <ScText type={style.tag} size={style.name} weight="bold" className="" value={style.valueName} />}
-                      {style.weightM && <ScText type={style.tag} size={style.name} weight="md" className="" style={{display:'block'}} value={style.valueName} />}
-                      {style.weightR && <ScText type={style.tag} size={style.name} weight="sm" className="" value={style.valueName} />}
+                      {style.weightB && <ScText fontType={style.tag} fontStyle={style.ftype1} className="" value={style.valueName} />}
+                      {style.weightM && <ScText fontType={style.tag} fontStyle={style.ftype2} className="" style={{display:'block'}} value={style.valueName} />}
+                      {style.weightR && <ScText fontType={style.tag} fontStyle={style.ftype3} className="" value={style.valueName} />}
+                    </TableCell>
+                    <TableCell className="py-4 text-center">
+                      <ScText fontType="h2" style={{display:'block'}}  className="" value={'가나다'} />
+                      <ScText fontType="h4" style={{display:'block'}}  className="" value={'가나다'} />
+                      <ScText fontType="h5" fontStyle="h1" style={{display:'block'}} className="" value={'가나다'} />
+                      <ScText fontStyle="h4" style={{display:'block'}} className="" value={'가나다'} />
+                      <ScText fontType="li" style={{display:'block'}} className="" value={'가나다'} />
+                      <ScText fontType="li" fontStyle="lg" style={{display:'block'}} className="" value={'가나다'} />
                     </TableCell>
                   </TableRow>
                 ))}
