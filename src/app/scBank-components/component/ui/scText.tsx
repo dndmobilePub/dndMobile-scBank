@@ -3,9 +3,9 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 
 export interface ScTextProps extends React.HTMLAttributes<HTMLElement> {
-  type?: string | React.ElementType;
+  fontType?: string | React.ElementType;
   value?: React.ReactNode;
-  size?: string;
+  fontStyle?: string;
   weight?: 'bold' | 'md' | 'sm';
   // children?: React.ReactNode; //React.HTMLAttributes<HTMLElement> 있어서 생략 가능
   // className?: string;  //React.HTMLAttributes<HTMLElement> 있어서 생략 가능
@@ -17,36 +17,40 @@ export interface ScTextProps extends React.HTMLAttributes<HTMLElement> {
 const SizeStyle = [
   {name: 'h1', className: 'text-[2rem] leading-[1.4] tracking-[-0.3] font-bold'},
   {name: 'h2', className: 'text-3xl leading-[1.4] tracking-[-0.3] font-bold'},
-  {name: 'h3', className: 'text-2xl leading-[1.4] tracking-[-0.3]'},
-  {name: 'h4', className: 'text-xl leading-[1.4] tracking-[-0.3]'},
-  {name: 'h5', className: 'text-lg leading-[1.4] tracking-[-0.3]'},
-  {name: 'lg', className: 'text-base leading-[1.4] tracking-[-0.3]'},
-  {name: 'md', className: 'text-sm leading-[1.4] tracking-[-0.3]'},
-  {name: 'sm', className: 'text-[0.8125rem] leading-[1.4] tracking-[-0.3]'},
+  {name: 'h3-b', className: 'text-2xl leading-[1.4] tracking-[-0.3] font-bold'},
+  {name: 'h3-m', className: 'text-2xl leading-[1.4] tracking-[-0.3] font-medium'},
+  {name: 'h4-b', className: 'text-xl leading-[1.4] tracking-[-0.3] font-bold'},
+  {name: 'h4-m', className: 'text-xl leading-[1.4] tracking-[-0.3] font-medium'},
+  {name: 'h4', className: 'text-xl leading-[1.4] tracking-[-0.3] font-normal'},
+  {name: 'h5-b', className: 'text-lg leading-[1.4] tracking-[-0.3] font-bold'},
+  {name: 'h5-m', className: 'text-lg leading-[1.4] tracking-[-0.3] font-medium'},
+  {name: 'h5', className: 'text-lg leading-[1.4] tracking-[-0.3] font-normal'},
+  {name: 'lg-b', className: 'text-base leading-[1.4] tracking-[-0.3] font-bold'},
+  {name: 'lg-m', className: 'text-base leading-[1.4] tracking-[-0.3] font-medium'},
+  {name: 'lg', className: 'text-base leading-[1.4] tracking-[-0.3] font-normal'},
+  {name: 'md-b', className: 'text-sm leading-[1.4] tracking-[-0.3] font-bold'},
+  {name: 'md-m', className: 'text-sm leading-[1.4] tracking-[-0.3] font-medium'},
+  {name: 'md', className: 'text-sm leading-[1.4] tracking-[-0.3] font-normal'},
+  {name: 'sm-b', className: 'text-[0.8125rem] leading-[1.4] tracking-[-0.3] font-bold'},
+  {name: 'sm-m', className: 'text-[0.8125rem] leading-[1.4] tracking-[-0.3] font-medium'},
+  {name: 'sm', className: 'text-[0.8125rem] leading-[1.4] tracking-[-0.3] font-normal'},
 ]
 
-const FontWeightStyle = [
-  {name: 'bold', className:'font-bold'},
-  {name: 'md', className:'font-medium'},
-  {name: 'sm', className:'font-normal'},
-]
-
-const ScText = ({ type="span", size="md", weight="sm", className, asChild, value, children, style, ...rest }: ScTextProps) => {
-  const Comp = asChild ? Slot : type;
-
-  const styleObject = SizeStyle.find(style => style.name === size);
-  const sizeClassName = styleObject ? styleObject.className : '';
-
-  const fontWeightStyle = FontWeightStyle.find(item => item.name === weight);
-  const weightClassName = fontWeightStyle ? fontWeightStyle.className : '';
+const ScText = ({ fontType="span", fontStyle, className, asChild, value, children, style, ...rest }: ScTextProps) => {
+  const baseTag = typeof fontType === "string" ? fontType.split("-")[0] : fontType; //문자열을 separator(구분자)를 기준으로 나눠 “배열(Array)” 형태로 반환
+  const Comp = asChild ? Slot : (baseTag as React.ElementType);
+  const candidate = fontStyle ?? fontType; // ?? > 왼쪽값이  null or undifined일 때 오른쪽 사용
+  const styleObject = SizeStyle.find(style => style.name === candidate);
+  const sizeClassName = styleObject ? styleObject.className : SizeStyle.find(s => s.name === 'md')!.className; // ! 절대 undefined가 아니다” 라고 TypeScript에게 알려주는 표시.
 
   return (
     <Comp 
-      className={cn(`${sizeClassName} ${weightClassName}`, className)} 
+      className={cn(`${sizeClassName}`, className)} 
       {...rest}
       style={style}
     >
-      {children || value}
+      {value}
+      {children}
     </Comp>
   );
 };

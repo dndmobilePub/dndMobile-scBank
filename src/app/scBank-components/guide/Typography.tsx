@@ -59,19 +59,47 @@ const TypographyList = [
   
 ]
 
-const TypographyComponent = [
+const TypographyComponentTableList = [
   {
     name: 'Korea Typeface',
     value: [
-      {type : 'heading', tag: 'h1', name: 'h1', size: 32, height: 44, spacing: -0.3, weightB: 700, valueName:'ABC'},
-      {type : 'heading', tag: 'h2', name: 'h2', size: 30, height: 40, spacing: -0.3, weightB: 700, valueName:'ABC'},
-      {type : 'heading', tag: 'h3', name: 'h3', size: 24, height: 32, spacing: -0.3, weightB: 700, weightM: 500, valueName:'ABC'},
-      {type : 'heading', tag: 'h4', name: 'h4', size: 20, height: 28, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
-      {type : 'heading', tag: 'h5', name: 'h5', size: 18, height: 26, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
-      {type : 'body', tag: 'p', name: 'lg', size: 16, height: 24, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
-      {type : 'body', tag: 'span', name: 'md', size: 14, height: 20, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
-      {type : 'body', tag: 'div', name: 'sm', size: 13, height: 18, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC'},
+      {type : 'heading', tag: 'h1', name: 'h1', size: 32, height: 44, spacing: -0.3, weightB: 700, valueName:'ABC', ftype1:'h1'},
+      {type : 'heading', tag: 'h2', name: 'h2', size: 30, height: 40, spacing: -0.3, weightB: 700, valueName:'ABC', ftype1:'h2'},
+      {type : 'heading', tag: 'h3', name: 'h3', size: 24, height: 32, spacing: -0.3, weightB: 700, weightM: 500, valueName:'ABC', ftype1:'h3-b', ftype2:'h3-m'},
+      {type : 'heading', tag: 'h4', name: 'h4', size: 20, height: 28, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'h4-b', ftype2:'h4-m', ftype3:'h4'},
+      {type : 'heading', tag: 'h5', name: 'h5', size: 18, height: 26, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'h5-b', ftype2:'h5-m', ftype3:'h5'},
+      {type : 'body', tag: 'p', name: 'lg', size: 16, height: 24, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'lg-b', ftype2:'lg-m', ftype3:'lg'},
+      {type : 'body', tag: 'span', name: 'md', size: 14, height: 20, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'md-b', ftype2:'md-m', ftype3:'md'},
+      {type : 'body', tag: 'div', name: 'sm', size: 13, height: 18, spacing: -0.3, weightB: 700, weightM: 500, weightR: 400, valueName:'ABC', ftype1:'sm-b', ftype2:'sm-m', ftype3:'sm'},
     ]
+  },
+  
+]
+
+const TypographyComponent = [
+  {
+    name: 'Typography Component',
+    // value: [
+    //   {fontType:'h1', fontStyle:'h1', value:'h1입니다'},
+    //   {fontType:'h2', fontStyle:'h2', value:'h2입니다'},
+    //   {fontType:'h3', fontStyle:'h3-b', value:'h3 700 입니다'},
+    //   {fontType:'h3', fontStyle:'h3-m', value:'h3 500 입니다'},
+    //   {fontType:'h4', fontStyle:'h4-b', value:'h4 700 입니다'},
+    //   {fontType:'h4', fontStyle:'h4-m', value:'h4 500 입니다'},
+    //   {fontType:'h4', fontStyle:'h4', value:'h4 400 입니다'},
+    //   {fontType:'h5', fontStyle:'h5-b', value:'h5 700 입니다'},
+    //   {fontType:'h5', fontStyle:'h5-m', value:'h5 500 입니다'},
+    //   {fontType:'h5', fontStyle:'h5', value:'h5 400 입니다'},
+    //   {fontType:'p', fontStyle:'lg-b', value:'lg 700 입니다'},
+    //   {fontType:'p', fontStyle:'lg-m', value:'lg 500 입니다'},
+    //   {fontType:'p', fontStyle:'lg', value:'lg 400 입니다'},
+    //   {fontType:'div', fontStyle:'md-b', value:'md 700 입니다'},
+    //   {fontType:'div', fontStyle:'md-m', value:'md 500 입니다'},
+    //   {fontType:'div', fontStyle:'md', value:'md 400 입니다'},
+    //   {fontType:'span', fontStyle:'sm-b', value:'sm 700 입니다'},
+    //   {fontType:'span', fontStyle:'sm-m', value:'sm 500 입니다'},
+    //   {fontType:'span', fontStyle:'sm', value:'sm 400 입니다'},
+    // ]
   },
   
 ]
@@ -116,7 +144,7 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
             </Table>
           </div>
         ))}
-        {TypographyComponent.map((item) => (
+        {TypographyComponentTableList.map((item) => (
           <div key={item.name} className="flex flex-col gap-2 mt-6">
             <p className={titleStyle}>{item.name}</p>
             <Table className="bg-white">
@@ -144,12 +172,47 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
                       {style.weightR && <><br />{style.weightR} </>}
                     </TableCell>
                     <TableCell className="py-4 text-center">
-                      {style.weightB && <ScText type={style.tag} size={style.name} weight="bold" className="" value={style.valueName} />}
-                      {style.weightM && <ScText type={style.tag} size={style.name} weight="md" className="" style={{display:'block'}} value={style.valueName} />}
-                      {style.weightR && <ScText type={style.tag} size={style.name} weight="sm" className="" value={style.valueName} />}
+                      {style.weightB && <ScText fontType={style.tag} fontStyle={style.ftype1} className="" value={style.valueName} />}
+                      {style.weightM && <ScText fontType={style.tag} fontStyle={style.ftype2} className="" style={{display:'block'}} value={style.valueName} />}
+                      {style.weightR && <ScText fontType={style.tag} fontStyle={style.ftype3} className="" value={style.valueName} />}
+                    </TableCell>
+                    <TableCell className="py-4 text-center">
+                      <ScText fontType="h2" style={{display:'block'}}  className="" value={'가나다'} />
+                      <ScText fontType="h4" style={{display:'block'}}  className="" value={'가나다'} />
+                      <ScText fontType="h5" fontStyle="h1" style={{display:'block'}} className="" value={'가나다'} />
+                      <ScText fontStyle="h4" style={{display:'block'}} className="" value={'가나다'} />
+                      <ScText fontType="li" style={{display:'block'}} className="" value={'가나다'} />
+                      <ScText fontType="li" fontStyle="lg" style={{display:'block'}} className="" value={'가나다'} />
                     </TableCell>
                   </TableRow>
                 ))}
+              </TableBody>
+            </Table>
+          </div>
+        ))}
+        {TypographyComponent.map((item) => (
+          <div key={item.name} className="flex flex-col gap-2 mt-6">
+            <p className={titleStyle}>{item.name}</p>
+            <Table className="bg-white">
+              {/* <TableCaption>Font Size</TableCaption> */}
+              <TableHeader className="bg-neutral-800 ">
+                <TableRow>
+                  <TableHead className="text-neutral-50 text-center">Example</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {/* {item.value.map((style, index) => ( */}
+                  <TableRow key={item.name}>
+                    <TableCell className="py-4 text-center">
+                      <ScText fontType="h2" className="" value={'h2 입니다'} />
+                      <ScText fontType="h4-b" className="" value={'h4태그에 h4-b스타일입니다'} />
+                      <ScText fontType="h5" fontStyle="h1" className="" value={'h5태그 h1스타일입니다'} />
+                      <ScText fontStyle="h4-m" className="" value={'h4-m스타일입니다'} />
+                      <ScText fontType="li" className="" value={'li태그입니다'} />
+                      <ScText fontType="li" fontStyle="lg" className="" value={'li태그에 lg스타일입니다'} />
+                    </TableCell>
+                  </TableRow>
+                {/* ))} */}
               </TableBody>
             </Table>
           </div>
