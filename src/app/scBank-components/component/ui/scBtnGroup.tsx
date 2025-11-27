@@ -17,37 +17,38 @@ import {
   buildDynamicRadiusStyle,
 } from "@/lib/variants";
 
-
-
 const scBtnGroupVariants = cva("relative flex gap-[8px]", {
   variants: {
     type: {
       default: "",
-      ratio: `[&>*:first-child]:flex-[1] 
-              [&>*:first-child]:min-w-[82px]
-              [&>*:first-child]:max-w-[82px]
-              [&>*:last-child]:flex-[2]`,
+      ratio: `
+        [&>*:first-child]:flex-[1]
+        [&>*:first-child]:min-w-[82px]
+        [&>*:first-child]:max-w-[82px]
+        [&>*:last-child]:flex-[2]
+      `,
       stack: "flex-col [&>*]:flex-auto",
     },
     ...spacingVariants,
   },
   defaultVariants: {
     type: "default",
-    ...spacingDefaultVariants
-    
+    ...spacingDefaultVariants,
   },
 });
 
 export interface scBtnGroupProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof scBtnGroupVariants>,
-    DynamicSpacingProps, DynamicBorderProps, DynamicRadiusProps  {
+    DynamicSpacingProps,
+    DynamicBorderProps,
+    DynamicRadiusProps {
   asChild?: boolean;
 }
 
 export const ScBtnGroup = React.forwardRef<HTMLDivElement, scBtnGroupProps>(
   (props, ref) => {
-     const Comp = props.asChild ? Slot : "div";
+    const Comp = props.asChild ? Slot : "div";
 
     const { spacing, rest: afterSpacing } = splitSpacingProps(props);
     const { border, rest: afterBorder } = splitBorderProps(afterSpacing);
@@ -70,3 +71,26 @@ export const ScBtnGroup = React.forwardRef<HTMLDivElement, scBtnGroupProps>(
   }
 );
 
+ScBtnGroup.displayName = "ScBtnGroup";
+
+
+interface ScFixedBtnGroupProps extends scBtnGroupProps {
+  /** fixed 래퍼(div)에 적용할 클래스 (배경, 패딩 등) */
+  containerClassName?: string;
+}
+
+export const ScFixedBtnGroup: React.FC<ScFixedBtnGroupProps> = ({
+  children,
+  className,
+  containerClassName = "fixed bottom-0 left-0 w-full bg-white pt-[20px] px-[24px] pb-[28px]",
+  ...rest
+}) => {
+  return (
+    <ScBtnGroup
+      {...rest}
+      className={cn(containerClassName, className)}
+    >
+      {children}
+    </ScBtnGroup>
+  );
+};

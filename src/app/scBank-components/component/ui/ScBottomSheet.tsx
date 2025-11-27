@@ -3,8 +3,9 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
-import { ScBox, ScVFlex } from "./scBox";
 import { Icon } from "@/app/scBank-components/component/ui/icon";
+import { ScBtnGroup, ScButton, ScBox, ScVFlex } from "./index";
+
 
 /* ─────────────────────────────
  * 내부: controllable state 훅
@@ -77,7 +78,7 @@ export const ScBottomSheet: React.FC<ScBottomSheetProps> = ({
   isTitle = true,
   description,
   children,
-  footer,
+  footer = null,
   content,
   disableOverlayClose,
   disableEscClose,
@@ -101,6 +102,8 @@ export const ScBottomSheet: React.FC<ScBottomSheetProps> = ({
     setIsOpen(false);
     onClose?.();
   }, [setIsOpen, onClose]);
+
+
 
   // ESC로 닫기
   React.useEffect(() => {
@@ -146,6 +149,16 @@ export const ScBottomSheet: React.FC<ScBottomSheetProps> = ({
     setIsOpen(true);
   };
 
+  // footer 비어있는지 체크
+  function isFooterEmpty(footer: React.ReactNode) {
+    if (footer === null || footer === undefined) return true;
+    if (typeof footer === "boolean") return true;         // true/false 는 렌더 안 됨
+    if (typeof footer === "string" && footer.trim() === "") return true;
+    if (Array.isArray(footer) && footer.length === 0) return true;
+    return false;
+  }
+  const emptyFooter = isFooterEmpty(footer);
+
   const sheet = (
     <div className="fixed inset-0 z-[100] flex flex-col justify-end pointer-events-none">
       {/* Overlay - 은은한 페이드 인/아웃 */}
@@ -176,7 +189,7 @@ export const ScBottomSheet: React.FC<ScBottomSheetProps> = ({
       >
         {/* Header */}
         {isTitle !== false && (
-          <ScVFlex gY={8} px={24}>
+          <ScVFlex gY={8} px={24} className="border-b border-b-sc-neutral-300">
             {(title || description) && (
               <ScBox
                 g={8}
@@ -204,7 +217,7 @@ export const ScBottomSheet: React.FC<ScBottomSheetProps> = ({
                     className="rounded-full hover:bg-(--color-sc-neutral-050) w-6"
                     aria-label="닫기"
                   >
-                    <Icon name="ArronDown" size="lg" />
+                    <Icon name="Close" size="lg" />
                   </button>
                 )}
               </ScBox>
@@ -213,13 +226,18 @@ export const ScBottomSheet: React.FC<ScBottomSheetProps> = ({
         )}
 
         {/* 내용 영역 */}
-        <ScBox pt={32} pb={40} px={15} className="flex-1 overflow-auto">
-          {content}
+        <ScBox pt={32} px={15}
+          className={cn(
+            "flex-1",
+              !emptyFooter ? "pb-24" : "pb-8"
+          )}
+        >
+          <ScBox className="overflow-y-auto">{content}</ScBox>
         </ScBox>
         {children}
 
         {/* Footer 영역 */}
-        {footer && <>{footer}</>}
+        {!emptyFooter && <>{footer}</>}
       </ScBox>
     </div>
   );

@@ -298,8 +298,12 @@ export const ScSelectField = React.forwardRef<HTMLInputElement, ScSelectFieldPro
         {/* Label */}
         {labelName && (
           <Label
-            htmlFor={finalId}
+            htmlFor={undefined}
             className={cn("text-sm font-medium sc-text-basic-04")}
+            onMouseDown={(e) => {
+              // label 클릭 시, input에 포커스/클릭 전달 막기
+              e.preventDefault();
+            }}
           >
             {labelName}
           </Label>

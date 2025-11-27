@@ -7,6 +7,7 @@ import {
   SearchIcon,
   ArrowDownIcon,
   CheckIcon,
+  CloseIcon,
 } from "@/app/scBank-components/component/ui/icons/index";
 
 export const iconMap = {
@@ -17,4 +18,5 @@ export const iconMap = {
   "Search" : SearchIcon,
   "ArronDown" : ArrowDownIcon,
   "Check" : CheckIcon,
+  "Close" : CloseIcon,
 } as const;
