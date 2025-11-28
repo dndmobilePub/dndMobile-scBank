@@ -8,6 +8,7 @@ import {
   ScSelectGuide,
   ScCommonGuide,
   ScListGuide,
+  ScHrGuide,
 } from "./index";
 
 export function SamplePage() { 
@@ -19,6 +20,7 @@ export function SamplePage() {
     { name : 'ScInputFiled' , com : <ScInputGuide />},
     { name : 'ScSelectGuide' , com : <ScSelectGuide />},
     { name : 'ScListGuide' , com : <ScListGuide />},
+    { name : 'ScHrGuide' , com : <ScHrGuide />},
   ]
 
 

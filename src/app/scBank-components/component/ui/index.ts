@@ -7,3 +7,4 @@ export * from "./scInputFiled";
 export * from "./scSelect";
 export * from "./ScBottomSheet";
 export * from "./scLIst";
+export * from "./scHr";
