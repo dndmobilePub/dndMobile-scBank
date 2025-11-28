@@ -65,7 +65,7 @@ export function ScCommonGuide(){
                   </div>}
                   footer={
                     <ScFixedBtnGroup>
-                      <ScButton type="button" variant='secondary' className="h-12" onClick={() => setOpen1(!open1)}>취소</ScButton>
+                      <ScButton type="button" variant='secondary' className="h-12">취소</ScButton>
                       <ScButton type="button" className="h-12" onClick={() => setOpen1(!open1)}>확인</ScButton>
                     </ScFixedBtnGroup>
                   }

@@ -8,8 +8,7 @@ const preStyle = `bg-gray-100 p-4 rounded text-sm overflow-auto w-full`;
 
 
 export function ScInputGuide(){
-  
-  const [bank, setBank] = React.useState<string | number>("");
+
   
   return (
     <ScVFlex g={10} mt={10}>
@@ -23,8 +22,24 @@ export function ScInputGuide(){
                 <p>TextField</p>
                 <ScTextField labelName="test" placeholder='placeholder' infoMsg="안내메시지" />
                 <ScTextField labelName="test" placeholder='placeholder' infoMsg="안내메시지" errMsgCheck errMsg='에러메시지'/>
-                <ScPhoneField errMsgCheck/>
-                <ScPhoneField disabled value={'1111-1111'}/>
+                <ScPhoneField
+                  data={[
+                    { label: "011", value: "phone" },
+                    { label: "02", value: "02" },
+                    { label: "031", value: "031" },
+                    { label: "032", value: "032" },
+                  ]} errMsgCheck
+                />
+                <ScPhoneField
+                  data={[
+                    { label: "010", value: "phone" },
+                    { label: "02", value: "02" },
+                    { label: "031", value: "031" },
+                    { label: "032", value: "032" },
+                  ]}
+                  disabled
+                  value={'1111-1111'}
+                />
               </ScVFlex>
               <pre className={preStyle}>
 {`<ScTextField labelName="test" placeholder='placeholder' infoMsg="안내메시지" />

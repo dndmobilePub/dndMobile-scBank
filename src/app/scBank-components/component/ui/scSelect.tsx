@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Input, Label, Button } from "@/components/index";
 import { Icon } from "@/app/scBank-components/component/ui/icon";
 import { ScBox, ScBottomSheet, ScVFlex } from "./index";
+// import { ScBox } from "./scBox";
 import ScText from "./scText";
 
 
@@ -39,6 +40,7 @@ export interface ScSelectFieldProps extends ScBaseSelectProp {}
  */
 export interface ScSelectProps extends ScBaseSelectProp {
   labelName?: string;
+  description?: string;
   fieldType?: string; // 추후 variant 용도로 확장 가능
   focusCheck?: boolean;
 
@@ -52,11 +54,12 @@ export interface ScSelectProps extends ScBaseSelectProp {
  * ───────────────────────────── */
 
 export interface ScSelectOption {
-  label: React.ReactNode;
+  label: React.ReactNode; 
   value: string | number;
   disabled?: boolean;
 }
 
+// data 배열 타입
 export type ScSelectData = Array<string | number | ScSelectOption>;
 
 /**
@@ -68,7 +71,7 @@ export interface ScSelectFieldProps
     ScSelectProps,
     "type" | "value" | "defaultValue" | "infoMsg"
   > {
-  data: ScSelectData;
+  data?: ScSelectData;
   /** 선택된 값 (option.value) */
   value?: string | number ;
   /** 초기값 (uncontrolled) */
@@ -79,6 +82,7 @@ export interface ScSelectFieldProps
   placeholder?: string;
   /** 안내 문구 */
   infoMsg?: string | React.ReactNode;
+  isTitle?: boolean;
 }
 
 /* ─────────────────────────────
@@ -205,6 +209,7 @@ export const ScSelectField = React.forwardRef<HTMLInputElement, ScSelectFieldPro
     {
       className,
       labelName,
+      description,
       infoMsg,
       errMsgCheck,
       errMsg,
@@ -217,6 +222,7 @@ export const ScSelectField = React.forwardRef<HTMLInputElement, ScSelectFieldPro
       onValueChange,
       placeholder,
       id,
+      isTitle,
       onChange,
       ...rest
     },
@@ -247,7 +253,7 @@ export const ScSelectField = React.forwardRef<HTMLInputElement, ScSelectFieldPro
     // data 정규화
     const options: ScSelectOption[] = React.useMemo(
       () =>
-        data.map((item) => {
+        (data ?? []).map((item) => {
           if (typeof item === "string" || typeof item === "number") {
             return { label: item, value: item };
           }
@@ -317,6 +323,7 @@ export const ScSelectField = React.forwardRef<HTMLInputElement, ScSelectFieldPro
           inputId={inputId}
           type="select"
           readOnly
+          isTitle={isTitle}
           disabled={disabled}
           aria-invalid={errMsgCheck ? true : undefined}
           aria-describedby={errorId ?? infoId}
@@ -337,12 +344,12 @@ export const ScSelectField = React.forwardRef<HTMLInputElement, ScSelectFieldPro
             if (disabled || readOnly) return;
             setOpen(next);
           }}
-          title="계좌 선택"
-          description="송금에 사용할 계좌를 선택하세요."
+          title={labelName}
+          description={description}
           content={
             <ScVFlex as='ul' gY={8}>
             {options.map((opt) => (
-              <ScText type='p' size="lg"
+              <ScText as='p' fontStyle="lg"
                 key={String(opt.value)}
                 className={cn(
                   "px-6 py-3 text-sm rounded-xl cursor-pointer hover:bg-(--color-sc-green22-50)",

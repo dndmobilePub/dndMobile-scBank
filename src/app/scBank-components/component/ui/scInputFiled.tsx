@@ -4,7 +4,9 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Input, Label, Button } from "@/components/index";
 import { Icon } from "@/app/scBank-components/component/ui/icon";
-import { ScBox, ScVFlex } from "./scBox";
+import { ScBox, ScVFlex, ScSelectField, ScSelectData } from "./index";
+
+
 
 /* ─────────────────────────────
  * 공통 타입 정의
@@ -17,6 +19,8 @@ type ScInputType = React.HTMLInputTypeAttribute | "tel";
  * 인풋 공통 기본 props
  * - HTML 기본 props에서 type, id만 오버라이드 하기 위해 Omit
  */
+
+
 interface ScBaseInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "id"> {
    id?: string;
@@ -25,6 +29,7 @@ interface ScBaseInputProps
   /** input type (HTML 기본 타입 + "phone") */
   type?: ScInputType;
   errMsgCheck?: boolean;
+  data?: ScSelectData;  
 }
 
 /**
@@ -60,15 +65,42 @@ const resolveInputType = (type?: ScInputType): React.HTMLInputTypeAttribute => {
   return type ?? "text";
 };
 
+const getFirstOptionValue = (data?: ScSelectData): string | number | undefined => {
+  if (!data || data.length === 0) return undefined;
+  const first = data[0];
+
+  if (typeof first === "string" || typeof first === "number") {
+    return first;
+  }
+  // ScSelectOption 인 경우
+  return first.value;
+};
+
 /* ─────────────────────────────
  * InputFiled (순수 인풋)
  * ───────────────────────────── */
 
 export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
-  ({ className, placeholder, inputId, disabled, readOnly, type, errMsgCheck, ...props }, ref) => {
+  ({ className, placeholder, inputId, disabled, readOnly, type, data, errMsgCheck, ...props }, ref) => {
     const finalId = useFinalId(props.id, inputId);
     const resolvedType = resolveInputType(type);
 
+    const [select, setSelect] = React.useState<string | number>("");
+
+    // ✅ 전화번호(type === 'tel')일 때만, data[0]을 초기값으로 채워줌
+    React.useEffect(() => {
+      if (type !== "tel") return;
+
+      const first = getFirstOptionValue(data);
+      if (first === undefined) return;
+
+      setSelect((prev) => {
+        // 이미 값이 있으면(사용자가 선택한 경우) 덮어쓰지 않음
+        if (prev !== undefined && prev !== "") return prev;
+        return first;
+      });
+    }, [type, data]);
+    
     return (
       <ScBox
         g={10}
@@ -79,10 +111,12 @@ export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
         }
         >
         {type === 'tel' && 
-          <a className={cn('flex items-center gap-1')} onClick={() => alert('1234')}>
-            <span className="">010</span> 
-            <Icon name="ArronDown" size="sm"/>
-          </a>
+          <ScSelectField
+            data={data ?? []}
+            value={select}
+            onValueChange={setSelect}
+            isTitle={false}
+          />
         }
         
         <input
@@ -293,6 +327,7 @@ export const ScPhoneField = React.forwardRef<HTMLInputElement, ScTextFieldProps>
       readOnly,
       type ='tel',
       inputId,
+      data,
       ...props
     },
     ref
@@ -318,6 +353,7 @@ export const ScPhoneField = React.forwardRef<HTMLInputElement, ScTextFieldProps>
         <InputFiled
           ref={ref}
           id={finalId}
+          data={data}
           inputId={inputId}
           type={resolvedType}
           placeholder={placeholder}

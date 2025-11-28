@@ -25,10 +25,10 @@ export function ScSelectGuide(){
                   data={[
                     { label: "국민은행", value: "kb" },
                     { label: "카카오뱅크", value: "kakao" },
-                    { label: "카카오뱅크", value: "kakao1" },
-                    { label: "카카오뱅크", value: "kakao2" },
-                    { label: "카카오뱅크", value: "kakao3" },
-                    { label: "카카오뱅크", value: "kakao4" },
+                    { label: "카카오뱅크1", value: "kakao1" },
+                    { label: "카카오뱅크2", value: "kakao2" },
+                    { label: "카카오뱅크3", value: "kakao3" },
+                    { label: "카카오뱅크4", value: "kakao4" },
                     ]}
                   value={bank}
                   onValueChange={setBank}

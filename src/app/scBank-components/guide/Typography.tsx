@@ -156,7 +156,7 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
                   <TableHead className="text-neutral-50 text-center">Line height</TableHead>
                   <TableHead className="text-neutral-50 text-center">Letter Spacing</TableHead>
                   <TableHead className="text-neutral-50 text-center">Font weight</TableHead>
-                  <TableHead className="text-neutral-50 text-center">Example</TableHead>
+                  <TableHead className="text-neutral-50 text-center" colSpan={2}>Example</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -172,17 +172,17 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
                       {style.weightR && <><br />{style.weightR} </>}
                     </TableCell>
                     <TableCell className="py-4 text-center">
-                      {style.weightB && <ScText fontType={style.tag} fontStyle={style.ftype1} className="" value={style.valueName} />}
-                      {style.weightM && <ScText fontType={style.tag} fontStyle={style.ftype2} className="" style={{display:'block'}} value={style.valueName} />}
-                      {style.weightR && <ScText fontType={style.tag} fontStyle={style.ftype3} className="" value={style.valueName} />}
+                      {style.weightB && <ScText as={style.tag} value={style.valueName} />}
+                      {style.weightM && <ScText as={style.tag} style={{display:'block'}} value={style.valueName} />}
+                      {style.weightR && <ScText as={style.tag} value={style.valueName} />}
                     </TableCell>
                     <TableCell className="py-4 text-center">
-                      <ScText fontType="h2" style={{display:'block'}}  className="" value={'가나다'} />
-                      <ScText fontType="h4" style={{display:'block'}}  className="" value={'가나다'} />
-                      <ScText fontType="h5" fontStyle="h1" style={{display:'block'}} className="" value={'가나다'} />
-                      <ScText fontStyle="h4" style={{display:'block'}} className="" value={'가나다'} />
-                      <ScText fontType="li" style={{display:'block'}} className="" value={'가나다'} />
-                      <ScText fontType="li" fontStyle="lg" style={{display:'block'}} className="" value={'가나다'} />
+                      <ScText as="h2" style={{display:'block'}}  value={'가나다'} />
+                      <ScText as="h4" style={{display:'block'}}  value={'가나다'} />
+                      <ScText as="h5" fontStyle="h1" style={{display:'block'}} value={'가나다'} />
+                      <ScText fontStyle="h4" style={{display:'block'}} value={'가나다'} />
+                      <ScText as="li" style={{display:'block'}} value={'가나다'} />
+                      <ScText as="li" fontStyle="lg" style={{display:'block'}} value={'가나다'} />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -204,12 +204,12 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
                 {/* {item.value.map((style, index) => ( */}
                   <TableRow key={item.name}>
                     <TableCell className="py-4 text-center">
-                      <ScText fontType="h2" className="" value={'h2 입니다'} />
-                      <ScText fontType="h4-b" className="" value={'h4태그에 h4-b스타일입니다'} />
-                      <ScText fontType="h5" fontStyle="h1" className="" value={'h5태그 h1스타일입니다'} />
-                      <ScText fontStyle="h4-m" className="" value={'h4-m스타일입니다'} />
-                      <ScText fontType="li" className="" value={'li태그입니다'} />
-                      <ScText fontType="li" fontStyle="lg" className="" value={'li태그에 lg스타일입니다'} />
+                      <ScText as="h2" value={'h2 입니다'} />
+                      <ScText as="h4-b" value={'h4태그에 h4-b스타일입니다'} />
+                      <ScText as="h5" fontStyle="h1" value={'h5태그 h1스타일입니다'} />
+                      <ScText fontStyle="h4-m" value={'h4-m스타일입니다'} />
+                      <ScText as="li" value={'li태그입니다'} />
+                      <ScText as="li" fontStyle="lg" value={'li태그에 lg스타일입니다'} />
                     </TableCell>
                   </TableRow>
                 {/* ))} */}
