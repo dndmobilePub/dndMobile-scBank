@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Input, Label, Button } from "@/components/index";
 import { Icon } from "@/app/scBank-components/component/ui/icon";
 import { ScBox, ScVFlex, ScSelectField, ScSelectData } from "./index";
+import ScText from "./scText";
 
 
 
@@ -231,12 +232,11 @@ export const ScTextField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
         {/* 안내 문구 */}
         {infoMsg && !errMsgCheck && (
           <ScVFlex mt={8}>
-            <p
+            <ScText as='p'
               id={infoId}
               className="text-sm font-normal sc-text-basic-04"
-            >
-              {infoMsg || "안내문구를 입력해 주세요"}
-            </p>
+              value={infoMsg || "안내문구를 입력해 주세요"}
+            />              
           </ScVFlex>
         )}
 
@@ -248,7 +248,7 @@ export const ScTextField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
               className="flex leading-[18px] gap-1 text-sm font-normal sc-text-state-danger"
             >
               <Icon name="Warning" size="sm" className="mt-[1.5px]" />
-              <span>{errMsg}</span>
+              <ScText value={errMsg} />
             </p>
           </ScVFlex>
         )}

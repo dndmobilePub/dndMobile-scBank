@@ -2,34 +2,38 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 
-const fontStyleMap = {
-  "h1":   "text-[2rem] leading-[1.4] tracking-[-0.3] font-bold",
-  "h2":   "text-3xl leading-[1.4] tracking-[-0.3] font-bold",
-  "h3-b": "text-2xl leading-[1.4] tracking-[-0.3] font-bold",
-  "h3-m": "text-2xl leading-[1.4] tracking-[-0.3] font-medium",
-  "h4-b": "text-xl leading-[1.4] tracking-[-0.3] font-bold",
-  "h4-m": "text-xl leading-[1.4] tracking-[-0.3] font-medium",
-  "h4":   "text-xl leading-[1.4] tracking-[-0.3] font-normal",
-  "h5-b": "text-lg leading-[1.4] tracking-[-0.3] font-bold",
-  "h5-m": "text-lg leading-[1.4] tracking-[-0.3] font-medium",
-  "h5":   "text-lg leading-[1.4] tracking-[-0.3] font-normal",
-  "lg-b": "text-base leading-[1.4] tracking-[-0.3] font-bold",
-  "lg-m": "text-base leading-[1.4] tracking-[-0.3] font-medium",
-  "lg":   "text-base leading-[1.4] tracking-[-0.3] font-normal",
-  "md-b": "text-sm leading-[1.4] tracking-[-0.3] font-bold",
-  "md-m": "text-sm leading-[1.4] tracking-[-0.3] font-medium",
-  "md":   "text-sm leading-[1.4] tracking-[-0.3] font-normal",
-  "sm-b": "text-[0.8125rem] leading-[1.4] tracking-[-0.3] font-bold",
-  "sm-m": "text-[0.8125rem] leading-[1.4] tracking-[-0.3] font-medium",
-  "sm":   "text-[0.8125rem] leading-[1.4] tracking-[-0.3] font-normal",
-} as const;
+import {
+  DynamicSpacingProps,
+  DynamicBorderProps,
+  DynamicRadiusProps,
+  DynamicSizeProps,
+  splitSpacingProps,
+  splitBorderProps,
+  splitRadiusProps,
+  splitSizeProps,
+  buildDynamicSpacingStyle,
+  buildDynamicBorderStyle,
+  buildDynamicRadiusStyle,
+  buildDynamicSizeStyle,
+  fontStyleMap,
+  FontStyleKey 
+} from "@/lib/variants";
 
-type FontStyleKey = keyof typeof fontStyleMap;
 
-export interface ScTextProps extends React.HTMLAttributes<HTMLElement> {
-  /** 태그 + 스타일 토큰 (예: "h3-b", "md", "span") */
+
+/* ─────────────────────────────
+ * Props
+ * ───────────────────────────── */
+
+export interface ScTextProps
+  extends React.HTMLAttributes<HTMLElement>,
+    DynamicSpacingProps,
+    DynamicBorderProps,
+    DynamicRadiusProps,
+    DynamicSizeProps {
+  /** 렌더링 태그 (예: "p", "h3-b", 기본 "span") */
   as?: string | React.ElementType;
-  /** 순수 스타일 토큰만 지정하고 싶을 때 (예: "h3-b") */
+  /** 순수 스타일 토큰 (예: "h3-b") */
   fontStyle?: FontStyleKey;
   /** 값-only 사용 시 */
   value?: React.ReactNode;
@@ -39,37 +43,59 @@ export interface ScTextProps extends React.HTMLAttributes<HTMLElement> {
   weight?: "bold" | "md" | "sm";
 }
 
-const ScText = ({
-  as = "span",
-  fontStyle,
-  className,
-  asChild,
-  value,
-  children,
-  style,
-  ...rest
-}: ScTextProps) => {
-  // 태그 결정: "h3-b" → "h3"
+/* ─────────────────────────────
+ * 컴포넌트
+ * ───────────────────────────── */
+
+const ScText = (rawProps: ScTextProps) => {
+  const {
+    as = "span",
+    fontStyle,
+    className,
+    asChild,
+    value,
+    children,
+    style,
+    ...restProps
+  } = rawProps;
+
+  // 1) spacing / border / radius / size props 분리
+  const { spacing, rest: afterSpacing } = splitSpacingProps(restProps);
+  const { border, rest: afterBorder } = splitBorderProps(afterSpacing);
+  const { radius, rest: afterRadius } = splitRadiusProps(afterBorder);
+  const { size, rest } = splitSizeProps(afterRadius);
+
+  // 2) 스타일 객체 생성
+  const spacingStyle = buildDynamicSpacingStyle(spacing);
+  const borderStyle = buildDynamicBorderStyle(border);
+  const radiusStyle = buildDynamicRadiusStyle(radius);
+  const sizeStyle = buildDynamicSizeStyle(size);
+
+  // 3) 태그 결정: as가 "h3-b" 같은 경우 → "h3"
   const baseTag =
-    typeof as === "string"
-      ? as.split("-")[0] || "span"
-      : as || "span";
+    typeof as === "string" ? as.split("-")[0] || "span" : as || "span";
 
   const Comp: any = asChild ? Slot : baseTag;
 
-  // 스타일 키 결정: fontStyle 우선, 없으면 fontType 문자열 그대로 사용 시도
+  // 4) 폰트 스타일 키 결정
   const candidateKey: FontStyleKey =
     (fontStyle ??
       (typeof as === "string" ? (as as FontStyleKey) : undefined) ??
       "md") as FontStyleKey;
 
-  const sizeClassName = fontStyleMap[candidateKey] ?? fontStyleMap["md"];
+  const fontClassName = fontStyleMap[candidateKey] ?? fontStyleMap["md"];
 
   return (
     <Comp
-      className={cn(sizeClassName, className)}
-      style={style}
       {...rest}
+      className={cn(fontClassName, className)}
+      style={{
+        ...spacingStyle,
+        ...borderStyle,
+        ...radiusStyle,
+        ...sizeStyle,
+        ...style,
+      }}
     >
       {value}
       {children}

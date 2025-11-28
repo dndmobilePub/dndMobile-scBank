@@ -4,3 +4,4 @@ export { ScBoxGuide } from './scBoxGuide';
 export { ScInputGuide } from './scInputFiledGuide';
 export { ScSelectGuide } from './scSelectGuide';
 export { ScCommonGuide } from './scCommonGuide';
+export { ScListGuide } from './scListGuide';

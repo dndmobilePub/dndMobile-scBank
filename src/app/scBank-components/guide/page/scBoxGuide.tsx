@@ -1,5 +1,6 @@
 
 import { ScButton, ScBox, ScVFlex,ScHFlex, ScBtnGroup, ScrollButton, ScTxtBtn, ScExtBtn } from "@/app/scBank-components/component/ui/index";
+import ScText from "../../component/ui/scText";
 
 const preStyle = `bg-gray-100 p-4 rounded text-sm overflow-auto w-full`;
 
@@ -62,11 +63,11 @@ borderColor = "#fff", "red", "var(--...)" 등
           </pre>
         </ScVFlex>
         <ScVFlex g={14} className="bg-white rounded-[10px]" p={20} >
-          <p>ScBox</p>
+          <ScText value='ScBox'/>
           <ScBox className="grid grid-cols-2 gap-4">
             <ScVFlex g={20}>
               <ScVFlex g={10}>
-                <p>TailWind css</p>
+                <ScText value='TailWind css'/>
                 <ScBox className="w-[200px] h-[200px] bg-amber-300 rounded-[20px]"></ScBox>
               </ScVFlex>
               <pre className={preStyle}>
@@ -76,7 +77,7 @@ borderColor = "#fff", "red", "var(--...)" 등
             </ScVFlex>
             <ScVFlex g={20}>
               <ScVFlex g={10}>
-                <p>토큰</p>
+                <ScText value='토큰'/>
                 <ScBox w={'200px'} h={200} r={20} className="bg-amber-300"></ScBox>
               </ScVFlex>
               <pre className={preStyle}>

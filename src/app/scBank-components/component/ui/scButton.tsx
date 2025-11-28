@@ -20,6 +20,7 @@ import {
   buildDynamicBorderStyle,
   buildDynamicRadiusStyle,
 } from "@/lib/variants";
+import ScText from "./scText";
 
 const scButtonBase =
   "inline-flex items-center justify-center gap-2 whitespace-nowrap " +
@@ -261,18 +262,18 @@ export const ScTxtBtn: React.FC<TextButtonProps> = ({
       {...props}
       className={cn("relative inline-flex items-center", className)}
     >
-      {typeBtn === "pdf" && <span>PDF 보기</span>}
+      {typeBtn === "pdf" &&  <ScText value='PDF 보기'/>}
 
       {typeBtn === "edit" && (
         <>
-          <span>편집</span>
+          <ScText value='편집'/>
           <Icon name="Funnel" size="sm" className="sc-icon-primary" />
         </>
       )}
 
       {typeBtn === "all" && (
         <>
-          <span>전체</span>
+          <ScText value='전체'/>
           <Icon name="PencilSimple" size="sm" className="sc-icon-primary" />
         </>
       )}

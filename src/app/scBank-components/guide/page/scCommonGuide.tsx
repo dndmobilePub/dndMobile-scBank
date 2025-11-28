@@ -2,7 +2,8 @@
 
 import * as React from "react";
 
-import { ScButton, ScBox, ScVFlex, ScBottomSheet, ScBtnGroup, ScFixedBtnGroup, ScTxtBtn, ScExtBtn } from "@/app/scBank-components/component/ui/index";
+import { ScButton, ScBox, ScVFlex, ScBottomSheet, ScBtnGroup, ScFixedBtnGroup, ScList, ScListItem,  } from "@/app/scBank-components/component/ui/index";
+import { Icon } from "lucide-react";
 
 const preStyle = `bg-gray-100 p-4 rounded text-sm overflow-auto w-full`;
 
@@ -16,6 +17,27 @@ export function ScCommonGuide(){
       <p>공통 컴포넌트</p>
       <ScVFlex g={10}>
         <ScVFlex g={14} className="bg-white rounded-[10px]" p={20} >
+          // 숫자 리스트
+          <ScList type="num"  divided>
+            <ScListItem>첫 번째 항목</ScListItem>
+            <ScListItem>두 번째 항목 (선택됨)</ScListItem>
+            <ScListItem>세 번째 항목 (비활성)</ScListItem>
+          </ScList>
+
+          // 점 리스트 + 아이콘
+          <ScList type="dot">
+            <ScListItem>
+              체크된 항목
+            </ScListItem>
+            <ScListItem>
+              이동 가능한 항목
+            </ScListItem>
+          </ScList>
+
+          // 마커 없는 리스트
+          <ScList>
+            <ScListItem>마커 없이 텍스트만</ScListItem>
+          </ScList>
           <ScBox className="grid grid-cols-2 gap-4">
             <ScVFlex g={20}>
               <p>BottomSheet - 일반</p>
@@ -48,7 +70,7 @@ export function ScCommonGuide(){
             </ScVFlex>
             <ScVFlex g={20}>
               <p>BottomSheet - 하단버튼</p>
-              <ScVFlex g={10}>
+              <ScVFlex g={10} className="h1">
                 <ScBtnGroup>
                   <ScButton type="button" onClick={() => setOpen1(!open1)}>바텀시트</ScButton>
                 </ScBtnGroup>
@@ -65,7 +87,7 @@ export function ScCommonGuide(){
                   </div>}
                   footer={
                     <ScFixedBtnGroup>
-                      <ScButton type="button" variant='secondary' className="h-12">취소</ScButton>
+                      <ScButton type="button" variant='secondary' className="h-12" onClick={() => setOpen1(!open1)}>취소</ScButton>
                       <ScButton type="button" className="h-12" onClick={() => setOpen1(!open1)}>확인</ScButton>
                     </ScFixedBtnGroup>
                   }

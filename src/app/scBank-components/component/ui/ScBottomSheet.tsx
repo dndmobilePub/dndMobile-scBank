@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/app/scBank-components/component/ui/icon";
 import { ScBtnGroup, ScButton, ScBox, ScVFlex } from "./index";
+import ScText from "./scText";
 
 
 /* ─────────────────────────────
@@ -201,14 +202,14 @@ export const ScBottomSheet: React.FC<ScBottomSheetProps> = ({
                 )}
               >
                 {title && (
-                  <h2 className="text-base font-semibold text-center truncate">
-                    {title}
-                  </h2>
+                  <ScText
+                    as='h2'
+                    className="text-base font-semibold text-center truncate"
+                    value={title}
+                  />                    
                 )}
                 {description && (
-                  <p className="hidden text-sm sc-text-basic-03">
-                    {description}
-                  </p>
+                  <ScText as='p' className="hidden text-sm sc-text-basic-03" value={description} />
                 )}
                 {isBtnDown && (
                   <button
