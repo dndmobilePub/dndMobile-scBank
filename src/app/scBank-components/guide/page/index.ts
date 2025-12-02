@@ -6,3 +6,4 @@ export { ScSelectGuide } from './scSelectGuide';
 export { ScCommonGuide } from './scCommonGuide';
 export { ScListGuide } from './scListGuide';
 export { ScHrGuide } from './scHrGuide';
+export { ScAccordionGuide } from './scAccordionGuide';

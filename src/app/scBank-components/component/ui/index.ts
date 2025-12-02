@@ -8,3 +8,4 @@ export * from "./scSelect";
 export * from "./scBottomSheet";
 export * from "./scLIst";
 export * from "./scHr";
+export * from "./scAccordion";
