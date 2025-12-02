@@ -5,5 +5,5 @@ export * from "./scBtnGroup";
 export * from "./scBox";
 export * from "./scInputFiled";
 export * from "./scSelect";
-export * from "./ScBottomSheet";
+export * from "./scBottomSheet";
 export * from "./scLIst";

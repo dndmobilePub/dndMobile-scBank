@@ -16,10 +16,8 @@ import {
   buildDynamicRadiusStyle,
   buildDynamicSizeStyle,
   fontStyleMap,
-  FontStyleKey 
+  FontStyleKey,
 } from "@/lib/variants";
-
-
 
 /* ─────────────────────────────
  * Props
@@ -41,6 +39,8 @@ export interface ScTextProps
   asChild?: boolean;
   /** weight는 현재 스타일 토큰에 포함되어 있어서 별도 사용 안 함 */
   weight?: "bold" | "md" | "sm";
+  /** a 태그일 때 href로 매핑될 링크 */
+  link?: string;
 }
 
 /* ─────────────────────────────
@@ -56,6 +56,7 @@ const ScText = (rawProps: ScTextProps) => {
     value,
     children,
     style,
+    link,
     ...restProps
   } = rawProps;
 
@@ -85,9 +86,16 @@ const ScText = (rawProps: ScTextProps) => {
 
   const fontClassName = fontStyleMap[candidateKey] ?? fontStyleMap["md"];
 
+  // 5) a 태그일 때만 href 추가
+  const linkProps =
+    baseTag === "a" && link
+      ? { href: link }
+      : {};
+
   return (
     <Comp
       {...rest}
+      {...linkProps}
       className={cn(fontClassName, className)}
       style={{
         ...spacingStyle,

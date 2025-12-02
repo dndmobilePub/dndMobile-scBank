@@ -323,7 +323,7 @@ export const ScSelectField = React.forwardRef<HTMLInputElement, ScSelectFieldPro
           inputId={inputId}
           type="select"
           readOnly
-          isTitle={isTitle}
+          // isTitle={isTitle}
           disabled={disabled}
           aria-invalid={errMsgCheck ? true : undefined}
           aria-describedby={errorId ?? infoId}
