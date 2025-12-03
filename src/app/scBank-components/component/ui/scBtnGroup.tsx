@@ -46,33 +46,31 @@ export interface scBtnGroupProps
   asChild?: boolean;
 }
 
-export const ScBtnGroup = React.forwardRef<HTMLDivElement, scBtnGroupProps>(
-  (props, ref) => {
-    const Comp = props.asChild ? Slot : "div";
+export const ScBtnGroup = React.forwardRef<HTMLDivElement, scBtnGroupProps>((props, ref) => {
+  const Comp = props.asChild ? Slot : "div";
 
-    const { spacing, rest: afterSpacing } = splitSpacingProps(props);
-    const { border, rest: afterBorder } = splitBorderProps(afterSpacing);
-    const { radius, rest } = splitRadiusProps(afterBorder);
+  const { spacing, rest: afterSpacing } = splitSpacingProps(props);
+  const { border, rest: afterBorder } = splitBorderProps(afterSpacing);
+  const { radius, rest } = splitRadiusProps(afterBorder);
 
-    const { className, asChild, style, ...cvaProps } = rest;
+  const { className, asChild, style, ...cvaProps } = rest;
 
-    const spacingStyle = buildDynamicSpacingStyle(spacing);
-    const borderStyle = buildDynamicBorderStyle(border);
-    const radiusStyle = buildDynamicRadiusStyle(radius);
+  const spacingStyle = buildDynamicSpacingStyle(spacing);
+  const borderStyle = buildDynamicBorderStyle(border);
+  const radiusStyle = buildDynamicRadiusStyle(radius);
 
-    return (
-      <Comp
-        ref={ref}
-        {...cvaProps}
-        style={{ ...spacingStyle, ...borderStyle, ...radiusStyle, ...style }}
-        className={cn(scBtnGroupVariants(cvaProps as any), className)}
-      />
-    );
-  }
-);
+  return (
+    <Comp
+      ref={ref}
+      {...cvaProps}
+      style={{ ...spacingStyle, ...borderStyle, ...radiusStyle, ...style }}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      className={cn(scBtnGroupVariants(cvaProps as any), className)}
+    />
+  );
+});
 
 ScBtnGroup.displayName = "ScBtnGroup";
-
 
 interface ScFixedBtnGroupProps extends scBtnGroupProps {
   /** fixed 래퍼(div)에 적용할 클래스 (배경, 패딩 등) */
@@ -86,10 +84,7 @@ export const ScFixedBtnGroup: React.FC<ScFixedBtnGroupProps> = ({
   ...rest
 }) => {
   return (
-    <ScBtnGroup
-      {...rest}
-      className={cn(containerClassName, className)}
-    >
+    <ScBtnGroup {...rest} className={cn(containerClassName, className)}>
       {children}
     </ScBtnGroup>
   );

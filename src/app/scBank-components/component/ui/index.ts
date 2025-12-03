@@ -9,3 +9,4 @@ export * from "./scBottomSheet";
 export * from "./scLIst";
 export * from "./scHr";
 export * from "./scAccordion";
+export * from "./scTab";
