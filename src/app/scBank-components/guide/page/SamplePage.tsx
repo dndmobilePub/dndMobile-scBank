@@ -1,5 +1,9 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
-import { ScBox, ScTextField, ScSearchField } from "@/app/scBank-components/component/ui/index";
+import {
+  ScBox,
+  ScTextField,
+  ScSearchField,
+} from "@/app/scBank-components/component/ui/index";
 import {
   ScBtnGuide,
   ScBoxGuide,
@@ -10,6 +14,7 @@ import {
   ScHrGuide,
   ScAccordionGuide,
   ScTabGuide,
+  ScBadgeGuide,
 } from "./index";
 
 export function SamplePage() {
@@ -23,6 +28,7 @@ export function SamplePage() {
     { name: "ScHrGuide", com: <ScHrGuide /> },
     { name: "ScAccordionGuide", com: <ScAccordionGuide /> },
     { name: "ScTab", com: <ScTabGuide /> },
+    { name: "ScBadge", com: <ScBadgeGuide /> },
   ];
 
   return (
