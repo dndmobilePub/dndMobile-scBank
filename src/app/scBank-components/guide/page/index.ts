@@ -8,3 +8,4 @@ export { ScHrGuide } from "./scHrGuide";
 export { ScAccordionGuide } from "./scAccordionGuide";
 export { ScTabGuide } from "./scTabGuide";
 export { ScBadgeGuide } from "./scBadgeGuide";
+export { ScTextNotesGuide } from "./scTextNotesGuide";

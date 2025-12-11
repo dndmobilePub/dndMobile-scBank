@@ -15,6 +15,7 @@ import {
   ScAccordionGuide,
   ScTabGuide,
   ScBadgeGuide,
+  ScTextNotesGuide,
 } from "./index";
 
 export function SamplePage() {
@@ -29,6 +30,7 @@ export function SamplePage() {
     { name: "ScAccordionGuide", com: <ScAccordionGuide /> },
     { name: "ScTab", com: <ScTabGuide /> },
     { name: "ScBadge", com: <ScBadgeGuide /> },
+    { name: "ScTextNotes", com: <ScTextNotesGuide /> },
   ];
 
   return (
