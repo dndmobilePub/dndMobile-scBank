@@ -1,11 +1,8 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
-
-
-import { iconMap } from './icons/iconMap';
+import { iconMap } from "./icons/iconMap";
 
 export type IconName = keyof typeof iconMap;
-
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 const sizeClasses: Record<IconSize, string> = {
@@ -16,22 +13,34 @@ const sizeClasses: Record<IconSize, string> = {
   xl: "w-7 h-7",
 };
 
-export interface IconProps
-  extends React.SVGAttributes<SVGSVGElement> {
+export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   name: IconName;
   size?: IconSize;
+  width?: number | string;
+  height?: number | string;
   className?: string;
   "aria-hidden"?: boolean;
 }
 
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ name, size = "md", className, ...props }, ref) => {
+  ({ name, size = "md", width, height, className, ...props }, ref) => {
     const SvgIcon = iconMap[name];
+
+    const resolveSize = (v?: number | string) =>
+      typeof v === "number" ? `${v}px` : v;
+
+    const hasCustomSize = width != null || height != null;
 
     return (
       <SvgIcon
         ref={ref}
-        className={cn(sizeClasses[size], className)}
+        width={resolveSize(width)}
+        height={resolveSize(height)}
+        className={cn(
+          // 🔑 width/height가 있으면 sizeClasses 절대 적용 X
+          !hasCustomSize && sizeClasses[size],
+          className
+        )}
         aria-hidden={props["aria-hidden"] ?? true}
         {...props}
       />

@@ -1,18 +1,23 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
-import ColorSample from './guide/color';
+import ColorSample from "./guide/color";
 import {
   AppearanceSample,
   TypographySample,
-  ScBtnGuide
+  ScBtnGuide,
+  CardStackDragFollowReact,
 } from "./guide/index";
-
 
 import { SamplePage } from "./guide/page/SamplePage";
 
-import { ScButton, ScBox, ScBtnGroup, ScrollButton, ScTxtBtn, ScExtBtn } from "@/app/scBank-components/component/ui/index";
-
-
+import {
+  ScButton,
+  ScBox,
+  ScBtnGroup,
+  ScrollButton,
+  ScTxtBtn,
+  ScExtBtn,
+} from "@/app/scBank-components/component/ui/index";
 
 // SC은행 컴포넌트 가이드
 export default function ComponentGuidePage() {
@@ -39,6 +44,7 @@ export default function ComponentGuidePage() {
               <TabsTrigger value="Typography">Typography</TabsTrigger>
               <TabsTrigger value="scComponent">scComponent</TabsTrigger>
               <TabsTrigger value="Appearance">Appearance</TabsTrigger>
+              <TabsTrigger value="cardSample">cardSample</TabsTrigger>
             </TabsList>
             <TabsContent
               value="Color"
@@ -54,6 +60,9 @@ export default function ComponentGuidePage() {
             </TabsContent>
             <TabsContent value="Appearance">
               <AppearanceSample />
+            </TabsContent>
+            <TabsContent value="cardSample">
+              <CardStackDragFollowReact />
             </TabsContent>
           </Tabs>
         </div>

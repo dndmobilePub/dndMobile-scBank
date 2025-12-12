@@ -16,6 +16,7 @@ import {
   ScTabGuide,
   ScBadgeGuide,
   ScTextNotesGuide,
+  ScFeedbackGuide,
 } from "./index";
 
 export function SamplePage() {
@@ -31,6 +32,7 @@ export function SamplePage() {
     { name: "ScTab", com: <ScTabGuide /> },
     { name: "ScBadge", com: <ScBadgeGuide /> },
     { name: "ScTextNotes", com: <ScTextNotesGuide /> },
+    { name: "ScFeedbackGuide", com: <ScFeedbackGuide /> },
   ];
 
   return (

@@ -90,7 +90,7 @@ export const ScTextNotes: React.FC<ScTextNotesProps> = ({
         {children}
         {isActiveBtn && (
           <ScBtnGroup>
-            <ScButton>버튼</ScButton>
+            <ScButton type="button">버튼</ScButton>
           </ScBtnGroup>
         )}
       </ScVFlex>
