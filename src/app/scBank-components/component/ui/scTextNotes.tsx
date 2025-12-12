@@ -24,7 +24,6 @@ type ScTextNoteItem =
 export interface ScTextNotesProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: ScTextNoteVariant;
   heading?: string | React.ReactNode | undefined;
-  contTxt?: string | React.ReactNode | undefined;
   NoteData?: ScTextNoteItem[];
   isActiveBtn?: boolean; // 하단 버튼 영역
   listGap?: number;
@@ -33,7 +32,6 @@ export interface ScTextNotesProps extends React.HTMLAttributes<HTMLDivElement> {
 export const ScTextNotes: React.FC<ScTextNotesProps> = ({
   type = "line",
   heading,
-  contTxt,
   className,
   children,
   NoteData,
@@ -69,8 +67,6 @@ export const ScTextNotes: React.FC<ScTextNotesProps> = ({
             value={heading}
           />
         )}
-        {contTxt && <div className={cn("sc-text-primary-02")}>{contTxt}</div>}
-        {children}
         {NoteData && (
           <ScList
             as="ul"
@@ -91,6 +87,7 @@ export const ScTextNotes: React.FC<ScTextNotesProps> = ({
             ))}
           </ScList>
         )}
+        {children}
         {isActiveBtn && (
           <ScBtnGroup>
             <ScButton>버튼</ScButton>
