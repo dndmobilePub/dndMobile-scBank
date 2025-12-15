@@ -5,7 +5,8 @@ import { ScBox } from "../component/ui";
 import ScText from "../component/ui/scText";
 
 type CardItem = {
-  id: number;
+  id: number; // 내부 key용 (유니크면 됨)
+  no: number; // ✅ 화면에 보여줄 연속 번호(절대 안 끊김)
   title: string;
   color: string;
   link: string;
@@ -24,8 +25,7 @@ const BATCH_COUNT = 10;
 
 const PREV_ANIM_MS = 260;
 
-// ✅ 초기 고정 데이터
-const CARD_LIST: Array<Omit<CardItem, "id">> = [
+const CARD_LIST: Array<Omit<CardItem, "id" | "no">> = [
   { title: "CARD", link: "#", color: "aqua" },
   { title: "CARD", link: "#", color: "red" },
   { title: "CARD", link: "#", color: "rebeccapurple" },
@@ -59,14 +59,21 @@ function getLinkForIndex(index: number) {
   return `https://example.com/card-${index + 1}`;
 }
 
-function createNewBatch(startId: number, count: number): CardItem[] {
+// ✅ 신규 카드 생성: title에는 숫자 넣지 말고(no로만 표기)
+function createNewBatch(
+  startId: number,
+  startNo: number,
+  count: number
+): CardItem[] {
   return Array.from({ length: count }, (_, i) => {
     const id = startId + i;
+    const no = startNo + i;
     return {
       id,
-      title: `New Card ${id + 1}`,
+      no,
+      title: "CARD",
       color: getRandomColor(),
-      link: getLinkForIndex(id),
+      link: getLinkForIndex(no - 1),
     };
   });
 }
@@ -74,9 +81,12 @@ function createNewBatch(startId: number, count: number): CardItem[] {
 type ReleaseState = null | { dir: "prev"; step: 1 | 2 };
 
 export function CardStackDragFollowReact() {
-  // ✅ 초기 cards는 고정 데이터
   const [cards, setCards] = React.useState<CardItem[]>(() =>
-    CARD_LIST.map((item, idx) => ({ id: idx, ...item }))
+    CARD_LIST.map((item, idx) => ({
+      id: idx,
+      no: idx + 1, // ✅ 1~10
+      ...item,
+    }))
   );
 
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -84,18 +94,17 @@ export function CardStackDragFollowReact() {
   const [dragDelta, setDragDelta] = React.useState(0);
   const [release, setRelease] = React.useState<ReleaseState>(null);
 
-  // 즉시 판정용 ref
   const draggingRef = React.useRef(false);
   const startYRef = React.useRef(0);
   const movedRef = React.useRef(false);
   const dragDeltaRef = React.useRef(0);
 
   const activeIndexRef = React.useRef(0);
-  const cardsLenRef = React.useRef(cards.length);
+  const cardsLenRef = React.useRef(0);
 
-  // 신규 생성 id 관리(중복 방지)
+  // ✅ id/no 관리(연속 보장)
   const nextIdRef = React.useRef(cards.length);
-  // 프리패치 중복 append 방지
+  const nextNoRef = React.useRef(cards.length + 1);
   const prefetchingRef = React.useRef(false);
 
   React.useEffect(() => {
@@ -105,6 +114,7 @@ export function CardStackDragFollowReact() {
   React.useEffect(() => {
     cardsLenRef.current = cards.length;
     nextIdRef.current = Math.max(nextIdRef.current, cards.length);
+    nextNoRef.current = Math.max(nextNoRef.current, cards.length + 1);
   }, [cards.length]);
 
   React.useEffect(() => {
@@ -122,12 +132,16 @@ export function CardStackDragFollowReact() {
 
       setCards((prev) => {
         const startId = nextIdRef.current;
-        const batch = createNewBatch(startId, BATCH_COUNT);
+        const startNo = nextNoRef.current;
+
+        const batch = createNewBatch(startId, startNo, BATCH_COUNT);
+
         nextIdRef.current = startId + BATCH_COUNT;
+        nextNoRef.current = startNo + BATCH_COUNT;
+
         return [...prev, ...batch];
       });
 
-      // 렌더 한 번은 지나가게
       requestAnimationFrame(() => {
         prefetchingRef.current = false;
       });
@@ -136,7 +150,6 @@ export function CardStackDragFollowReact() {
 
   const dragStart = (y: number) => {
     setRelease(null);
-
     draggingRef.current = true;
     setDragging(true);
 
@@ -152,7 +165,6 @@ export function CardStackDragFollowReact() {
 
     let delta = y - startYRef.current;
 
-    // 첫 카드: 아래로(이전) 금지
     if (activeIndexRef.current === 0 && delta > 0) {
       setDragDelta(0);
       return;
@@ -161,8 +173,6 @@ export function CardStackDragFollowReact() {
     delta = Math.max(Math.min(delta, MAX_DRAG), -MAX_DRAG);
 
     if (Math.abs(delta) > CLICK_THRESHOLD) movedRef.current = true;
-
-    // 위로 드래그 시작하면 미리 추가
     if (delta < 0) ensurePrefetch();
 
     setDragDelta(delta);
@@ -177,9 +187,7 @@ export function CardStackDragFollowReact() {
   const animatePrev = () => {
     setRelease({ dir: "prev", step: 1 });
 
-    requestAnimationFrame(() => {
-      setDragDelta(MAX_DRAG);
-    });
+    requestAnimationFrame(() => setDragDelta(MAX_DRAG));
 
     window.setTimeout(() => {
       setRelease({ dir: "prev", step: 2 });
@@ -211,7 +219,6 @@ export function CardStackDragFollowReact() {
     else setDragDelta(0);
   };
 
-  // 전역 mouse 추적
   React.useEffect(() => {
     const move = (e: MouseEvent) => dragMove(e.clientY);
     const up = () => dragEnd();
@@ -233,11 +240,9 @@ export function CardStackDragFollowReact() {
 
     const down = Math.min(Math.max(delta, 0), MAX_DRAG);
     const up = Math.min(Math.max(-delta, 0), MAX_DRAG);
+    const downProgress = down / MAX_DRAG;
+    const upProgress = up / MAX_DRAG;
 
-    const downProgress = down / MAX_DRAG; // 0~1
-    const upProgress = up / MAX_DRAG; // 0~1
-
-    // prev scale progress (아래로)
     const phaseStart = SWIPE_UP * 0.5;
     let prevScale = 0.8;
     if (down > phaseStart && activeIndex > 0) {
@@ -256,39 +261,27 @@ export function CardStackDragFollowReact() {
 
     const zIndexBase = 1000;
     let zIndex = zIndexBase - index;
-
-    // 기본 zIndex(스택)
     if (index === activeIndex) zIndex = zIndexBase + 3;
     if (index === activeIndex + 1) zIndex = zIndexBase + 2;
     if (index === activeIndex - 1) zIndex = zIndexBase + 1;
 
-    // 기본 배치(보이는 카드만)
+    // 기본 배치
     if (index < activeIndex) {
       const offset = activeIndex - 1 - index;
-      const shrinkStep = 0.05;
-      const minScale = 0.6;
-
-      scale = Math.max(0.8 - offset * shrinkStep, minScale);
+      scale = Math.max(0.8 - offset * 0.05, 0.6);
       opacity = 0.8;
-
-      // activeIndex-1까지만 기본 표시 (그 아래는 기본적으로 숨김)
       if (index < activeIndex - 1) opacity = 0;
     } else if (index === activeIndex) {
       baseY = 0;
-      scale = 1;
-      opacity = 1;
       shadow = true;
     } else if (index === activeIndex + 1) {
       baseY = CARD_HEIGHT + GAP;
-      scale = 1;
-      opacity = 1;
       shadow = true;
     } else {
       baseY = CARD_HEIGHT * index + GAP * 2;
-      opacity = 1;
     }
 
-    // ✅ 아래로 드래그/릴리즈: active 내려감, next 밀림, prev 커짐
+    // 아래로
     if ((dragging || isReleaseDown) && delta > 0 && activeIndex > 0) {
       if (index === activeIndex) extraY = down;
       if (index === activeIndex + 1) extraY = down + GAP;
@@ -300,42 +293,31 @@ export function CardStackDragFollowReact() {
       }
     }
 
-    // ✅ 위로 드래그: active 축소만, next 올라옴
+    // 위로
     if (dragging && delta < 0) {
       if (index === activeIndex) {
-        const minScale = 0.85;
-        scale = 1 - (1 - minScale) * upProgress;
-        extraY = 0; // 위치 고정(축소만)
+        scale = 1 - (1 - 0.85) * upProgress; // 축소만
+        extraY = 0;
         shadow = true;
       }
-
       if (index === activeIndex + 1) {
-        extraY = delta; // 음수 -> 위로
+        extraY = delta;
         shadow = true;
         zIndex = zIndexBase + 3;
       }
-
-      if (upProgress > 0.55 && index === activeIndex) {
-        zIndex = zIndexBase + 2;
-      }
     }
 
-    // ✅ opacity 최종 확정(덮어쓰기 방지)
+    // opacity 최종 확정
     if ((dragging || isReleaseDown) && delta > 0 && activeIndex > 0) {
-      // 요구사항: activeIndex-2 는 아래로 올릴 때 0
       if (activeIndex > 1 && index === activeIndex - 2) opacity = 0;
-
       if (index === activeIndex - 1) opacity = 0.4 + 0.6 * downProgress;
-      // (원하면) active도 같이 흐려지게:
-      // if (index === activeIndex) opacity = 1 - 0.5 * downProgress;
     }
-
     if (dragging && delta < 0) {
       if (index === activeIndex) opacity = 1 - 0.4 * upProgress;
       if (index === activeIndex + 1) opacity = 0.6 + 0.4 * upProgress;
     }
 
-    const isReleaseTransition = release?.dir === "prev" && release.step === 1;
+    const isReleaseTransition = isReleaseDown;
 
     return {
       transform: `translate(-50%, ${baseY + extraY}px) scale(${scale})`,
@@ -374,13 +356,12 @@ export function CardStackDragFollowReact() {
           touch-action: none;
           user-select: none;
         }
-        .card-stack:active {
-          cursor: grabbing;
-        }
+        .card-stack:active { cursor: grabbing; }
         .card {
           position: absolute;
           left: 50%;
           width: 100%;
+          height: ${CARD_HEIGHT}px;
           border-radius: 16px;
           display: flex;
           justify-content: center;
@@ -412,14 +393,14 @@ export function CardStackDragFollowReact() {
                 className="card"
                 style={{
                   ...style,
-                  height: CARD_HEIGHT,
                   backgroundColor: c.color,
                 }}
                 onClickCapture={(e) => {
                   if (movedRef.current) e.preventDefault();
                 }}
               >
-                <ScText fontStyle="lg">{`${c.title}_${idx + 1}`}</ScText>
+                {/* ✅ 숫자 1번만 / 연속 보장 */}
+                <ScText fontStyle="lg">{`${c.title}_${c.no}`}</ScText>
               </ScBox>
             );
           })}
