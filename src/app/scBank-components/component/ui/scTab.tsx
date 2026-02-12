@@ -9,7 +9,7 @@ import ScText from "./scText";
 /* ─────────────────────────────
  * 공통 타입
  * ───────────────────────────── */
-/** 디자인 타입 */
+
 type ScTabsVariant = "primary" | "segment" | "tertiary";
 
 /* ─────────────────────────────
@@ -17,7 +17,6 @@ type ScTabsVariant = "primary" | "segment" | "tertiary";
  * ───────────────────────────── */
 
 export interface ScTabsProps extends TabsPrimitive.TabsProps {
-  /** 디자인 타입 */
   variant?: ScTabsVariant;
   /** 탭 이름 prefix 등으로 쓰고 싶으면 확장 가능 */
   TabName?: string;
@@ -36,7 +35,12 @@ export interface ScTabsListProps extends TabsPrimitive.TabsListProps {
   cols?: number;
 }
 
-export const ScTabsList: React.FC<ScTabsListProps> = ({ className, cols, variant = "primary", ...restProps }) => {
+export const ScTabsList: React.FC<ScTabsListProps> = ({
+  className,
+  cols,
+  variant = "primary",
+  ...restProps
+}) => {
   return (
     <TabsList
       {...restProps}
@@ -44,9 +48,10 @@ export const ScTabsList: React.FC<ScTabsListProps> = ({ className, cols, variant
         // 기본 스타일 최대한 초기화
         "flex p-0 m-0 h-auto bg-transparent border-none shadow-none rounded-none",
         "gap-4",
-        variant === "segment" && `w-full sc-bg-background-02 p-1 gap-2 rounded-xl grid grid-cols-${cols}`,
+        variant === "segment" &&
+          `w-full sc-bg-background-02 p-1 gap-2 rounded-xl grid grid-cols-${cols}`,
         variant === "segment" && "gap-6",
-        className
+        className,
       )}
     />
   );
@@ -82,10 +87,12 @@ export const ScTabsTrigger: React.FC<ScTabsTriggerProps> = ({
         variant === "segment" &&
           "h-9 rounded-xl px-3 py-2 data-[state=active]:shadow-[0px_2px_4px_0px_var(--Coloreffectshadowcast8)]",
         variant === "tertiary" && "",
-        className
+        className,
       )}
     >
-      <ScText fontStyle={variant === "primary" ? "lg" : "md"}>{children}</ScText>
+      <ScText fontStyle={variant === "primary" ? "lg" : "md"}>
+        {children}
+      </ScText>
     </TabsTrigger>
   );
 };
@@ -95,36 +102,60 @@ export interface ScTabsContentProps extends TabsPrimitive.TabsContentProps {
   variant?: ScTabsVariant;
 }
 
-export const ScTabsContent: React.FC<ScTabsContentProps> = ({ variant = "primary", className, ...restProps }) => {
+export const ScTabsContent: React.FC<ScTabsContentProps> = ({
+  variant = "primary",
+  className,
+  ...restProps
+}) => {
   const variantClass =
-    variant === "primary" ? "rounded-full px-3 py-1" : variant === "segment" ? "flex-1 px-4 py-2" : "px-4 py-2";
+    variant === "primary"
+      ? "rounded-full px-3 py-1"
+      : variant === "segment"
+        ? "flex-1 px-4 py-2"
+        : "px-4 py-2";
 
   return <TabsContent {...restProps} className={cn(variantClass, className)} />;
 };
 
 /* ─────────────────────────────
- * ScTab (데모용 컴포넌트)
+ * ScTab
  * ───────────────────────────── */
 
 export interface ScTabProps {
-  variant?: ScTabsVariant | string; // 외부에선 string도 받을 수 있게
+  variant?: ScTabsVariant | string;
   tabList?: React.ReactNode | undefined;
-  tabListData?: Array<{ name: string; content: React.ReactNode | string }> | undefined;
+  tabListData?:
+    | Array<{ name: string; content: React.ReactNode | string }>
+    | undefined;
   tabContent?: React.ReactNode | undefined;
 }
 
-export const ScTab: React.FC<ScTabProps> = ({ variant = "primary", tabContent, tabList, tabListData }) => {
+export const ScTab: React.FC<ScTabProps> = ({
+  variant = "primary",
+  tabContent,
+  tabList,
+  tabListData,
+}) => {
   // 🔽 string으로 들어와도 "chip" | "segment" 인 경우만 유효하게 사용
   const normalizedType: ScTabsVariant | undefined =
-    variant === "primary" || variant === "segment" || variant === "tertiary" ? variant : undefined;
+    variant === "primary" || variant === "segment" || variant === "tertiary"
+      ? variant
+      : undefined;
 
   return (
-    <ScTabs defaultValue={`${tabListData && tabListData[0].name}`} variant={normalizedType}>
+    <ScTabs
+      defaultValue={`${tabListData && tabListData[0].name}`}
+      variant={normalizedType}
+    >
       {tabListData && (
         <>
           <ScTabsList variant={normalizedType} cols={tabListData.length}>
             {tabListData.map((item) => (
-              <ScTabsTrigger key={item.name} value={item.name} variant={normalizedType}>
+              <ScTabsTrigger
+                key={item.name}
+                value={item.name}
+                variant={normalizedType}
+              >
                 {item.name}
               </ScTabsTrigger>
             ))}

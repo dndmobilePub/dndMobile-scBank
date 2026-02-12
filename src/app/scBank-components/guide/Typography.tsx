@@ -172,9 +172,9 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
                       {style.weightR && <><br />{style.weightR} </>}
                     </TableCell>
                     <TableCell className="py-4 text-center">
-                      {style.weightB && <ScText as={style.tag} value={style.valueName} />}
-                      {style.weightM && <ScText as={style.tag} style={{display:'block'}} value={style.valueName} />}
-                      {style.weightR && <ScText as={style.tag} value={style.valueName} />}
+                      {style.weightB && <ScText as={style.tag as any} value={style.valueName} />}
+                      {style.weightM && <ScText as={style.tag as any} style={{display:'block'}} value={style.valueName} />}
+                      {style.weightR && <ScText as={style.tag as any} value={style.valueName} />}
                     </TableCell>
                     <TableCell className="py-4 text-center">
                       <ScText as="h2" style={{display:'block'}}  value={'가나다'} />
@@ -205,7 +205,7 @@ const TypographySample = React.forwardRef<HTMLDivElement>(
                   <TableRow key={item.name}>
                     <TableCell className="py-4 text-center">
                       <ScText as="h2" value={'h2 입니다'} />
-                      <ScText as="h4-b" value={'h4태그에 h4-b스타일입니다'} />
+                      <ScText as={'h4-b' as any} value={'h4태그에 h4-b스타일입니다'} />
                       <ScText as="h5" fontStyle="h1" value={'h5태그 h1스타일입니다'} />
                       <ScText fontStyle="h4-m" value={'h4-m스타일입니다'} />
                       <ScText as="li" value={'li태그입니다'} />

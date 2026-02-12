@@ -4,7 +4,7 @@ import * as React from "react";
 import { cva, VariantProps } from "class-variance-authority";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
-import { Spinner } from "@/components/index"
+import { Spinner } from "@/components/index";
 import { Icon } from "@/app/scBank-components/component/ui/icon";
 
 import {
@@ -55,8 +55,9 @@ const overrideVariants = cva(scButtonBase, {
         "flex-0 w-auto h-[32px] px-[12px] w-fit rounded-[16px] sc-bg-teritary " +
         "enabled:hover:sc-bg-teritary-hover enabled:active:sc-bg-teritary-active " +
         "disabled:sc-bg-basic-disabled disabled:text-[var(--color-sc-neutral-400)] ",
-      txtBtn: "sc-text-primary text-base gap-[4px] bg-transparent h-auto px-0 flex-none ",
-      loading : "sc-bg-primary sc-text-white "
+      txtBtn:
+        "sc-text-primary text-base gap-[4px] bg-transparent h-auto px-0 flex-none ",
+      loading: "sc-bg-primary sc-text-white ",
     },
     size: {
       default: "",
@@ -72,7 +73,7 @@ const overrideVariants = cva(scButtonBase, {
   defaultVariants: {
     variant: "solid",
     size: "default",
-    ...spacingDefaultVariants
+    ...spacingDefaultVariants,
   },
 });
 
@@ -81,16 +82,20 @@ const overrideVariants = cva(scButtonBase, {
  * ───────────────────────────── */
 
 export interface ScButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof overrideVariants>,
-  DynamicSpacingProps, DynamicBorderProps, DynamicRadiusProps {
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof overrideVariants>,
+    DynamicSpacingProps,
+    DynamicBorderProps,
+    DynamicRadiusProps {
   asChild?: boolean;
   isLoading?: boolean;
   loadingText?: React.ReactNode;
 }
 
 export const ScButton = React.forwardRef<HTMLButtonElement, ScButtonProps>(
-  ({ 
+  (
+    {
       variant,
       size,
       asChild = false,
@@ -98,7 +103,10 @@ export const ScButton = React.forwardRef<HTMLButtonElement, ScButtonProps>(
       loadingText,
       children,
       onClick,
-      ...props }, ref) => {
+      ...props
+    },
+    ref,
+  ) => {
     const Comp = asChild ? Slot : "button";
 
     const { spacing, rest: afterSpacing } = splitSpacingProps(props);
@@ -128,26 +136,26 @@ export const ScButton = React.forwardRef<HTMLButtonElement, ScButtonProps>(
         {...cvaProps}
         style={{ ...spacingStyle, ...borderStyle, ...radiusStyle, ...style }}
         onClick={handleClick}
-
         className={cn(
           overrideVariants({ ...(cvaProps as any), variant, size }),
           isLoading && "cursor-wait",
-          className
+          className,
         )}
       >
-        {isLoading ? loadingText ?? <Spinner /> : children}
+        {isLoading ? (loadingText ?? <Spinner />) : children}
       </Comp>
     );
-  }
+  },
 );
-
 
 /* ─────────────────────────────
  * ScrollButton
  * ───────────────────────────── */
 
-interface ScrollProgressButtonProps
-  extends Omit<ScButtonProps, "variant" | "size"> {
+interface ScrollProgressButtonProps extends Omit<
+  ScButtonProps,
+  "variant" | "size"
+> {
   /** 스크롤 기준이 될 컨테이너 id (없으면 window 기준) */
   containerId?: string;
 }
@@ -171,13 +179,11 @@ export const ScrollButton: React.FC<ScrollProgressButtonProps> = ({
     const handleScroll = () => {
       if (containerEl) {
         const scrollTop = containerEl.scrollTop;
-        const maxScroll =
-          containerEl.scrollHeight - containerEl.clientHeight;
+        const maxScroll = containerEl.scrollHeight - containerEl.clientHeight;
         const ratio = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
         setProgress(ratio);
       } else {
-        const scrollTop =
-          window.scrollY || document.documentElement.scrollTop;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
         const maxScroll =
           document.documentElement.scrollHeight -
           document.documentElement.clientHeight;
@@ -210,18 +216,14 @@ export const ScrollButton: React.FC<ScrollProgressButtonProps> = ({
       onClick={handleClick}
       aria-disabled={!isComplete}
       {...props}
-      className={cn(
-        "relative",
-        !isComplete && "cursor-not-allowed",
-        className
-      )}
+      className={cn("relative", !isComplete && "cursor-not-allowed", className)}
     >
       {/* 게이지 레이어 */}
       <span className="pointer-events-none absolute inset-0">
         <span
           className={cn(
             "block h-full transition-[width,background-color] duration-200 ease-out",
-            isComplete ? "sc-bg-primary" : "sc-bg-primary-02"
+            isComplete ? "sc-bg-primary" : "sc-bg-primary-02",
           )}
           style={{ width: `${progress}%` }}
         />
@@ -231,7 +233,7 @@ export const ScrollButton: React.FC<ScrollProgressButtonProps> = ({
       <span
         className={cn(
           "relative z-10 transition-colors",
-          isComplete ? "sc-text-basic-06" : "sc-text-primary"
+          isComplete ? "sc-text-basic-06" : "sc-text-primary",
         )}
       >
         {children}
@@ -244,8 +246,7 @@ export const ScrollButton: React.FC<ScrollProgressButtonProps> = ({
  * ScTxtBtn
  * ───────────────────────────── */
 
-interface TextButtonProps
-  extends Omit<ScButtonProps, "variant" | "size"> {
+interface TextButtonProps extends Omit<ScButtonProps, "variant" | "size"> {
   typeBtn?: "pdf" | "edit" | "all";
 }
 
@@ -262,18 +263,18 @@ export const ScTxtBtn: React.FC<TextButtonProps> = ({
       {...props}
       className={cn("relative inline-flex items-center", className)}
     >
-      {typeBtn === "pdf" &&  <ScText value='PDF 보기'/>}
+      {typeBtn === "pdf" && <ScText value="PDF 보기" />}
 
       {typeBtn === "edit" && (
         <>
-          <ScText value='편집'/>
+          <ScText value="편집" />
           <Icon name="Funnel" size="sm" className="sc-icon-primary" />
         </>
       )}
 
       {typeBtn === "all" && (
         <>
-          <ScText value='전체'/>
+          <ScText value="전체" />
           <Icon name="PencilSimple" size="sm" className="sc-icon-primary" />
         </>
       )}
@@ -287,23 +288,24 @@ export const ScTxtBtn: React.FC<TextButtonProps> = ({
  * ScExtBtn
  * ───────────────────────────── */
 
-interface ScExtButtonProps
-  extends Omit<ScButtonProps, "variant"> {
+interface ScExtButtonProps extends Omit<ScButtonProps, "variant"> {
   btnName?: string;
   variant?: "smallExt" | "smallExtSub";
   types?: "primary" | "secondary";
+  contText?: string;
 }
 
 export const ScExtBtn: React.FC<ScExtButtonProps> = ({
   children,
   className,
   btnName,
+  contText,
   types = "primary",
   variant = "smallExt",
   ...props
 }) => {
   const stateClasses =
-    "hover:sc-bd-primary-hover hover:sc-bg-extra hover:sc-icon-primary-hover " +
+    "hover:sc-bd-primary-hover hover:sc-bg-extra" +
     "active:sc-text-primary-active active:sc-bg-extra-hover active:sc-icon-primary-active " +
     "disabled:sc-text-primary-disabled disabled:sc-bd-state-disabled-04 disabled:sc-icon-primary-disabled";
 
@@ -319,7 +321,7 @@ export const ScExtBtn: React.FC<ScExtButtonProps> = ({
           <Icon name="Placeholder" size="sm" />
         </>
       )}
-      {types === "secondary" && <span>전체보기</span>}
+      {types === "secondary" && <span>{contText ? contText : "전체보기"}</span>}
       {children}
     </ScButton>
   );
