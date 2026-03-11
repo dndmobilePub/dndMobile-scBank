@@ -2,26 +2,26 @@
 
 import * as React from "react";
 
-import { ScSelectField, ScBox, ScVFlex, ScHFlex, ScBtnGroup, ScPhoneField, ScSearchField, ScTextField } from "@/app/scBank-components/component/ui/index";
+import { ScSelectField, ScBox, ScVFlex } from "@scBank/index";
 
 const preStyle = `bg-gray-100 p-4 rounded text-sm overflow-auto w-full`;
 
-
-export function ScSelectGuide(){
-  
+export function ScSelectGuide() {
   const [bank, setBank] = React.useState<string | number>("");
-  
+
   return (
     <ScVFlex g={10} mt={10}>
       <p>Select 컴포넌트</p>
       <ScVFlex g={10}>
-        <ScVFlex g={14} className="bg-white rounded-[10px]" p={20} >
+        <ScVFlex g={14} className="bg-white rounded-[10px]" p={20}>
           <p>Select - Base</p>
           <ScBox className="grid grid-cols-2 gap-4">
             <ScVFlex g={20}>
               <ScVFlex g={10}>
                 <p>SelectField</p>
-                <ScSelectField labelName="은행 선택" placeholder="은행을 선택해주세요"
+                <ScSelectField
+                  labelName="은행 선택"
+                  placeholder="은행을 선택해주세요"
                   data={[
                     { label: "국민은행", value: "kb" },
                     { label: "카카오뱅크", value: "kakao" },
@@ -29,7 +29,7 @@ export function ScSelectGuide(){
                     { label: "카카오뱅크2", value: "kakao2" },
                     { label: "카카오뱅크3", value: "kakao3" },
                     { label: "카카오뱅크4", value: "kakao4" },
-                    ]}
+                  ]}
                   value={bank}
                   onValueChange={setBank}
                 />
@@ -52,6 +52,5 @@ export function ScSelectGuide(){
         </ScVFlex>
       </ScVFlex>
     </ScVFlex>
-  )
+  );
 }
-

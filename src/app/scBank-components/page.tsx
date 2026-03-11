@@ -1,23 +1,9 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
 import ColorSample from "./guide/color";
-import {
-  AppearanceSample,
-  TypographySample,
-  ScBtnGuide,
-  CardStackDragFollowReact,
-} from "./guide/index";
-
+import { AppearanceSample, TypographySample, CardStackDragFollowReact } from "./guide/index";
+import { colorList } from "./guide/colorList";
 import { SamplePage } from "./guide/page/SamplePage";
-
-import {
-  ScButton,
-  ScBox,
-  ScBtnGroup,
-  ScrollButton,
-  ScTxtBtn,
-  ScExtBtn,
-} from "@/app/scBank-components/component/ui/index";
 
 // SC은행 컴포넌트 가이드
 export default function ComponentGuidePage() {
@@ -25,9 +11,7 @@ export default function ComponentGuidePage() {
     <div className="min-h-screen py-12 px-6 bg-gray-200 dark:bg-gray-900">
       <div className="max-w-5xl mx-auto">
         <header className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100">
-            SC은행 컴포넌트 가이드
-          </h1>
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100">SC은행 컴포넌트 가이드</h1>
           {/* <p className="mt-2 text-gray-600 dark:text-gray-300">
             Shadcn UI 설치된 컴포넌트 예제와 사용방법을 가이드페이지입니다.
           </p>
@@ -46,11 +30,8 @@ export default function ComponentGuidePage() {
               <TabsTrigger value="Appearance">Appearance</TabsTrigger>
               <TabsTrigger value="cardSample">cardSample</TabsTrigger>
             </TabsList>
-            <TabsContent
-              value="Color"
-              className="flex flex-col gap-[24] pt-[12]"
-            >
-              <ColorSample />
+            <TabsContent value="Color" className="flex flex-col gap-[24] pt-[12]">
+              <ColorSample colorList={colorList} />
             </TabsContent>
             <TabsContent value="Typography">
               <TypographySample />

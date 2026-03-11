@@ -1,13 +1,4 @@
-import {
-  ScButton,
-  ScBox,
-  ScVFlex,
-  ScHFlex,
-  ScBtnGroup,
-  ScrollButton,
-  ScTxtBtn,
-  ScExtBtn,
-} from "@/app/scBank-components/component/ui/index";
+import { ScButton, ScBox, ScVFlex, ScHFlex, ScBtnGroup, ScrollButton, ScTxtBtn, ScExtBtn } from "@scBank/index";
 
 const preStyle = `bg-gray-100 p-4 rounded text-sm overflow-auto w-full`;
 
@@ -20,10 +11,7 @@ export function ScBtnGuide() {
           <p>Button Primary - solid</p>
           <ScBtnGroup type="stack">
             <ScButton type="button">기본</ScButton>
-            <ScButton
-              type="button"
-              className="sc-bg-primary-hover sc-text-primary"
-            >
+            <ScButton type="button" className="sc-bg-primary-hover sc-text-primary">
               Hover
             </ScButton>
             <ScButton type="button" className="sc-bg-primary-active">
@@ -47,18 +35,10 @@ export function ScBtnGuide() {
             <ScButton type="button" variant="secondary">
               기본
             </ScButton>
-            <ScButton
-              type="button"
-              variant="secondary"
-              className="sc-bd-primary-hover"
-            >
+            <ScButton type="button" variant="secondary" className="sc-bd-primary-hover">
               Hover
             </ScButton>
-            <ScButton
-              type="button"
-              variant="secondary"
-              className="sc-bd-primary-hover sc-text-primary-active"
-            >
+            <ScButton type="button" variant="secondary" className="sc-bd-primary-hover sc-text-primary-active">
               Active
             </ScButton>
             <ScButton type="button" variant="secondary" disabled>
@@ -101,9 +81,7 @@ export function ScBtnGuide() {
                 버튼
               </ScButton>
             </ScBtnGroup>
-            <pre className={preStyle}>
-              {`<ScBtnGroup type='ratio'></ScBtnGroup>`}
-            </pre>
+            <pre className={preStyle}>{`<ScBtnGroup type='ratio'></ScBtnGroup>`}</pre>
             <ScBtnGroup type="stack">
               <ScButton type="button" variant="secondary">
                 버튼
@@ -112,25 +90,18 @@ export function ScBtnGuide() {
                 버튼
               </ScButton>
             </ScBtnGroup>
-            <pre className={preStyle}>
-              {`<ScBtnGroup type='stack'></ScBtnGroup>`}
-            </pre>
+            <pre className={preStyle}>{`<ScBtnGroup type='stack'></ScBtnGroup>`}</pre>
           </ScVFlex>
         </ScVFlex>
         <ScVFlex g={14} className="bg-white rounded-[10px]" p={20}>
           <p>Scroll Button</p>
           <ScVFlex g={10}>
-            <ScBox
-              id="article-container"
-              className="h-[400px] overflow-y-auto border"
-            >
+            <ScBox id="article-container" className="h-[400px] overflow-y-auto border">
               {/* 긴 컨텐츠 */}
               <ScBox className="h-[1800px] bg-amber-600"></ScBox>
             </ScBox>
             <ScBtnGroup>
-              <ScrollButton containerId="article-container">
-                스크롤해서 끝까지 읽어주세요
-              </ScrollButton>
+              <ScrollButton containerId="article-container">스크롤해서 끝까지 읽어주세요</ScrollButton>
             </ScBtnGroup>
             <pre className={preStyle}>
               {`<ScBox id="article-container">{컨텐츠 내용}</ScBox>
@@ -147,18 +118,10 @@ export function ScBtnGuide() {
                 <ScButton type="button" size="sm">
                   기본
                 </ScButton>
-                <ScButton
-                  type="button"
-                  size="sm"
-                  className="sc-bg-primary-hover sc-text-primary"
-                >
+                <ScButton type="button" size="sm" className="sc-bg-primary-hover sc-text-primary">
                   Hover
                 </ScButton>
-                <ScButton
-                  type="button"
-                  size="sm"
-                  className="sc-bg-primary-active"
-                >
+                <ScButton type="button" size="sm" className="sc-bg-primary-active">
                   Active
                 </ScButton>
                 <ScButton type="button" size="sm" disabled>
@@ -212,10 +175,7 @@ secondary
             <ScHFlex className="justify-around">
               <ScBtnGroup type="stack">
                 <ScExtBtn btnName="기본" />
-                <ScExtBtn
-                  btnName="Hover"
-                  className="sc-bd-primary-hover sc-bg-extra sc-icon-primary-hover"
-                />
+                <ScExtBtn btnName="Hover" className="sc-bd-primary-hover sc-bg-extra sc-icon-primary-hover" />
                 <ScExtBtn
                   btnName="active"
                   className="sc-text-primary-active sc-bg-extra-hover sc-icon-primary-active"
@@ -224,17 +184,8 @@ secondary
               </ScBtnGroup>
               <ScBtnGroup type="stack">
                 <ScExtBtn variant="smallExtSub" types="secondary" />
-                <ScExtBtn
-                  variant="smallExtSub"
-                  types="secondary"
-                  contText="보기"
-                  className="sc-bg-teritary-hover "
-                />
-                <ScExtBtn
-                  variant="smallExtSub"
-                  types="secondary"
-                  className="sc-bg-teritary-active"
-                />
+                <ScExtBtn variant="smallExtSub" types="secondary" contText="보기" className="sc-bg-teritary-hover " />
+                <ScExtBtn variant="smallExtSub" types="secondary" className="sc-bg-teritary-active" />
                 <ScExtBtn
                   variant="smallExtSub"
                   types="secondary"

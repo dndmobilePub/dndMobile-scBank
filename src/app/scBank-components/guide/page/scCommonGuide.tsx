@@ -2,17 +2,7 @@
 
 import * as React from "react";
 
-import {
-  ScButton,
-  ScBox,
-  ScVFlex,
-  ScBottomSheet,
-  ScBtnGroup,
-  ScFixedBtnGroup,
-  ScList,
-  ScListItem,
-} from "@/app/scBank-components/component/ui/index";
-import { Icon } from "lucide-react";
+import { ScButton, ScBox, ScVFlex, ScBottomSheet, ScBtnGroup, ScFixedBtnGroup } from "@scBank/index";
 
 const preStyle = `bg-gray-100 p-4 rounded text-sm overflow-auto w-full`;
 

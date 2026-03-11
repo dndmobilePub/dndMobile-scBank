@@ -1,15 +1,7 @@
 "use client";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/index";
-import "../../globals.css";
-
 import * as React from "react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/index";
+import "../../globals.css";
 
 const appearanceList = [
   {
@@ -31,13 +23,7 @@ const appearanceList = [
   },
   {
     name: "radius",
-    value: [
-      { value: 4 },
-      { value: 8 },
-      { value: 12 },
-      { value: 16 },
-      { value: "rounded" },
-    ],
+    value: [{ value: 4 }, { value: 8 }, { value: 12 }, { value: 16 }, { value: "rounded" }],
   },
 ];
 
@@ -53,15 +39,9 @@ const AppearanceSample = React.forwardRef<HTMLDivElement>(() => {
             {/* unit */}
             <TableHeader className="bg-neutral-800 ">
               <TableRow>
-                <TableHead className="text-neutral-50 text-center not-[]:w-[200px]">
-                  Variable Name
-                </TableHead>
-                <TableHead className="text-neutral-50 text-center">
-                  Primitive Variable
-                </TableHead>
-                <TableHead className="text-neutral-50 text-center">
-                  Value(px)
-                </TableHead>
+                <TableHead className="text-neutral-50 text-center not-[]:w-[200px]">Variable Name</TableHead>
+                <TableHead className="text-neutral-50 text-center">Primitive Variable</TableHead>
+                <TableHead className="text-neutral-50 text-center">Value(px)</TableHead>
                 <TableHead className="text-neutral-50 text-center">
                   {item.name === "spacing" && `Value(REM)`}
                   {item.name === "radius" && `VISUAL REPRESENTATION`}
@@ -85,30 +65,21 @@ const AppearanceSample = React.forwardRef<HTMLDivElement>(() => {
                     {/* Primitive Variable */}
                     <TableCell className="py-4 text-center">
                       {isSpacing && `unit/${val}`}
-                      {isRadius &&
-                        (typeof val === "number" ? `${val} px` : "-")}
+                      {isRadius && (typeof val === "number" ? `${val} px` : "-")}
                     </TableCell>
 
                     {/* Value(px) */}
-                    <TableCell className="py-4 text-center">
-                      {typeof val === "number" ? `${val} px` : "-"}
-                    </TableCell>
+                    <TableCell className="py-4 text-center">{typeof val === "number" ? `${val} px` : "-"}</TableCell>
 
                     {/* Preview Sample */}
                     <TableCell className="py-4 text-center">
-                      {isSpacing && (
-                        <div
-                          className="h-[20] sc-bg-primary"
-                          style={{ width: `${val}px` }}
-                        />
-                      )}
+                      {isSpacing && <div className="h-[20] sc-bg-primary" style={{ width: `${val}px` }} />}
 
                       {isRadius && (
                         <div
                           className="w-[40] h-[40] sc-bg-primary"
                           style={{
-                            borderRadius:
-                              typeof val === "number" ? `${val}px` : "100%",
+                            borderRadius: typeof val === "number" ? `${val}px` : "100%",
                           }}
                         />
                       )}
@@ -123,5 +94,7 @@ const AppearanceSample = React.forwardRef<HTMLDivElement>(() => {
     </>
   );
 });
+
+AppearanceSample.displayName = "AppearanceSample";
 
 export { AppearanceSample };

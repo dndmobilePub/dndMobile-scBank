@@ -1,0 +1,58 @@
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cn } from "@/lib/utils";
+import { scBtnGroupProps, scBtnGroupVariants } from "@scBank/scBtnGroup";
+
+import {
+  splitSpacingProps,
+  splitBorderProps,
+  splitRadiusProps,
+  buildDynamicSpacingStyle,
+  buildDynamicBorderStyle,
+  buildDynamicRadiusStyle,
+} from "@/lib/variants";
+
+export const ScBtnGroup = React.forwardRef<HTMLDivElement, scBtnGroupProps>((props, ref) => {
+  const Comp = props.asChild ? Slot : "div";
+
+  const { spacing, rest: afterSpacing } = splitSpacingProps(props);
+  const { border, rest: afterBorder } = splitBorderProps(afterSpacing);
+  const { radius, rest } = splitRadiusProps(afterBorder);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { className, asChild, style, ...cvaProps } = rest;
+
+  const spacingStyle = buildDynamicSpacingStyle(spacing);
+  const borderStyle = buildDynamicBorderStyle(border);
+  const radiusStyle = buildDynamicRadiusStyle(radius);
+
+  return (
+    <Comp
+      ref={ref}
+      {...cvaProps}
+      style={{ ...spacingStyle, ...borderStyle, ...radiusStyle, ...style }}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      className={cn(scBtnGroupVariants(cvaProps as any), className)}
+    />
+  );
+});
+
+ScBtnGroup.displayName = "ScBtnGroup";
+
+interface ScFixedBtnGroupProps extends scBtnGroupProps {
+  /** fixed 래퍼(div)에 적용할 클래스 (배경, 패딩 등) */
+  containerClassName?: string;
+}
+
+export const ScFixedBtnGroup: React.FC<ScFixedBtnGroupProps> = ({
+  children,
+  className,
+  containerClassName = "fixed bottom-0 left-0 w-full bg-white pt-[20px] px-[24px] pb-[28px]",
+  ...rest
+}) => {
+  return (
+    <ScBtnGroup {...rest} className={cn(containerClassName, className)}>
+      {children}
+    </ScBtnGroup>
+  );
+};

@@ -1,9 +1,5 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
-import {
-  ScBox,
-  ScTextField,
-  ScSearchField,
-} from "@/app/scBank-components/component/ui/index";
+import { ScBox } from "@scBank/index";
 import {
   ScBtnGuide,
   ScBoxGuide,
@@ -17,7 +13,7 @@ import {
   ScBadgeGuide,
   ScTextNotesGuide,
   ScFeedbackGuide,
-} from "./index";
+} from "@guide/index";
 
 export function SamplePage() {
   const pageList = [

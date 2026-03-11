@@ -1,17 +1,7 @@
 "use client";
 import * as React from "react";
 
-import {
-  ScTab,
-  ScBox,
-  ScVFlex,
-  ScTabs,
-  ScTabsList,
-  ScTabsTrigger,
-  ScTabsContent,
-} from "@/app/scBank-components/component/ui/index";
-
-import ScText from "../../component/ui/scText";
+import { ScTab, ScBox, ScVFlex, ScText } from "@scBank/index";
 
 const preStyle = `bg-gray-100 p-4 rounded text-sm overflow-auto w-full`;
 

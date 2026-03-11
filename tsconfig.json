@@ -20,16 +20,11 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@scBank/*": ["./src/app/scBank-components/component/*"],
+      "@guide/*": ["./src/app/scBank-components/guide/page/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"],
   "exclude": ["node_modules"]
 }

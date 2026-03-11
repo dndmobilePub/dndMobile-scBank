@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { ScBox } from "../component/ui";
-import ScText from "../component/ui/scText";
+import { ScText, ScBox } from "@scBank/index";
 
 type CardItem = {
   id: number; // 내부 key용 (유니크면 됨)
@@ -60,11 +59,7 @@ function getLinkForIndex(index: number) {
 }
 
 // ✅ 신규 카드 생성: title에는 숫자 넣지 말고(no로만 표기)
-function createNewBatch(
-  startId: number,
-  startNo: number,
-  count: number
-): CardItem[] {
+function createNewBatch(startId: number, startNo: number, count: number): CardItem[] {
   return Array.from({ length: count }, (_, i) => {
     const id = startId + i;
     const no = startNo + i;
@@ -86,7 +81,7 @@ export function CardStackDragFollowReact() {
       id: idx,
       no: idx + 1, // ✅ 1~10
       ...item,
-    }))
+    })),
   );
 
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -246,10 +241,7 @@ export function CardStackDragFollowReact() {
     const phaseStart = SWIPE_UP * 0.5;
     let prevScale = 0.8;
     if (down > phaseStart && activeIndex > 0) {
-      const prevProgress = Math.min(
-        (down - phaseStart) / (MAX_DRAG - phaseStart),
-        1
-      );
+      const prevProgress = Math.min((down - phaseStart) / (MAX_DRAG - phaseStart), 1);
       prevScale = 0.8 + 0.2 * prevProgress;
     }
 
@@ -329,10 +321,10 @@ export function CardStackDragFollowReact() {
       transition: isReleaseTransition
         ? `transform ${PREV_ANIM_MS}ms cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease`
         : dragging
-        ? isActive
-          ? "none"
-          : "transform 120ms ease-out, opacity 120ms ease-out"
-        : "transform 0.35s ease, opacity 0.25s ease",
+          ? isActive
+            ? "none"
+            : "transform 120ms ease-out, opacity 120ms ease-out"
+          : "transform 0.35s ease, opacity 0.25s ease",
     };
   };
 

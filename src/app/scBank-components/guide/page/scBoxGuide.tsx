@@ -1,16 +1,13 @@
-
-import { ScButton, ScBox, ScVFlex,ScHFlex, ScBtnGroup, ScrollButton, ScTxtBtn, ScExtBtn } from "@/app/scBank-components/component/ui/index";
-import ScText from "../../component/ui/scText";
+import { ScBox, ScVFlex, ScHFlex, ScText } from "@scBank/index";
 
 const preStyle = `bg-gray-100 p-4 rounded text-sm overflow-auto w-full`;
 
-export function ScBoxGuide(){
-  
+export function ScBoxGuide() {
   return (
     <ScVFlex g={10} mt={10}>
       <p>ScBox, ScVFlex, ScHFlex 컴포넌트</p>
       <ScVFlex g={10}>
-        <ScVFlex g={14} className="bg-white rounded-[10px]" p={20} >
+        <ScVFlex g={14} className="bg-white rounded-[10px]" p={20}>
           <p>공통 style</p>
           <pre className={preStyle}>
             {`
@@ -62,33 +59,28 @@ borderColor = "#fff", "red", "var(--...)" 등
 `}
           </pre>
         </ScVFlex>
-        <ScVFlex g={14} className="bg-white rounded-[10px]" p={20} >
-          <ScText value='ScBox'/>
+        <ScVFlex g={14} className="bg-white rounded-[10px]" p={20}>
+          <ScText value="ScBox" />
           <ScBox className="grid grid-cols-2 gap-4">
             <ScVFlex g={20}>
               <ScVFlex g={10}>
-                <ScText value='TailWind css'/>
+                <ScText value="TailWind css" />
                 <ScBox className="w-[200px] h-[200px] bg-amber-300 rounded-[20px]"></ScBox>
               </ScVFlex>
               <pre className={preStyle}>
-{`<ScBox className="w-[200px] h-[200px] bg-amber-300 rounded-[20px]"></ScBox>`}
+                {`<ScBox className="w-[200px] h-[200px] bg-amber-300 rounded-[20px]"></ScBox>`}
               </pre>
-
             </ScVFlex>
             <ScVFlex g={20}>
               <ScVFlex g={10}>
-                <ScText value='토큰'/>
-                <ScBox w={'200px'} h={200} r={20} className="bg-amber-300"></ScBox>
+                <ScText value="토큰" />
+                <ScBox w={"200px"} h={200} r={20} className="bg-amber-300"></ScBox>
               </ScVFlex>
-              <pre className={preStyle}>
-                {`<ScBox w={'200px'} h={200} r={20} className="bg-amber-300"></ScBox>`}
-              </pre>
-
+              <pre className={preStyle}>{`<ScBox w={'200px'} h={200} r={20} className="bg-amber-300"></ScBox>`}</pre>
             </ScVFlex>
-
           </ScBox>
         </ScVFlex>
-        <ScVFlex g={14} className="bg-white rounded-[10px]" p={20} >
+        <ScVFlex g={14} className="bg-white rounded-[10px]" p={20}>
           <p>ScVFlex, ScHFlex</p>
           <ScBox className="grid grid-cols-2 gap-4">
             <ScVFlex g={20}>
@@ -99,10 +91,7 @@ borderColor = "#fff", "red", "var(--...)" 등
                   <ScBox className="w-[200px] h-[200px] bg-amber-300 rounded-[20px]"></ScBox>
                 </ScVFlex>
               </ScVFlex>
-              <pre className={preStyle}>
-                {`<ScVFlex g={10}>{자식요소}</ScVFlex>`}
-              </pre>
-
+              <pre className={preStyle}>{`<ScVFlex g={10}>{자식요소}</ScVFlex>`}</pre>
             </ScVFlex>
             <ScVFlex g={20}>
               <ScVFlex g={10}>
@@ -112,16 +101,11 @@ borderColor = "#fff", "red", "var(--...)" 등
                   <ScBox className="w-[200px] h-[200px] bg-amber-300 rounded-[20px]"></ScBox>
                 </ScHFlex>
               </ScVFlex>
-              <pre className={preStyle}>
-                {`<ScHFlex g={10}>{자식요소}</ScHFlex>`}
-              </pre>
-
+              <pre className={preStyle}>{`<ScHFlex g={10}>{자식요소}</ScHFlex>`}</pre>
             </ScVFlex>
-
           </ScBox>
         </ScVFlex>
       </ScVFlex>
     </ScVFlex>
-  )
+  );
 }
-
