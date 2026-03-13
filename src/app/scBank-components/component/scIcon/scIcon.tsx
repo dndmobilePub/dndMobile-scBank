@@ -15,6 +15,12 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
   ({ name, size = "md", width, height, className, ...props }, ref) => {
     const SvgIcon = iconMap[name];
 
+    // 🛡️ 1. 방어 코드: 해당 이름의 아이콘이 없으면 아무것도 렌더링하지 않거나 경고를 띄웁니다.
+    if (!SvgIcon) {
+      console.warn(`[Icon] "${name}" 이 iconMap에 존재하지 않습니다.`);
+      return null;
+    }
+
     const resolveSize = (v?: number | string) => (typeof v === "number" ? `${v}px` : v);
 
     const hasCustomSize = width != null || height != null;

@@ -1,12 +1,21 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/index";
 import ColorSample from "./guide/color";
-import { AppearanceSample, TypographySample, CardStackDragFollowReact } from "./guide/index";
+import { AppearanceSample, TypographySample, CardStackDragFollowReact, PopAreaSelect } from "./guide/index";
 import { colorList } from "./guide/colorList";
 import { SamplePage } from "./guide/page/SamplePage";
 
 // SC은행 컴포넌트 가이드
 export default function ComponentGuidePage() {
+  const sampleTemple = [
+    { name: "Color", comp: <ColorSample colorList={colorList} /> },
+    { name: "Typography", comp: <TypographySample /> },
+    { name: "scComponent", comp: <SamplePage /> },
+    { name: "Appearance", comp: <AppearanceSample /> },
+    { name: "cardSample", comp: <CardStackDragFollowReact /> },
+    { name: "PopupAreaSelect", comp: <PopAreaSelect /> },
+  ];
+
   return (
     <div className="min-h-screen py-12 px-6 bg-gray-200 dark:bg-gray-900">
       <div className="max-w-5xl mx-auto">
@@ -24,27 +33,21 @@ export default function ComponentGuidePage() {
         <div className="flex w-full flex-col gap-6">
           <Tabs defaultValue="Color" className="w-full">
             <TabsList>
-              <TabsTrigger value="Color">Color</TabsTrigger>
-              <TabsTrigger value="Typography">Typography</TabsTrigger>
-              <TabsTrigger value="scComponent">scComponent</TabsTrigger>
-              <TabsTrigger value="Appearance">Appearance</TabsTrigger>
-              <TabsTrigger value="cardSample">cardSample</TabsTrigger>
+              {sampleTemple.map((c, idx) => {
+                return (
+                  <TabsTrigger key={idx} value={c.name}>
+                    {c.name}
+                  </TabsTrigger>
+                );
+              })}
             </TabsList>
-            <TabsContent value="Color" className="flex flex-col gap-[24] pt-[12]">
-              <ColorSample colorList={colorList} />
-            </TabsContent>
-            <TabsContent value="Typography">
-              <TypographySample />
-            </TabsContent>
-            <TabsContent value="scComponent">
-              <SamplePage />
-            </TabsContent>
-            <TabsContent value="Appearance">
-              <AppearanceSample />
-            </TabsContent>
-            <TabsContent value="cardSample">
-              <CardStackDragFollowReact />
-            </TabsContent>
+            {sampleTemple.map((v, idx) => {
+              return (
+                <TabsContent key={idx} value={v.name} className={idx === 0 ? "flex flex-col gap-[24] pt-[12]" : ""}>
+                  {v.comp}
+                </TabsContent>
+              );
+            })}
           </Tabs>
         </div>
       </div>

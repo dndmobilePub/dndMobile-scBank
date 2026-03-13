@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
+import { boolean } from "zod";
 
 export interface ScBottomSheetProps {
   open?: boolean;
@@ -15,7 +16,7 @@ export interface ScBottomSheetProps {
   title?: React.ReactNode;
   isTitle?: boolean;
   description?: React.ReactNode;
-
+  topBorder?: boolean;
   children?: React.ReactNode;
   content?: React.ReactNode;
   footer?: React.ReactNode;

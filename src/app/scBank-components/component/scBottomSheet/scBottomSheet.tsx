@@ -57,6 +57,7 @@ export const ScBottomSheet = React.forwardRef<HTMLDivElement, ScBottomSheetProps
     children,
     footer = null,
     content,
+    topBorder = true,
     disableOverlayClose,
     disableEscClose,
     onClose,
@@ -121,7 +122,7 @@ export const ScBottomSheet = React.forwardRef<HTMLDivElement, ScBottomSheetProps
   const emptyFooter = isFooterEmpty(footer);
 
   const sheetContent = (
-    <div className="fixed inset-0 z-100 flex flex-col justify-end pointer-events-none">
+    <div className="fixed h-dvh w-dvw inset-0 z-100 flex flex-col justify-end pointer-events-none">
       {/* Overlay */}
       <div
         aria-hidden="true"
@@ -148,7 +149,7 @@ export const ScBottomSheet = React.forwardRef<HTMLDivElement, ScBottomSheetProps
       >
         {/* Header */}
         {isTitle && (title || description) && (
-          <ScVFlex gY={8} px={24} className="border-b border-b-sc-neutral-300">
+          <ScVFlex gY={8} px={24} className={topBorder ? "border-b border-b-sc-neutral-300" : ""}>
             <ScBox
               g={8}
               py={16.5}

@@ -637,3 +637,7 @@ SCBank - Semantic Color
 @utility sc-shadow-cast-04 {
   color: var(--color-sc-transparent-24);
 }
+
+@utility sc-hidden {
+  display: none !important;
+}

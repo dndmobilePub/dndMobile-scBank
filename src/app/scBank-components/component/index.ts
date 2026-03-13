@@ -15,3 +15,4 @@ export * from "@scBank/scFeedback";
 export * from "@scBank/scLIst";
 export * from "@scBank/scTextNotes";
 export * from "@scBank/scTab";
+export * from "@scBank/scAreaSelect";

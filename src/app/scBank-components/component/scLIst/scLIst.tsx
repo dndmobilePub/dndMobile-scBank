@@ -260,7 +260,7 @@ export const ScItemlist = ({
       {type === "detail" ? (
         <ScText className="text-right sc-text-basic-02">{content}</ScText>
       ) : (
-        <Icon name="ArronRight" size="lg" className={leftIcon ? "sc-text-primary" : "sc-text-basic-02"} />
+        <Icon name="ArrowRight" size="lg" className={leftIcon ? "sc-text-primary" : "sc-text-basic-02"} />
       )}
     </ScText>
   </ScHFlex>

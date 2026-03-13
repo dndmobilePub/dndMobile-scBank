@@ -3,8 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/index";
-import { Icon } from "@/app/scBank-components/component/scIcon/scIcon";
-import { ScText, ScBox, ScBottomSheet, ScVFlex } from "@scBank/index";
+import { Icon, ScText, ScBox, ScBottomSheet, ScVFlex } from "@scBank/index";
 import { ScSelectFieldProps, ScSelectType, ScSelectOption } from "@scBank/scSelect";
 
 /* ─────────────────────────────
@@ -65,7 +64,7 @@ export const SelectFiled = React.forwardRef<HTMLInputElement, ScSelectFieldProps
 
         {/* 오른쪽 ▼ 아이콘 */}
         {type === "select" && (
-          <Icon name="ArronDown" size="lg" className="pointer-events-none sc-text-basic-02 absolute top-50% right-0" />
+          <Icon name="ArrowDown" size="lg" className="pointer-events-none sc-text-basic-02 absolute top-50% right-0" />
         )}
 
         {/* input 밑 이펙트 */}

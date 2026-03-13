@@ -37,7 +37,7 @@ const getFirstOptionValue = (data?: ScSelectData): string | number | undefined =
  * ───────────────────────────── */
 
 export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
-  ({ className, placeholder, inputId, disabled, readOnly, type, data, errMsgCheck, ...props }, ref) => {
+  ({ className, placeholder, inputId, disabled, readOnly, type, data, errMsgCheck, labelHidden, ...props }, ref) => {
     const finalId = useFinalId(props.id, inputId);
     const resolvedType = resolveInputType(type);
 
@@ -60,7 +60,7 @@ export const InputFiled = React.forwardRef<HTMLInputElement, ScInputFieldProps>(
     return (
       <ScBox
         g={10}
-        mt={16}
+        mt={labelHidden ? 0 : 16}
         className={`grid items-center not-[]:relative 
           ${type === "tel" && "grid-cols-[54px_1fr] gap-3"}
           ${type === "search" && "grid-cols-[1fr_24px] gap-2.5"}`}
@@ -129,6 +129,7 @@ export const ScTextField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
     {
       className,
       labelName,
+      labelHidden = false,
       placeholder,
       fieldType,
       focusCheck,
@@ -153,7 +154,10 @@ export const ScTextField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
     return (
       <ScBox>
         {labelName && (
-          <Label htmlFor={finalId} className={cn("text-sm font-medium sc-text-basic-04")}>
+          <Label
+            htmlFor={finalId}
+            className={cn(`text-sm font-medium sc-text-basic-04 ${labelHidden ? "hidden" : ""}`)}
+          >
             {labelName}
           </Label>
         )}
@@ -161,6 +165,7 @@ export const ScTextField = React.forwardRef<HTMLInputElement, ScTextFieldProps>(
         <InputFiled
           ref={ref}
           id={finalId}
+          labelHidden={labelHidden}
           inputId={inputId}
           type={resolvedType}
           placeholder={placeholder}
@@ -213,7 +218,7 @@ export const ScSearchField = React.forwardRef<HTMLInputElement, ScTextFieldProps
     return (
       <ScBox>
         {labelName && (
-          <Label htmlFor={finalId} className={cn("text-sm font-medium sc-text-basic-04 hidden")}>
+          <Label htmlFor={finalId} className={cn("text-sm font-medium sc-text-basic-04")}>
             {labelName}
           </Label>
         )}

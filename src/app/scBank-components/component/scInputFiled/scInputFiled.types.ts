@@ -13,6 +13,7 @@ export interface ScBaseInputProps extends Omit<React.InputHTMLAttributes<HTMLInp
   id?: string;
   /** id 대신 사용할 선택적 식별자 */
   inputId?: string;
+  labelHidden?: boolean;
   /** input type (HTML 기본 타입 + "phone") */
   type?: ScInputType;
   errMsgCheck?: boolean;
@@ -30,6 +31,7 @@ export interface ScInputFieldProps extends ScBaseInputProps {}
  */
 export interface ScTextFieldProps extends ScBaseInputProps {
   labelName?: string;
+  labelHidden?: boolean;
   fieldType?: string; // 추후 variant 용도로 확장 가능
   focusCheck?: boolean;
 
