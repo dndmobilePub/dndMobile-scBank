@@ -28,7 +28,8 @@ export const ScAreaSelect = React.forwardRef<HTMLDivElement, SelectAreaProps>(
     // 4. 이벤트 핸들러
     const handleCityClick = (city: string, hasArea: boolean) => {
       setTempCity(city);
-      setTempDistrict(""); // 도시 이동 시 시군구 선택값 초기화
+      // 도시 이동 시 시군구 선택값 초기화
+      if (tempCity !== city) setTempDistrict("");
       setSearchQuery(""); // 검색어 초기화
 
       if (city === "전체" || !hasArea) {
@@ -77,23 +78,13 @@ export const ScAreaSelect = React.forwardRef<HTMLDivElement, SelectAreaProps>(
               }}
             />
 
-            {tempCity !== "전체" ? (
+            {tempCity !== "전체" && (
               <>
                 <Icon name="ArrowRight" size="sm" className="text-neutral-300" />
                 <ScText
                   as="span"
                   fontStyle="lg-b"
-                  value={tempDistrict || "시군구 선택"}
-                  className={tempDistrict ? "text-sc-green-600" : "text-neutral-300"}
-                />
-              </>
-            ) : (
-              <>
-                <Icon name="ArrowRight" size="sm" className="text-neutral-300" />
-                <ScText
-                  as="span"
-                  fontStyle="lg-b"
-                  value={"시군구 선택"}
+                  value={tempDistrict ? tempDistrict : "시군구 선택"}
                   className={tempDistrict ? "text-sc-green-600" : "text-neutral-300"}
                 />
               </>
@@ -104,9 +95,9 @@ export const ScAreaSelect = React.forwardRef<HTMLDivElement, SelectAreaProps>(
           <ScVFlex as="ul" gY={2} className="overflow-y-auto flex-1 pr-1">
             {viewMode === "CITY"
               ? filteredCities.map((opt) => (
-                  <li key={opt.value}>
-                    <button
-                      type="button"
+                  <ScText as="li" key={opt.value}>
+                    <ScText
+                      as="button"
                       className={cn(
                         "w-full px-6 py-4 text-left flex justify-between items-center rounded-xl transition-all",
                         tempCity === opt.value
@@ -117,13 +108,13 @@ export const ScAreaSelect = React.forwardRef<HTMLDivElement, SelectAreaProps>(
                     >
                       <ScText as="span" fontStyle="md" value={opt.label} />
                       {tempCity === opt.value && <Icon name="Check" size="md" />}
-                    </button>
-                  </li>
+                    </ScText>
+                  </ScText>
                 ))
               : filteredDistricts.map((dist) => (
-                  <li key={dist.value}>
-                    <button
-                      type="button"
+                  <ScText as="li" key={dist.value}>
+                    <ScText
+                      as="button"
                       className={cn(
                         "w-full px-6 py-4 text-left flex justify-between items-center rounded-xl transition-all",
                         tempDistrict === dist.value
@@ -134,8 +125,8 @@ export const ScAreaSelect = React.forwardRef<HTMLDivElement, SelectAreaProps>(
                     >
                       <ScText as="span" fontStyle="md" value={dist.label} />
                       {tempDistrict === dist.value && <Icon name="Check" size="md" />}
-                    </button>
-                  </li>
+                    </ScText>
+                  </ScText>
                 ))}
           </ScVFlex>
         </ScVFlex>
